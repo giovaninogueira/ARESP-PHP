@@ -7,9 +7,6 @@ use Common\Kernel\Model\Routes as routesModel;
 Trait Routes{
 
     private $routesModel;
-    private static $path = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Kernel' . DIRECTORY_SEPARATOR .
-                        '..' . DIRECTORY_SEPARATOR . 'Common' .DIRECTORY_SEPARATOR . 'Skyfall-Framework' . DIRECTORY_SEPARATOR.
-                        'MVC' . DIRECTORY_SEPARATOR . 'Controller/';
 
     function  __construct()
     {
@@ -28,18 +25,12 @@ Trait Routes{
     {
         $this->routesModel->setMethodHTTP($_SERVER['REQUEST_METHOD']);
         $this->routesModel->setUrl($_SERVER['PATH_INFO']);
-        $routes = routesModel::$listaRoutes[$this->routesModel->getMethodHTTP()];
-        $this->routesModel->setObjRoutes($routes[$this->routesModel->getUrl()]);
-        $this->runFunction();
+        $this->rulesRoutes();
     }
 
     private function runFunction()
     {
-        if($this->routesModel->getMethodHTTP() == 'GET')
-        {
-            $this->getParams();
-            $this->callFunction();
-        }
+        $this->getParams();
     }
 
     private function callFunction()
@@ -52,15 +43,41 @@ Trait Routes{
 
     private function getParams()
     {
+        $lista = [];
         $paramsObj = $this->routesModel->getObjRoutes();
-            if(!(count($paramsObj['Params']) == count($_GET)))
-                throw new \Exception('Falta Parametros');
-            foreach ($paramsObj['Params'] as $params) {
-                if (!key_exists($params, $_GET))
+        /*verificando se a rota deve receber parametros junto a URL*/
+        if(key_exists('Params',$paramsObj))
+        {
+
+            $count_Request = count($_REQUEST);
+            $count_Params = count($paramsObj['Params']);
+
+            if (!($count_Params == $count_Request))
+                throw new \Exception('Não foi enviado todos os parametros');
+            foreach ($paramsObj['Params'] as $params)
+            {
+                if (!key_exists($params, $_REQUEST))
                     throw new \Exception('Parametro Inválido');
-                $lista[$params] = $_GET[$params];
+                $lista[$params] = $_REQUEST[$params];
             }
-        $this->routesModel->setParams($lista);
+            $this->routesModel->setParams($lista);
+        }
+    }
+
+    public function rulesRoutes()
+    {
+        /*Verificando se a rota permitite o metodo HTTP*/
+        if(!key_exists($this->routesModel->getMethodHTTP(),routesModel::$listaRoutes))
+            throw new \Exception('Não existe nenhuma rota para essa função');
+
+        $routes = routesModel::$listaRoutes[$this->routesModel->getMethodHTTP()];
+
+        /*Validando se a URL tem nas rotas*/
+        if(!key_exists($this->routesModel->getUrl(),$routes))
+            throw new \Exception('Não existe essa URL');
+
+        $this->routesModel->setObjRoutes($routes[$this->routesModel->getUrl()]);
+        $this->getParams();
     }
 
 }

@@ -2,9 +2,11 @@
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Skyfall-Framework' . DIRECTORY_SEPARATOR . 'App' .DIRECTORY_SEPARATOR
              .'Start.class.php';
-
+use MVC\Controller;
 try{
-    $routes = new Common\Kernel\Controller\Routes();
+    $obj = new \App\Start();
+    $obj->load();
+    $routes = new Common\Routes\Routes();
     $routes->addRoutes([
         'GET'=>
             [
@@ -37,7 +39,6 @@ try{
                     ]
             ]
     ]);
-    $obj = new \App\Start();
     $obj->run();
 }catch (\Exception $e){
     echo $e->getMessage();

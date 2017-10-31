@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\Kernel\Controller;
+namespace Common\Routes;
 use Common\Kernel\Interfaces\Routes as routesInterface;
 
 class Routes implements routesInterface{
