@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-use Common\Routes\Routes;
+use SkyfallFramework\Common\Routes\Routes;
 
 class Start{
 
@@ -20,18 +20,25 @@ class Start{
     {
         spl_autoload_register(function($className){
             $type = \explode('\\',$className);
-            $this->pathFunc = $type[2];
+
+            $index = 3;
+
+            if(!key_exists(3,$type))
+                $index = 1;
+
+            $this->pathFunc = $type[$index];
             $name = '';
 
-            if($type[2] == 'Interfaces')
+            if($type[$index] == 'Interfaces')
                 $name = '.interface.';
-            else if($type[2] == 'Traits')
+            else if($type[$index] == 'Traits')
                 $name = '.trait.';
             else
                 $name = '.class.';
 
-            $file = __DIR__ . DIRECTORY_SEPARATOR . '..' .DIRECTORY_SEPARATOR .
+            $file = __DIR__ . DIRECTORY_SEPARATOR . '..' .DIRECTORY_SEPARATOR . '..'.DIRECTORY_SEPARATOR.
                 str_replace(['\\','/'],DIRECTORY_SEPARATOR, $className) . $name .'php';
+
             if(!file_exists($file))
                 throw new \Exception('Arquivo não encontardo em '.$file);
             require_once $file;

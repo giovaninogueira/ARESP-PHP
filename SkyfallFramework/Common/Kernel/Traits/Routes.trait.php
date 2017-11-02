@@ -1,12 +1,13 @@
 <?php
 
-namespace Common\Kernel\Traits;
+namespace SkyfallFramework\Common\Kernel\Traits;
 
-use Common\Kernel\Model\Routes as routesModel;
+use SkyfallFramework\Common\Kernel\Model\Routes as routesModel;
 
 Trait Routes{
 
     private $routesModel;
+    private static $name_space = 'MVC\\Controller\\';
 
     function  __construct()
     {
@@ -17,15 +18,17 @@ Trait Routes{
     {
         routesModel::$listaRoutes=$array;
     }
+
     public function offRoute($url, $methodHttp)
     {
 
     }
+
     public function onRoutes()
     {
         $this->routesModel->setMethodHTTP($_SERVER['REQUEST_METHOD']);
         $this->routesModel->setUrl($_SERVER['PATH_INFO']);
-        $this->rulesRoutes();
+        $this->callFunction();
     }
 
     private function runFunction()
@@ -35,20 +38,38 @@ Trait Routes{
 
     private function callFunction()
     {
-        $objRoutes = $this->routesModel->getObjRoutes();
-        $controller = new $objRoutes['Controller'];
-        if(!method_exists($controller,$this->routesModel->getMethod()))
-            throw new \Exception('Método inválido');
+        $array = $this->rulesRoutes();
+        $name_controller = 'MVC\\Controller\\' . $array['Controller'];
+        $function = $array['Function'];
+        $controller = new $name_controller;
+        $params = [];
+
+        if(count($this->routesModel->getParams()) != 0)
+            $params = $this->routesModel->getParams();
+
+        if(!\method_exists($controller, $function))
+            throw new \Exception('Método não existe em rota definida');
+
+        $reflection_function = new \ReflectionMethod($controller, $function);
+
+        if(count($reflection_function->getParameters()) != 0)
+        {
+            $object = (object)$params;
+            $controller->{$function}($object);
+        }
+
+        else
+            $controller->{$function}();
     }
 
-    private function getParams()
+    private function getParams($paramsObj)
     {
         $lista = [];
-        $paramsObj = $this->routesModel->getObjRoutes();
+
         /*verificando se a rota deve receber parametros junto a URL*/
+
         if(key_exists('Params',$paramsObj))
         {
-
             $count_Request = count($_REQUEST);
             $count_Params = count($paramsObj['Params']);
 
@@ -62,6 +83,7 @@ Trait Routes{
             }
             $this->routesModel->setParams($lista);
         }
+        return $paramsObj;
     }
 
     public function rulesRoutes()
@@ -77,7 +99,7 @@ Trait Routes{
             throw new \Exception('Não existe essa URL');
 
         $this->routesModel->setObjRoutes($routes[$this->routesModel->getUrl()]);
-        $this->getParams();
+        return $this->getParams($this->routesModel->getObjRoutes());
     }
 
 }

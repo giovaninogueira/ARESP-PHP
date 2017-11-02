@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Skyfall-Framework' . DIRECTORY_SEPARATOR . 'App' .DIRECTORY_SEPARATOR
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'SkyfallFramework' .DIRECTORY_SEPARATOR . 'App' .DIRECTORY_SEPARATOR
              .'Start.class.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Config' . DIRECTORY_SEPARATOR . 'Config.class.php';
 

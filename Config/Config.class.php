@@ -2,7 +2,7 @@
 
 namespace Config;
 
-use Common\Routes\Routes;
+use SkyfallFramework\Common\Routes\Routes as model;
 
 class Config{
 
@@ -13,20 +13,20 @@ class Config{
 
     private function config_routes()
     {
-        $routes = new Routes();
+        $routes = new \SkyfallFramework\Common\Routes\Routes();
         $routes->addRoutes([
             'GET'=>
                 [
                     '/Usuario/Pessoa'=>
                         [
-                            'Controller'=>'Usuario',
-                            'Function'=>'teste'
+                            'Controller'=>'Pessoa',
+                            'Function'=>'savePessoa'
                         ],
 
                     '/Usuario/Cliente'=>
                         [
-                            'Controller'=>'PPPP',
-                            'Function'=>'vwefwe',
+                            'Controller'=>'Pessoa',
+                            'Function'=>'savePessoa',
                             'Params'=>[
                                 'nome',
                                 'email'

@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\Kernel\Model;
+namespace SkyfallFramework\Common\Kernel\Model;
 
 class Routes{
 

@@ -3,5 +3,5 @@
 namespace MVC\Interfaces;
 
 Interface Pessoa{
-    public function savePessoa();
+    public function savePessoa($obj);
 }
