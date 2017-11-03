@@ -1,0 +1,12 @@
+{
+    "name": "giovani/aresp-php",
+    "description": "Web Service do site da ARESP",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Giovani Cassiano Nogueira",
+            "email": "giovani.cassiano@outlook.com"
+        }
+    ],
+    "require": {}
+}
