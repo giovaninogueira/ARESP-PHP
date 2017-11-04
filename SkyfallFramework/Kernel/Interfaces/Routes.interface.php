@@ -1,6 +1,6 @@
 <?php
 
-namespace SkyfallFramework\Common\Kernel\Interfaces;
+namespace SkyfallFramework\Kernel\Interfaces;
 
 Interface Routes{
     public function addRoutes($array);

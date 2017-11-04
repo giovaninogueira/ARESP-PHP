@@ -2,7 +2,6 @@
 
 namespace Config;
 
-use SkyfallFramework\Common\Routes\Routes as model;
 
 class Config{
 

@@ -1,9 +1,15 @@
 <?php
 
-namespace SkyfallFramework\Common\Kernel\Model;
+namespace SkyfallFramework\Kernel\Traits;
 
-class ExceptionFramework
+use \Exception;
+
+trait ExceptionFramework
 {
+    private $exception;
+
+    static $httpVersion;
+
     private $codeHttp;
 
     private $message;
@@ -51,29 +57,49 @@ class ExceptionFramework
         504 => 'Gateway Timeout',
         505 => 'HTTP Version Not Supported');
 
-   public function getListCodeHttp()
-   {
-       return ExceptionFramework::$listCodeHttp;
-   }
+    public function getListCodeHttp()
+    {
+        return ExceptionFramework::$listCodeHttp;
+    }
 
-   public function setMessageException($message)
-   {
-       $this->message = $message;
-   }
+    public function setMessageException($message)
+    {
+        $this->message = $message;
+    }
 
-   public function getMessageException()
-   {
-       return $this->message;
-   }
+    public function getMessageException()
+    {
+        return $this->message;
+    }
 
-   public function setCodeHttp($code)
-   {
-       $this->codeHttp = $code;
-   }
+    public function setCodeHttp($code)
+    {
+        $this->codeHttp = $code;
+    }
 
-   public function getCodeHttp()
-   {
-       return $this->codeHttp;
-   }
+    public function getCodeHttp()
+    {
+        return $this->codeHttp;
+    }
+
+    public function __construct($value,$code = null)
+    {
+        if(is_int($value))
+        {
+            $this->setCodeHttp($value);
+            $array = $this->getListCodeHttp();
+            $this->setMessageException($array[$this->getCodeHttp()]);
+            $this->toSend($this->getMessageException(),$this->getCodeHttp());
+        }
+
+        $this->setMessageException($value);
+        $this->toSend($this->getMessageException(),$code);
+    }
+
+    private function toSend($msg, $code = null)
+    {
+        header('HTTP/1.1');
+        throw new \Exception($msg,$code);
+    }
 
 }

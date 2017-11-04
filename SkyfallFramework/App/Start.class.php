@@ -7,9 +7,6 @@ class Start{
 
     private $pathFunc = null;
 
-    static $path = 'Common'.DIRECTORY_SEPARATOR.'Kernel'.
-                    DIRECTORY_SEPARATOR.'Controller'.DIRECTORY_SEPARATOR;
-
     public function run()
     {
         $obj = new Routes();
@@ -21,9 +18,9 @@ class Start{
         spl_autoload_register(function($className){
             $type = \explode('\\',$className);
 
-            $index = 3;
+            $index = 2;
 
-            if(!key_exists(3,$type))
+            if(!key_exists($index,$type))
                 $index = 1;
 
             $this->pathFunc = $type[$index];
