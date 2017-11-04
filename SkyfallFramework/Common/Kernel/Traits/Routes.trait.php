@@ -97,7 +97,7 @@ Trait Routes{
 
         /*Validando se a URL tem nas rotas*/
         if(!key_exists($this->routesModel->getUrl(),$routes))
-            new ExceptionFramework(null,404);
+            new ExceptionFramework("Teste");
 
         $this->routesModel->setObjRoutes($routes[$this->routesModel->getUrl()]);
 
