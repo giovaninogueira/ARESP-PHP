@@ -3,6 +3,7 @@
 namespace SkyfallFramework\Common\Kernel\Traits;
 
 use SkyfallFramework\Common\Kernel\Model\Routes as routesModel;
+use SkyfallFramework\Common\Exception\ExceptionFramework;
 
 Trait Routes{
 
@@ -96,9 +97,13 @@ Trait Routes{
 
         /*Validando se a URL tem nas rotas*/
         if(!key_exists($this->routesModel->getUrl(),$routes))
-            throw new \Exception('Não existe essa URL');
+            new ExceptionFramework(null,404);
 
         $this->routesModel->setObjRoutes($routes[$this->routesModel->getUrl()]);
+
+        /*if(key_exists('auth',$this->routesModel->setObjRoutes()))
+            if(key_exists('token',$_REQUEST))*/
+
         return $this->getParams($this->routesModel->getObjRoutes());
     }
 

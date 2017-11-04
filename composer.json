@@ -8,5 +8,12 @@
             "email": "giovani.cassiano@outlook.com"
         }
     ],
-    "require": {}
+    "autoload":{
+        "psr-4":{
+            "SkyfallFramework\\":"SkyfallFramework/"
+        }
+    },
+    "require": {
+        "php":">=5.4"
+    }
 }

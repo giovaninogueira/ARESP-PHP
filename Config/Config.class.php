@@ -30,7 +30,8 @@ class Config{
                             'Params'=>[
                                 'nome',
                                 'email'
-                            ]
+                            ],
+                            "auth"=>true
                         ]
                 ],
             'POST'=>

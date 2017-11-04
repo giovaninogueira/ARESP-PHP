@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace SkyfallFramework\App;
 use SkyfallFramework\Common\Routes\Routes;
 
 class Start{
