@@ -37,12 +37,6 @@ trait Connection
         $this->connection = null;
     }
 
-    /*recebe uma lista de banco de dados*/
-    public function setDatbases($array)
-    {
-
-    }
-
     /*buscar as configurações de conexão do banco*/
     public function searchDatabase($name_database = null)
     {
