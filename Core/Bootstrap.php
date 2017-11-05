@@ -9,10 +9,15 @@ require_once __DIR__ .DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR .
 require_once __DIR__ . DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR .
     'Config' . DIRECTORY_SEPARATOR . 'Config.class.php';
 
+use SkyfallFramework\App\Start;
+use Config\Config;
+
 try{
-    $obj = new \SkyfallFramework\App\Start();
+    $file_connection = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Config' . DIRECTORY_SEPARATOR . 'Database.ini';
+    $obj = new Start();
     $obj->load();
-    $routes = new \Config\Config();
+    Config::$file_connection = $file_connection;
+    $routes = new Config();
     $routes->config();
     $obj->run();
 }catch (\Exception $e){
