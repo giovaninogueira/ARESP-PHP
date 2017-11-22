@@ -2,7 +2,9 @@
 
 namespace SkyfallFramework\Common\CRUD;
 
-class Model
-{
+use SkyfallFramework\Kernel\Interfaces\Model as inferfaceModel;
 
+class Model implements inferfaceModel
+{
+    use \SkyfallFramework\Kernel\Traits\Model;
 }
