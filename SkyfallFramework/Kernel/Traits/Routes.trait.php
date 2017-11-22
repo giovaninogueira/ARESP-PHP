@@ -112,9 +112,6 @@ Trait Routes{
         $controller = new $name_controller;
         $params = [];
 
-        if(count($this->getParams()) != 0)
-            $params = $this->getParams();
-
         if(!\method_exists($controller, $function))
             new ExceptionFramework(405);
 
@@ -122,10 +119,15 @@ Trait Routes{
 
         if(count($reflection_function->getParameters()) != 0)
         {
-            $object = (object)$params;
-            $controller->{$function}($object);
+            if(count($this->getParams()) != 0)
+            {
+                $params = $this->getParams();
+                $object = (object)$params;
+                $controller->{$function}($object);
+            }
+            else
+                new ExceptionFramework('Função necessitade de um parametro');
         }
-
         else
             $controller->{$function}();
     }

@@ -20,7 +20,7 @@ class Start{
 
             $index = 2;
 
-            if(!key_exists($index,$type))
+            if(count($type) == 3)
                 $index = 1;
 
             $this->pathFunc = $type[$index];
