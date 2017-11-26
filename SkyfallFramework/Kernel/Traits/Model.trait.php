@@ -2,18 +2,16 @@
 
 namespace SkyfallFramework\Kernel\Traits;
 
+use SkyfallFramework\Common\Database\Connection as con;
+
 trait Model
 {
-    static  $last_id;
-    static  $con;
-    private $list_where;
-
     private function getClass()
     {
-        return \ReflectionClass($this);
+        return new  \ReflectionClass($this);
     }
 
-    protected function getTbName(){
+    public function getTbName(){
         $str = str_replace($this->getClass()->getNamespaceName() . '\\','',$this->getClass()->getName());
         return \strtolower($str);
     }
@@ -26,6 +24,38 @@ trait Model
     public function save()
     {
 
+    }
+
+    public function query()
+    {
+        $connection = new con();
+        $select = $connection->prepare('select * from usuario');
+        $select->execute();
+        $q = $select->fetchAll();
+    }
+
+    public function getAttibutesName()
+    {
+        $array = $this->getClass()->getProperties();
+        $return = array();
+
+        foreach ($array as $index => $name)
+        {
+            $return[] = $name->name;
+        }
+        return $return;
+    }
+
+    public function getValuesAttibutes()
+    {
+        $array = $this->getAttibutesName();
+        $return = array();
+        $getAttr = 'get';
+        foreach ($array as $index => $value)
+        {
+            $return[$value] = $this->{$value};
+        }
+        return $return;
     }
 
     /**
@@ -118,12 +148,7 @@ trait Model
 
     public function convertJson()
     {
-
-    }
-
-    public function convertArray()
-    {
-
+        return \json_encode($this->getValuesAttibutes());
     }
 
 

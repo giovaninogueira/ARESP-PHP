@@ -17,7 +17,6 @@ class Config
 
         $array = \parse_ini_file(Config::$file_connection);
         Connection::$list_connection = $array;
-        $obj_connection = new Connection();
     }
 
     public function config()
@@ -34,7 +33,7 @@ class Config
                     '/Usuario/Pessoa'=>
                         [
                             'Controller'=>'Pessoa',
-                            'Function'=>'savePessoa'
+                            'Function'=>'getTbName'
                         ],
 
                     '/Usuario/Cliente'=>
