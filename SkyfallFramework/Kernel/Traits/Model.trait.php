@@ -31,7 +31,15 @@ trait Model
      */
     public function save()
     {
+        $array_values = $this->getValuesAttibutes();
+        $array_attr_name = [];
 
+        foreach ($array_values as $index => $name)
+        {
+            $array_attr_name[] = $index;
+        }
+
+        $this->insert($this->getTbName(), $array_attr_name, $array_values);
     }
 
 
@@ -73,7 +81,8 @@ trait Model
 
         foreach ($array as $index => $value)
         {
-            $return[$value] = $this->{$value};
+            if(!empty($this->{$value}))
+                $return[$value] = $this->{$value};
         }
         return $return;
     }
@@ -119,7 +128,7 @@ trait Model
      */
     public function lastID()
     {
-        return con::$connection->lastInsertId();
+        return self::$connection->lastInsertId();
     }
 
     /**

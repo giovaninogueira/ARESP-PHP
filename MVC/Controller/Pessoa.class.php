@@ -11,23 +11,9 @@ class Pessoa{
     public function getTbName()
     {
         $obj = new pessoaModel();
-        $obj->setEmail('giovani.cassiano99@hotmail.com');
-        $obj->setId(1);
-        $obj->setNome('Giovani Cassiano Nogueira');
-
-        Model::$connection->beginTransaction();
-
-        $obj->insert('teste',
-            array(
-                "nome",
-                "email"
-            ),
-            array(
-                "nome"=>"Giovani",
-                "email"=>"teste@gmail.com"
-            )
-        );
-
-        $t = Model::$connection->commit();
+        $obj->setEmail('giovani.cassddianofwfwefwe99@hotmail.com');
+        $obj->setNome('Testabdo');
+        $obj->save();
+        $lastId = $obj->lastID();
     }
 }
