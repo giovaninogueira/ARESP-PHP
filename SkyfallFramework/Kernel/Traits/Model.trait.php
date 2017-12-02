@@ -3,9 +3,17 @@
 namespace SkyfallFramework\Kernel\Traits;
 
 use SkyfallFramework\Common\Database\Connection as con;
+use SkyfallFramework\Common\Exception\ExceptionFramework;
 
 trait Model
 {
+    static $connection;
+
+    public function __construct()
+    {
+        self::$connection = new con();
+    }
+
     private function getClass()
     {
         return new  \ReflectionClass($this);
@@ -26,12 +34,23 @@ trait Model
 
     }
 
-    public function query()
+
+    public function query($sql, $array = null)
     {
-        $connection = new con();
-        $select = $connection->prepare('select * from usuario');
-        $select->execute();
-        $q = $select->fetchAll();
+        try
+        {
+            self::$connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+            $intruction = self::$connection->prepare($sql);
+            $erro = $intruction->errorInfo();
+            $intruction->execute($array);
+
+            return $intruction;
+        }
+        catch (\Exception $e)
+        {
+            new ExceptionFramework($e->getMessage());
+        }
     }
 
     public function getAttibutesName()
@@ -41,7 +60,8 @@ trait Model
 
         foreach ($array as $index => $name)
         {
-            $return[] = $name->name;
+            if($name->name != 'connection')
+                $return[] = $name->name;
         }
         return $return;
     }
@@ -50,7 +70,7 @@ trait Model
     {
         $array = $this->getAttibutesName();
         $return = array();
-        $getAttr = 'get';
+
         foreach ($array as $index => $value)
         {
             $return[$value] = $this->{$value};
@@ -64,7 +84,9 @@ trait Model
      */
     public function selectAll($limit = 10)
     {
-
+        $sql = "select * from  teste";
+        $array = $this->query($sql);
+        return $array->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -97,15 +119,16 @@ trait Model
      */
     public function lastID()
     {
-
+        return con::$connection->lastInsertId();
     }
 
     /**
      * Faz o insert passando a tabela e os valores
      */
-    public function insert($table,$values)
+    public function insert($table, $array_attr, $values)
     {
-
+        $sql='insert into '.$table.' ('.\implode(',', $array_attr).') values (:'.\implode(',:',$array_attr).') ';
+        $this->query($sql, $values);
     }
 
     /**

@@ -2,17 +2,32 @@
 
 namespace MVC\Controller;
 
-use MVC\Model\Pessoa as model;
+use MVC\Model\Pessoa as pessoaModel;
+use SkyfallFramework\Common\Database\Connection;
+use SkyfallFramework\Common\CRUD\Model;
 
 class Pessoa{
 
     public function getTbName()
     {
-        $obj = new model();
+        $obj = new pessoaModel();
         $obj->setEmail('giovani.cassiano99@hotmail.com');
         $obj->setId(1);
         $obj->setNome('Giovani Cassiano Nogueira');
-        $result = $obj->getValuesAttibutes();
-        $teste = $obj->save();
+
+        Model::$connection->beginTransaction();
+
+        $obj->insert('teste',
+            array(
+                "nome",
+                "email"
+            ),
+            array(
+                "nome"=>"Giovani",
+                "email"=>"teste@gmail.com"
+            )
+        );
+
+        $t = Model::$connection->commit();
     }
 }

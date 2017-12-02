@@ -6,8 +6,8 @@ class Connection extends \PDO
 {
     static $list_connection;
     static $script;
-
     static $connection;
+    private $transaction;
 
     /*abri a conexão conforme o nome do banco de dados*/
     public function __construct()
@@ -15,7 +15,8 @@ class Connection extends \PDO
         try
         {
             $array = static::$list_connection;
-            parent::__construct('mysql:host='.$array['HOST'].';'.
+            parent::__construct(
+                'mysql:host='.$array['HOST'].';'.
                 'dbname='.$array['DATABASE'],
                 $array['USER'],
                 $array['PASSWORD']
@@ -33,5 +34,4 @@ class Connection extends \PDO
     {
         self::$connection = null;
     }
-
 }

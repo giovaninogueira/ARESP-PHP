@@ -8,6 +8,11 @@ trait Pessoa{
     protected $nome;
     protected $email;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function setId($id)
     {
         $this->id = $id;

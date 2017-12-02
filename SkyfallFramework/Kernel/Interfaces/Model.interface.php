@@ -41,7 +41,7 @@ interface Model
     /**
      * Faz o insert passando a tabela e os valores
      */
-    public function insert($table,$values);
+    public function insert($table, $array_attr, $values);
 
     /**
      * Função que é definida o where do select, delete, update
