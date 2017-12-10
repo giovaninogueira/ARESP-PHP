@@ -2,6 +2,8 @@
 
 namespace SkyfallFramework\Kernel\Traits;
 
+use \Firebase\JWT\JWT;
+
 trait Auth
 {
     /*

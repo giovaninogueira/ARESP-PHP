@@ -8,6 +8,7 @@ use SkyfallFramework\Common\Exception\ExceptionFramework;
 trait Model
 {
     static $connection;
+    private $sql = null;
 
     public function __construct()
     {
@@ -93,7 +94,7 @@ trait Model
      */
     public function selectAll($limit = 10)
     {
-        $sql = "select * from  teste";
+        $sql = "select * from " . $this->getTbName();
         $array = $this->query($sql);
         return $array->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -104,7 +105,10 @@ trait Model
      */
     public function delete()
     {
-
+        if(!is_null($this->sql))
+            $sql = "DELETE FROM " . $this->getTbName() . $this->sql;
+        else
+            new ExceptionFramework('Ocorreu um erro ao deletar');
     }
 
     /**
@@ -112,7 +116,14 @@ trait Model
      */
     public function select()
     {
-
+        if(!is_null($this->sql))
+        {
+            $sql = "SELECT * FROM " . $this->getTbName() . $this->sql;
+            $array = $this->query($sql);
+            return $array->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        else
+            return $this->selectAll();
     }
 
     /**
@@ -120,7 +131,19 @@ trait Model
      */
     public function update()
     {
+        $sql = "UPDATE " . $this->getTbName() . " SET ";
+        if(!is_null($this->sql))
+        {
+            $array = $this->getValuesAttibutes();
+            foreach ($array as $index => $values)
+            {
+                $sql .= $index . "=:" . $index . " ";
+            }
+            $this->query($sql,$array);
+        }
 
+        else
+           new ExceptionFramework('Ocorreu um erro ao atualizar cadastro');
     }
 
     /**
@@ -143,39 +166,23 @@ trait Model
     /**
      * Função que é definida o where do select, delete, update
      */
-    public function where($table = null, $atribute, $operator, $value)
+    public function where($atribute, $operator, $value, $oprador_logic = null)
     {
-
+        $table_name = $this->getTbName();
+        if(is_null($this->sql))
+            $this->sql .= " WHERE " . $atribute . " " . $operator . " " . $value . " " . $oprador_logic;
+        else
+            $this->sql .= " " . $atribute . " " . $operator . " " . $value . " " . $oprador_logic . " ";
     }
 
-    /**
-     * Ordena a pesquisa (select)
-     */
-    public function orderBy($atribute, $order = null)
-    {
-
-    }
-
-    /**
-     * Faz o inner join
-     */
-    public function innerJoin($table,$atribute,$operador,$table_select,$atribute2)
-    {
-
-    }
 
     /**
      * Caso precise que seja executada uma função em SQL possa ser inserida
      * um script
      */
-    public function scriptSQL($script)
+    public function scriptSQL($script, $values = null)
     {
-
-    }
-
-    private function getFieldsWithValues()
-    {
-
+        return $this->query($script,$values);
     }
 
     public function convertJson()

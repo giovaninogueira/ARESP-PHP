@@ -46,21 +46,11 @@ interface Model
     /**
      * Função que é definida o where do select, delete, update
      */
-    public function where($table = null, $atribute, $operator, $value);
-
-    /**
-     * Ordena a pesquisa (select)
-     */
-    public function orderBy($atribute, $order = null);
-
-    /**
-     * Faz o inner join
-     */
-    public function innerJoin($table,$atribute,$operador,$table_select,$atribute2);
+    public function where($atribute, $operator, $value, $oprador_logic = null);
 
     /**
      * Caso precise que seja executada uma função em SQL possa ser inserida
      * um script
      */
-    public function scriptSQL($script);
+    public function scriptSQL($script, $values = null);
 }

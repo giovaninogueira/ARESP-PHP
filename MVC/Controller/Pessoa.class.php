@@ -15,5 +15,8 @@ class Pessoa{
         $obj->setNome('Testabdo');
         $obj->save();
         $lastId = $obj->lastID();
+        $obj->where('status','=','10','and');
+        $obj->where('id','>','15');
+        $teste = $obj->selectAll();
     }
 }
