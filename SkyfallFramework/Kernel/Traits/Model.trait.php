@@ -185,6 +185,12 @@ trait Model
         return $this->query($script,$values);
     }
 
+    public function queryFetchAll($sql)
+    {
+        $retorno = $this->scriptSQL($sql);
+        return $retorno->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function convertJson()
     {
         return \json_encode($this->getValuesAttibutes());
