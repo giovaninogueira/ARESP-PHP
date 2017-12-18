@@ -12,6 +12,11 @@ class Config
 
     public function __construct()
     {
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
+        header('Access-Control-Max-Age: 86400');
+
         if(!file_exists(Config::$file_connection))
             new ExceptionFramework('Arquivo não existe');
 
@@ -51,8 +56,8 @@ class Config
                 [
                     '/Usuario/Cliente'=>
                         [
-                            'Controller'=>'Usuario',
-                            'Function'=>'POST'
+                            'Controller'=>'Pessoa',
+                            'Function'=>'getTbName'
                         ],
                     '/Usuario/Produto'=>
                         [
