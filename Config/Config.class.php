@@ -28,19 +28,18 @@ class Config
 
     public function config()
     {
-        $this->config_routes();
-    }
-
-    private function config_routes()
-    {
         $routes = new \SkyfallFramework\Common\Routes\Routes();
-        $routes->addRoutes([
+
+        $routes->addteste('GET','/Usuario/Pessoa','Pessoa','getTbName',true, ['nome','email']);
+        $routes->addteste('GET','/Usuario/Cliente','Pessoa','getTbName',true);
+
+        /*$routes->addRoutes([
             'GET'=>
                 [
                     '/Usuario/Pessoa'=>
                         [
                             'Controller'=>'Pessoa',
-                            'Function'=>'getTbName'
+                            'Function'=>'getTbName',
                         ],
 
                     '/Usuario/Cliente'=>
@@ -58,7 +57,8 @@ class Config
                     '/Usuario/Cliente'=>
                         [
                             'Controller'=>'Pessoa',
-                            'Function'=>'getTbName'
+                            'Function'=>'getTbName',
+                            'auth' => true
                         ],
                     '/Usuario/Produto'=>
                         [
@@ -66,6 +66,6 @@ class Config
                             'Function'=>'salvar'
                         ]
                 ]
-        ]);
+        ]);*/
     }
 }

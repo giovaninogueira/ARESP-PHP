@@ -24,6 +24,8 @@ Trait Routes{
 
     static  $listaRoutes;
 
+    private $teste = array();
+
     public function setRoutesModel($routesModel)
     {
         $this->routesModel = $routesModel;
@@ -86,12 +88,19 @@ Trait Routes{
 
     public function addRoutes($array)
     {
-        Routes::$listaRoutes=$array;
+        Routes::$listaRoutes = $array;
     }
 
-    public function offRoute($url, $methodHttp)
+    public function addteste($method, $url, $controller, $function, $auth = null, $params = null)
     {
-
+        $array = [
+            'url' => $url,
+            'controller' => $controller,
+            'function' => $function,
+            'auth' => $auth,
+            'params' => $params
+        ];
+        $this->teste[$method][$url] = $array;
     }
 
     public function onRoutes()
@@ -113,7 +122,6 @@ Trait Routes{
         $name_controller = 'MVC\\Controller\\' . $array['Controller'];
         $function = $array['Function'];
         $controller = new $name_controller;
-        $params = [];
 
         if(!\method_exists($controller, $function))
             new ExceptionFramework(405);
@@ -165,18 +173,14 @@ Trait Routes{
         /*Verificando se a rota permitite o metodo HTTP*/
         if(!key_exists($this->getMethodHTTP(),Routes::$listaRoutes))
             new ExceptionFramework(405);
-
         $routes = Routes::$listaRoutes[$this->getMethodHTTP()];
 
         /*Validando se a URL tem nas rotas*/
         if(!key_exists($this->getUrl(),$routes))
             new ExceptionFramework(405);
-
         $this->setObjRoutes($routes[$this->getUrl()]);
-
-        if(key_exists('auth',$this->routesModel->setObjRoutes()))
+        if(key_exists('auth',$this->objRoutes))
             $this->validateToken();
-
         return $this->getParamsRoutes($this->getObjRoutes());
     }
 
