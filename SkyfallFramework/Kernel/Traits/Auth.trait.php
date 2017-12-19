@@ -6,38 +6,31 @@ use \Firebase\JWT\JWT;
 
 trait Auth
 {
-    /*
-     * Autenticando usuário
-     * */
-    public function authentication()
-    {
+    public $token = "";
+    private $data = array();
+    static $key = 'ARESP-PHP_#2018'; // valor padrão
 
+    public function __construct($array)
+    {
+        $this->data = $array;
+        $this->createToken();
     }
 
-    /*  Realiza as verificações das
-        regras para validar o token recebido
-     */
-    public function validationToken($token)
+    public static function authentication($token)
     {
-
+        try
+        {
+            return JWT::decode($token, Auth::$key, array('HS256'));
+        }
+        catch (\Exception $e)
+        {
+            new \SkyfallFramework\Common\Exception\ExceptionFramework('Token Inválido');
+        }
     }
 
-    /*
-     * Criando Token conforme as regras inseridas
-     * */
-    public function createToken()
+    private function createToken()
     {
-
+        $this->token = JWT::encode($this->data, Auth::$key);
     }
 
-    /*
-     * Recebe como parametro um vetor com as regras para
-     * criar o token
-     * OBS:: A chave do token deve está em uma variavé static em um arquivo .ini
-     * como segurança
-     * */
-    public function setRules($rules)
-    {
-
-    }
 }

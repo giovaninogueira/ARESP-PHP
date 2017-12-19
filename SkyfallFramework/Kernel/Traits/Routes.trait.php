@@ -3,6 +3,8 @@
 namespace SkyfallFramework\Kernel\Traits;
 
 use SkyfallFramework\Common\Exception\ExceptionFramework;
+use SkyfallFramework\Common\Sessions\Session;
+use \SkyfallFramework\Common\Auth\Auth;
 
 Trait Routes{
 
@@ -94,6 +96,7 @@ Trait Routes{
 
     public function onRoutes()
     {
+        $session = new Session();
         $this->setMethodHTTP($_SERVER['REQUEST_METHOD']);
         $this->setUrl($_SERVER['PATH_INFO']);
         $this->callFunction();
@@ -157,7 +160,7 @@ Trait Routes{
         return $paramsObj;
     }
 
-    public function rulesRoutes()
+    private function rulesRoutes()
     {
         /*Verificando se a rota permitite o metodo HTTP*/
         if(!key_exists($this->getMethodHTTP(),Routes::$listaRoutes))
@@ -171,10 +174,26 @@ Trait Routes{
 
         $this->setObjRoutes($routes[$this->getUrl()]);
 
-        /*if(key_exists('auth',$this->routesModel->setObjRoutes()))
-            if(key_exists('token',$_REQUEST))*/
+        if(key_exists('auth',$this->routesModel->setObjRoutes()))
+            $this->validateToken();
 
         return $this->getParamsRoutes($this->getObjRoutes());
+    }
+
+    private function validateToken()
+    {
+        $headers = getallheaders();
+        if(!isset($headers['Token']))
+            new ExceptionFramework('Token não informado');
+        $auth = new Auth(
+            [
+                'iat' => 86400000,
+                'iss' => 'teste.com.br',
+                'nbf' => 86400000,
+                'data' => 'User'
+            ]
+        );
+       Auth::authentication($auth->token);
     }
 
 }

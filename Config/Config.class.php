@@ -3,6 +3,7 @@
 namespace Config;
 
 
+use SkyfallFramework\Common\Auth\Auth;
 use SkyfallFramework\Common\Database\Connection;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
 
@@ -16,6 +17,7 @@ class Config
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
         header('Access-Control-Max-Age: 86400');
+        header('Token: Bearer');
 
         if(!file_exists(Config::$file_connection))
             new ExceptionFramework('Arquivo não existe');
@@ -48,8 +50,7 @@ class Config
                             'Params'=>[
                                 'nome',
                                 'email'
-                            ],
-                            "auth"=>true
+                            ]
                         ]
                 ],
             'POST'=>
