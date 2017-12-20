@@ -50,6 +50,7 @@ trait ExceptionFramework
         415 => 'Unsupported Media Type',
         416 => 'Requested Range Not Satisfiable',
         417 => 'Expectation Failed',
+        422 => 'Unprocessable Entity',
         500 => 'Internal Server Error',
         501 => 'Not Implemented',
         502 => 'Bad Gateway',
@@ -99,6 +100,7 @@ trait ExceptionFramework
     private function toSend($msg, $code = null)
     {
         header('HTTP/1.1');
+        http_response_code($code);
         throw new \Exception($msg,$code);
     }
 

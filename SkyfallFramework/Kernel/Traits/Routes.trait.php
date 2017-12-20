@@ -161,19 +161,25 @@ Trait Routes{
     private function getParamsRoutes($paramsObj)
     {
         $lista = [];
-        if(key_exists('Params',$paramsObj))
-        {
+
+        if(is_object(Utils::$request))
             $array = get_object_vars(Utils::$request);
-            $count_Request = count($array);
-            $count_Params = count($paramsObj['Params']);
+        else
+            $array = [];
 
-            if (!($count_Params == $count_Request))
-                new ExceptionFramework(402);
+        $count_Request = count($array);
+        $count_Params = count($paramsObj['Params']);
 
+        if (!($count_Params == $count_Request))
+            new ExceptionFramework(403);
+
+        if(!is_null($paramsObj['Params']))
+        {
             foreach ($paramsObj['Params'] as $params)
             {
                 if (!key_exists($params, $array))
-                    new ExceptionFramework(402);
+                    new ExceptionFramework(422);
+
                 $lista[$params] = $array[$params];
             }
             $this->setParams($lista);

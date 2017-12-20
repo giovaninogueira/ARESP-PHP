@@ -17,9 +17,8 @@ try{
     $obj = new Start();
     $obj->load();
     Config::$file_connection = $file_connection;
-    $routes = new Config();
-    $routes->config();
+    new Config();
     $obj->run();
 }catch (\Exception $e){
-    echo $e->getMessage();
+    echo \json_encode($e->getMessage());
 }

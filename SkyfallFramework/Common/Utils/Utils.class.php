@@ -4,7 +4,7 @@ namespace SkyfallFramework\Common\Utils;
 
 class Utils
 {
-    static $request = "";
+    static $request = null;
 
     public function __construct()
     {
