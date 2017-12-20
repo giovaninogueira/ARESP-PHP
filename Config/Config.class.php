@@ -6,6 +6,7 @@ namespace Config;
 use SkyfallFramework\Common\Auth\Auth;
 use SkyfallFramework\Common\Database\Connection;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
+use SkyfallFramework\Common\Routes\Routes;
 
 class Config
 {
@@ -13,8 +14,6 @@ class Config
 
     public function __construct()
     {
-
-
         if(!file_exists(Config::$file_connection))
             new ExceptionFramework('Arquivo não existe');
 
@@ -24,7 +23,7 @@ class Config
 
     public function config()
     {
-        $routes = new \SkyfallFramework\Common\Routes\Routes();
+        $routes = new Routes();
         $routes->addRoutes('GET','/Usuario/Pessoa','Pessoa','getTbName',true, ['nome','email']);
         $routes->addRoutes('GET','/Usuario/Cliente','Pessoa','getTbName',true);
         $routes->addRoutes('POST','/Usuario/Pessoa','Pessoa','getTbName',true, ['nome','email']);

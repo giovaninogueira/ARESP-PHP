@@ -6,12 +6,13 @@ use MVC\Model\Pessoa as pessoaModel;
 use SkyfallFramework\Common\Database\Connection;
 use SkyfallFramework\Common\CRUD\Model;
 use SkyfallFramework\Common\ORM\ORM;
+use SkyfallFramework\Common\Utils\Utils;
 
 class Pessoa{
 
-    public function getTbName($value)
+    public function getTbName($t)
     {
         $obj = new ORM();
-        $obj->generateORM();
+        $teste = Utils::$request;
     }
 }

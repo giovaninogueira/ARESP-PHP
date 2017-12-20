@@ -34,14 +34,18 @@ trait Sessions
      */
     private function sessionStart()
     {
-        session_start();
-        if(isset($_SESSION['destroyed']))
-            $this->validation();
-        else
+        $t = session_status();
+        if(session_status() != PHP_SESSION_ACTIVE)
         {
-            $new_session_id = session_id();
-            $_SESSION['new_session_id'] = $new_session_id;
-            $_SESSION['destroyed'] = time();
+            session_start();
+            if(isset($_SESSION['destroyed']))
+                $this->validation();
+            else
+            {
+                $new_session_id = session_id();
+                $_SESSION['new_session_id'] = $new_session_id;
+                $_SESSION['destroyed'] = time();
+            }
         }
     }
 
@@ -51,7 +55,7 @@ trait Sessions
     private function validation()
     {
         if(isset($_SESSION['destroyed'])
-                && $_SESSION['destroyed'] < time() - 300 )
+                && $_SESSION['destroyed'] < time() - 500 )
         {
             Sessions::destroy();
             new \SkyfallFramework\Common\Exception\ExceptionFramework(403);
