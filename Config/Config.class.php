@@ -2,8 +2,6 @@
 
 namespace Config;
 
-
-use SkyfallFramework\Common\Auth\Auth;
 use SkyfallFramework\Common\Database\Connection;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
 use SkyfallFramework\Common\Routes\Routes;
@@ -14,6 +12,11 @@ class Config
 
     public function __construct()
     {
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
+        header('Access-Control-Max-Age: 86400');
+
         if(!file_exists(Config::$file_connection))
             new ExceptionFramework('Arquivo não existe');
 

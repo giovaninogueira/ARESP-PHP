@@ -19,7 +19,8 @@ class Connection extends \PDO
                 'mysql:host='.$array['HOST'].';'.
                 'dbname='.$array['DATABASE'],
                 $array['USER'],
-                $array['PASSWORD']
+                $array['PASSWORD'],
+                array(parent::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
             );
         }
         catch (\Exception $e)

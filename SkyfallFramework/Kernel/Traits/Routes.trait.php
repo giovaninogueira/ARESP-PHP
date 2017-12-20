@@ -146,13 +146,13 @@ Trait Routes{
             {
                 $params = $this->getParams();
                 $object = (object)$params;
-                $controller->{$function}($object);
+                echo json_encode($controller->{$function}($object));
             }
             else
                 new ExceptionFramework('Função precisa de parametros');
         }
         else
-            $controller->{$function}();
+            echo json_encode($controller->{$function}());
     }
 
     /**
