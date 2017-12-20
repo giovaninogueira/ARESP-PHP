@@ -146,7 +146,7 @@ class ORMmodel
         $php .= "\tGenerate ORM Trait" . "\n";
         $php .= "\tVersion 1.0.0\n";
         $php .= "**/\n\n";
-        $php .= "namespace MVC\Traits; \n\n";
+        $php .= "namespace MVC\Traits;\n";
         $php .= $this->use . "\n\n";
         $php .=  "trait " . $this->table;
         $php .= "\n{\n";
@@ -175,7 +175,7 @@ class ORMmodel
         $php .= "class " . $table;
         $php .= " extends Model";
         $php .= "\n{";
-        $php .= $this->use;
+        $php .= "\n\t" . $this->use;
         $php .= "\n}";
         return $php;
     }
@@ -289,9 +289,9 @@ class ORMmodel
      * @details Cria os uses dos arquivos
      */
     #region CreateUse
-    public function createUse($value)
+    public function createUse($value, $path)
     {
-        $this->use .= "\nuse MVC\\Model\\" . $value . ";";
+        $this->use .= "use \MVC\\" . $path ."\\" . $value . ";\n";
     }
     #endregion
 }

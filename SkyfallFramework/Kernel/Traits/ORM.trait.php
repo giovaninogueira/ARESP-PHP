@@ -129,7 +129,7 @@ trait ORM
                         $model = " as " . ucwords($value['referencia']) . "Model";
                         $r = "Model";
                     }
-                    $modelOrm->createUse(ucwords($value['referencia']).$model);
+                    $modelOrm->createUse(ucwords($value['referencia']).$model, 'Model');
                     $modelOrm->createAtributoRef(ucwords($value['referencia']));
                     $modelOrm->createSetRef($value['referencia'],$r);
                     $modelOrm->createGet($value['referencia']);
@@ -156,7 +156,7 @@ trait ORM
         foreach ($this->list_tables as $index => $table)
         {
             $model = new ORMmodel();
-            $model->createUse(ucwords($table));
+            $model->createUse(ucwords($table),'Traits');
             $file = $this->path("Model",ucwords($table));
             if(!file_exists($file))
                 $this->createFile($model->createModel(ucwords($table)), $file);

@@ -12,6 +12,6 @@ class Pessoa{
     public function getTbName($value)
     {
         $obj = new ORM();
-        //$obj->generateORM();
+        $obj->generateORM();
     }
 }

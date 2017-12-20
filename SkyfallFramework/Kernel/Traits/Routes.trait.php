@@ -27,6 +27,12 @@ Trait Routes{
 
     private $teste = array();
 
+    public function __construct()
+    {
+        $session = new Session();
+        $utils = new Utils();
+    }
+
     public function setRoutesModel($routesModel)
     {
         $this->routesModel = $routesModel;
@@ -88,6 +94,15 @@ Trait Routes{
     }
 
 
+    /**
+     * @param $method
+     * @param $url
+     * @param $controller
+     * @param $function
+     * @param null $auth
+     * @param null $params
+     * @details Adiciona na lista statica a lista de rotas
+     */
     public function addRoutes($method, $url, $controller, $function, $auth = null, $params = null)
     {
         $array = [
@@ -99,20 +114,20 @@ Trait Routes{
         Routes::$listaRoutes[$method][$url] = $array;
     }
 
+    /**
+     * @details Recupera o metodd HTTP e a URL
+     */
     public function onRoutes()
     {
-        $session = new Session();
-        $utils = new Utils();
         $this->setMethodHTTP($_SERVER['REQUEST_METHOD']);
         $this->setUrl($_SERVER['PATH_INFO']);
         $this->callFunction();
     }
 
-    private function runFunction()
-    {
-        $this->getParams();
-    }
 
+    /**
+     * @details Chama a função inserida na lista conforme a URL
+     */
     private function callFunction()
     {
         $array = $this->rulesRoutes();
@@ -134,18 +149,18 @@ Trait Routes{
                 $controller->{$function}($object);
             }
             else
-                new ExceptionFramework('Função necessitade de um parametro');
+                new ExceptionFramework('Função precisa de parametros');
         }
         else
             $controller->{$function}();
     }
 
+    /**
+     * @details verificando se a rota deve receber parametros junto a URL
+     */
     private function getParamsRoutes($paramsObj)
     {
         $lista = [];
-
-        /*verificando se a rota deve receber parametros junto a URL*/
-
         if(key_exists('Params',$paramsObj))
         {
             $array = get_object_vars(Utils::$request);
@@ -168,21 +183,33 @@ Trait Routes{
 
     private function rulesRoutes()
     {
-        $t = Utils::$request;
-        /*Verificando se a rota permitite o metodo HTTP*/
+        /**
+         * @details Verificando se a rota permitite o metodo HTTP
+         */
         if(!key_exists($this->getMethodHTTP(),Routes::$listaRoutes))
             new ExceptionFramework(405);
         $routes = Routes::$listaRoutes[$this->getMethodHTTP()];
 
-        /*Validando se a URL tem nas rotas*/
+        /**
+         * @details Validando se a URL tem nas rotas
+         */
         if(!key_exists($this->getUrl(),$routes))
             new ExceptionFramework(405);
+
         $this->setObjRoutes($routes[$this->getUrl()]);
-        /*if(key_exists('auth',$this->objRoutes))
-            $this->validateToken();*/
+
+        /**
+         * @details Validando Token
+         */
+        if(key_exists('auth',$this->objRoutes))
+            $this->validateToken();
+
         return $this->getParamsRoutes($this->getObjRoutes());
     }
 
+    /**
+     * @details Validando Token
+     */
     private function validateToken()
     {
         $headers = getallheaders();
