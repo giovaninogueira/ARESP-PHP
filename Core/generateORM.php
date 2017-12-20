@@ -18,9 +18,7 @@ try{
     $obj = new Start();
     $obj->load();
     Config::$file_connection = $file_connection;
-    $routes = new Config();
-    //$routes->config();
-    //$obj->run();
+    new Config();
     $orm = new ORM();
     $orm->generateORM();
 }catch (\Exception $e){

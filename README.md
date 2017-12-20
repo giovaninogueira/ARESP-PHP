@@ -42,6 +42,8 @@ PHP a desenvolverem projetos.
 
 - Melhoria (Rotas)
 
+- Modulorizar Componentsgit
+
 ## Documentação
 
 O desenvolvimento da documentação já está em andamento. Qualquer ajuda será muito bem vinda !
