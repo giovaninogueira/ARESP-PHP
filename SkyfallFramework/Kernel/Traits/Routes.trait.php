@@ -5,6 +5,7 @@ namespace SkyfallFramework\Kernel\Traits;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
 use SkyfallFramework\Common\Sessions\Session;
 use \SkyfallFramework\Common\Auth\Auth;
+use SkyfallFramework\Common\Utils\Utils;
 
 Trait Routes{
 
@@ -86,26 +87,22 @@ Trait Routes{
         return $this->objRoutes;
     }
 
-    public function addRoutes($array)
-    {
-        Routes::$listaRoutes = $array;
-    }
 
-    public function addteste($method, $url, $controller, $function, $auth = null, $params = null)
+    public function addRoutes($method, $url, $controller, $function, $auth = null, $params = null)
     {
         $array = [
-            'url' => $url,
-            'controller' => $controller,
-            'function' => $function,
-            'auth' => $auth,
-            'params' => $params
+            'Controller' => $controller,
+            'Function' => $function,
+            'Auth' => $auth,
+            'Params' => $params
         ];
-        $this->teste[$method][$url] = $array;
+        Routes::$listaRoutes[$method][$url] = $array;
     }
 
     public function onRoutes()
     {
         $session = new Session();
+        $utils = new Utils();
         $this->setMethodHTTP($_SERVER['REQUEST_METHOD']);
         $this->setUrl($_SERVER['PATH_INFO']);
         $this->callFunction();
@@ -151,7 +148,8 @@ Trait Routes{
 
         if(key_exists('Params',$paramsObj))
         {
-            $count_Request = count($_REQUEST);
+            $array = get_object_vars(Utils::$request);
+            $count_Request = count($array);
             $count_Params = count($paramsObj['Params']);
 
             if (!($count_Params == $count_Request))
@@ -159,9 +157,9 @@ Trait Routes{
 
             foreach ($paramsObj['Params'] as $params)
             {
-                if (!key_exists($params, $_REQUEST))
-                    throw new \Exception(402);
-                $lista[$params] = $_REQUEST[$params];
+                if (!key_exists($params, $array))
+                    new ExceptionFramework(402);
+                $lista[$params] = $array[$params];
             }
             $this->setParams($lista);
         }
@@ -170,6 +168,7 @@ Trait Routes{
 
     private function rulesRoutes()
     {
+        $t = Utils::$request;
         /*Verificando se a rota permitite o metodo HTTP*/
         if(!key_exists($this->getMethodHTTP(),Routes::$listaRoutes))
             new ExceptionFramework(405);
@@ -179,8 +178,8 @@ Trait Routes{
         if(!key_exists($this->getUrl(),$routes))
             new ExceptionFramework(405);
         $this->setObjRoutes($routes[$this->getUrl()]);
-        if(key_exists('auth',$this->objRoutes))
-            $this->validateToken();
+        /*if(key_exists('auth',$this->objRoutes))
+            $this->validateToken();*/
         return $this->getParamsRoutes($this->getObjRoutes());
     }
 

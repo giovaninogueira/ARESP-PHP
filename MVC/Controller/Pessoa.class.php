@@ -9,7 +9,7 @@ use SkyfallFramework\Common\ORM\ORM;
 
 class Pessoa{
 
-    public function getTbName()
+    public function getTbName($value)
     {
         $obj = new ORM();
         //$obj->generateORM();

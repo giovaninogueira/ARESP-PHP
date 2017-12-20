@@ -13,11 +13,7 @@ class Config
 
     public function __construct()
     {
-        header('Content-Type: application/json');
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
-        header('Access-Control-Max-Age: 86400');
-        header('Token: Bearer');
+
 
         if(!file_exists(Config::$file_connection))
             new ExceptionFramework('Arquivo não existe');
@@ -29,43 +25,8 @@ class Config
     public function config()
     {
         $routes = new \SkyfallFramework\Common\Routes\Routes();
-
-        $routes->addteste('GET','/Usuario/Pessoa','Pessoa','getTbName',true, ['nome','email']);
-        $routes->addteste('GET','/Usuario/Cliente','Pessoa','getTbName',true);
-
-        /*$routes->addRoutes([
-            'GET'=>
-                [
-                    '/Usuario/Pessoa'=>
-                        [
-                            'Controller'=>'Pessoa',
-                            'Function'=>'getTbName',
-                        ],
-
-                    '/Usuario/Cliente'=>
-                        [
-                            'Controller'=>'Pessoa',
-                            'Function'=>'savePessoa',
-                            'Params'=>[
-                                'nome',
-                                'email'
-                            ]
-                        ]
-                ],
-            'POST'=>
-                [
-                    '/Usuario/Cliente'=>
-                        [
-                            'Controller'=>'Pessoa',
-                            'Function'=>'getTbName',
-                            'auth' => true
-                        ],
-                    '/Usuario/Produto'=>
-                        [
-                            'Controller'=>'Produto',
-                            'Function'=>'salvar'
-                        ]
-                ]
-        ]);*/
+        $routes->addRoutes('GET','/Usuario/Pessoa','Pessoa','getTbName',true, ['nome','email']);
+        $routes->addRoutes('GET','/Usuario/Cliente','Pessoa','getTbName',true);
+        $routes->addRoutes('POST','/Usuario/Pessoa','Pessoa','getTbName',true, ['nome','email']);
     }
 }
