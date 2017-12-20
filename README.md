@@ -6,6 +6,8 @@ Olá, seja bem vindo a versão 1.0.0 do nosso Framework !
 O SkyFall Framework é um projeto de código aberto que tem como objetivo auxiliar os desenvolvedores de
 PHP a desenvolverem projetos.
 
+**Autor**: Giovani Cassiano Nogueira <giovani.cassiano@outlook.com>
+
 ## Características
 
 - Autenticação (Token - JWT)
@@ -46,7 +48,7 @@ Existem algumas coisas que devem ser melhoradas e precisamos de ajuda, nos ajuda
 
 ##Licença
 
-O Skyfall Framework é um software de código aberto licenciado sob a licença MIT Licença](https://opensource.org/licenses/MIT).
+O Skyfall Framework é um software de código aberto licenciado sob a licença MIT Licença https://opensource.org/licenses/MIT.
 
 ## Agradecimentos
 
@@ -55,4 +57,8 @@ Sobre essa primeira versão, eu quero agradecer algumas pessoas que me ajudaram 
 - Bruno Dos Santos Rodrigues <brunosr1985@live.com>
 - Jessica Nayara Severino    <jessicaa.severinoo@gmail.com>
 - Hiago Silva Souza          <hiago_souza95@hotmail.com>
+
+## Créditos
+
+[PHP-JWT](https://github.com/firebase/php-jwt)
 
