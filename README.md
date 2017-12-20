@@ -42,7 +42,7 @@ PHP a desenvolverem projetos.
 
 - Melhoria (Rotas)
 
-- Modulorizar Componentsgit
+- Modulorizar componentes
 
 ## Documentação
 
