@@ -11,12 +11,16 @@ PHP a desenvolverem projetos.
 ## Características
 
 - Autenticação (Token - JWT)
+
+- Session
+
+- Padrão MVC
+
+- Decode Request
  
 - ORM 
 
 - Funções em SQL dinâmicas
-
-- Controle de rotas com parametros
 
 - Conexão com banco de dados relacionais 
 
