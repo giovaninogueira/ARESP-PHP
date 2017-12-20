@@ -2,6 +2,11 @@
 
 namespace SkyfallFramework\Kernel\Interfaces;
 
+/**
+ * Interface Connection
+ * @package SkyfallFramework\Kernel\Interfaces
+ * @author Giovani Cassiano Nogueira <giovani.cassiano@outlook.com>
+ */
 interface Connection
 {
 

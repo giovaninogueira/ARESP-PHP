@@ -2,8 +2,11 @@
 
 namespace SkyfallFramework\Common\Auth;
 
-use SkyfallFramework\Kernel\Interfaces\Auth as authInterface;
-
+/**
+ * Class Auth
+ * @package SkyfallFramework\Common\Auth
+ * @author Giovani Cassiano Nogueira <giovani.cassiano@outlook.com>
+ */
 class Auth
 {
     use \SkyfallFramework\Kernel\Traits\Auth;

@@ -3,6 +3,11 @@
 namespace SkyfallFramework\App;
 use SkyfallFramework\Common\Routes\Routes;
 
+/**
+ * Class Start
+ * @package SkyfallFramework\App
+ * @author Giovani Cassiano Nogueira <giovani.cassiano@outlook.com>
+ */
 class Start{
 
     private $pathFunc = null;
@@ -13,9 +18,13 @@ class Start{
         $obj->onRoutes();
     }
 
+    /**
+     * @details Realiza um load dos arquivos requisitados
+     */
     public function load()
     {
-        spl_autoload_register(function($className){
+        spl_autoload_register(function($className)
+        {
             $type = \explode('\\',$className);
 
             $index = 2;
@@ -38,6 +47,7 @@ class Start{
 
             if(!file_exists($file))
                 throw new \Exception('Arquivo não encontardo em '.$file);
+
             require_once $file;
         });
     }

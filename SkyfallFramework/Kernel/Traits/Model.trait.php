@@ -5,6 +5,11 @@ namespace SkyfallFramework\Kernel\Traits;
 use SkyfallFramework\Common\Database\Connection as con;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
 
+/**
+ * Trait Model
+ * @package SkyfallFramework\Kernel\Traits
+ * @author Giovani Cassiano Nogueira <giovani.cassiano@outlook.com>
+ */
 trait Model
 {
     static $connection;

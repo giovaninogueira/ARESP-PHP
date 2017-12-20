@@ -4,6 +4,11 @@ namespace SkyfallFramework\Kernel\Traits;
 
 use \Exception;
 
+/**
+ * Trait ExceptionFramework
+ * @package SkyfallFramework\Kernel\Traits
+ * @author Giovani Cassiano Nogueira <giovani.cassiano@outlook.com>
+ */
 trait ExceptionFramework
 {
     private $exception;

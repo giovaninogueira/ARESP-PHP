@@ -4,6 +4,11 @@ namespace SkyfallFramework\Kernel\Traits;
 
 use \Firebase\JWT\JWT;
 
+/**
+ * Trait Auth
+ * @package SkyfallFramework\Kernel\Traits
+ * @author Giovani Cassiano Nogueira <giovani.cassiano@outlook.com>
+ */
 trait Auth
 {
     public $token = "";

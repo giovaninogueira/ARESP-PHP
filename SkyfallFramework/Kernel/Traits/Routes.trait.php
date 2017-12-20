@@ -4,9 +4,14 @@ namespace SkyfallFramework\Kernel\Traits;
 
 use SkyfallFramework\Common\Exception\ExceptionFramework;
 use SkyfallFramework\Common\Sessions\Session;
-use \SkyfallFramework\Common\Auth\Auth;
+use SkyfallFramework\Common\Auth\Auth;
 use SkyfallFramework\Common\Utils\Utils;
 
+/**
+ * Trait Routes
+ * @package SkyfallFramework\Kernel\Traits
+ * @author Giovani Cassiano Nogueira <giovani.cassiano@outlook.com>
+ */
 Trait Routes{
 
     private $routesModel;

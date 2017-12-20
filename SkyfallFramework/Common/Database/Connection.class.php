@@ -2,6 +2,11 @@
 
 namespace SkyfallFramework\Common\Database;
 
+/**
+ * Class Connection
+ * @package SkyfallFramework\Common\Database
+ * @author Giovani Cassiano Nogueira <giovani.cassiano@outlook.com>
+ */
 class Connection extends \PDO
 {
     static $list_connection;
@@ -9,7 +14,10 @@ class Connection extends \PDO
     static $connection;
     private $transaction;
 
-    /*abri a conexão conforme o nome do banco de dados*/
+    /**
+     * Connection constructor.
+     * @details Realiza a conexão com o banco de dados
+     */
     public function __construct()
     {
         try
@@ -30,7 +38,9 @@ class Connection extends \PDO
         }
     }
 
-    /*fechar coneção no banco de dados*/
+    /**
+     * @details Fechar coneção no banco de dados
+     */
     public function closeConnection()
     {
         self::$connection = null;

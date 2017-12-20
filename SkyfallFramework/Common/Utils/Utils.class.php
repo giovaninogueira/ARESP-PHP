@@ -2,6 +2,11 @@
 
 namespace SkyfallFramework\Common\Utils;
 
+/**
+ * Class Utils
+ * @package SkyfallFramework\Common\Utils
+ * @author Giovani Cassiano Nogueira <giovani.cassiano@outlook.com>
+ */
 class Utils
 {
     static $request = null;
