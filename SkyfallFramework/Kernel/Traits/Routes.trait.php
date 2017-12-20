@@ -29,8 +29,8 @@ Trait Routes{
 
     public function __construct()
     {
-        $session = new Session();
-        $utils = new Utils();
+        new Session();
+        new Utils();
     }
 
     public function setRoutesModel($routesModel)
@@ -93,7 +93,6 @@ Trait Routes{
         return $this->objRoutes;
     }
 
-
     /**
      * @param $method
      * @param $url
@@ -149,7 +148,7 @@ Trait Routes{
                 echo json_encode($controller->{$function}($object));
             }
             else
-                new ExceptionFramework('Função precisa de parametros');
+                echo json_encode($controller->{$function}(null));
         }
         else
             echo json_encode($controller->{$function}());
