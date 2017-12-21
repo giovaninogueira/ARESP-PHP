@@ -152,7 +152,6 @@ class ORMmodel
         $php .= "\n{";
         $php .= "\n\tpublic function ____construct()";
         $php .= "\n\t{\n";
-        $php .= "\n\t{\n";
         $php .= "\n\t}\n";
         $php .= $this->atributos;
         $php .= $this->getSet;
