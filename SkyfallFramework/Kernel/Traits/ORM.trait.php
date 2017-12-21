@@ -141,7 +141,7 @@ trait ORM
                 $modelOrm->createSet($atributo['Field']);
                 $modelOrm->createGet($atributo['Field']);
             }
-            $file = $this->path("Traits",ucwords($table));
+            $file = $this->path("Traits",ucwords($table),'trait');
             $this->createFile($modelOrm->createFiles(), $file);
         }
     }
@@ -157,7 +157,7 @@ trait ORM
         {
             $model = new ORMmodel();
             $model->createUse(ucwords($table),'Traits');
-            $file = $this->path("Model",ucwords($table));
+            $file = $this->path("Model",ucwords($table),'class');
             if(!file_exists($file))
                 $this->createFile($model->createModel(ucwords($table)), $file);
         }
@@ -173,7 +173,7 @@ trait ORM
         foreach ($this->list_tables as $index => $table)
         {
             $model = new ORMmodel();
-            $file = $this->path("Controller",ucwords($table));
+            $file = $this->path("Controller",ucwords($table),'class');
             if(!file_exists($file))
                 $this->createFile($model->createController(ucwords($table)), $file);
         }
@@ -200,11 +200,11 @@ trait ORM
      * @details retorna o caminho dos arquivos que vão ser gerados
      */
     #region Path
-    public function path($type, $table)
+    public function path($type, $table, $model)
     {
         $path = dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR;
         $path .= ".." . DIRECTORY_SEPARATOR . "MVC" . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR;
-        $path .= ucwords($table) . ".class.php";
+        $path .= ucwords($table) . "." .$model .".php";
         return $path;
     }
     #endregion
