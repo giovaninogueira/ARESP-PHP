@@ -125,7 +125,7 @@ trait Model
         {
             $sql = "SELECT * FROM " . $this->getTbName() . $this->sql;
             $array = $this->query($sql);
-            return $array->fetchAll(\PDO::FETCH_ASSOC);
+            return $array->fetchAll(\PDO::FETCH_ASSOC)[0];
         }
         else
             return $this->selectAll();
