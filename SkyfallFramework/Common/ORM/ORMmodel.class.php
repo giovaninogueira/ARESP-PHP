@@ -272,7 +272,7 @@ class ORMmodel
     #region CreateAtributoRef
     public function createAtributoRef($value)
     {
-        $this->atributos .= "\tprivate $" . $value . "; \n\t// References - " . $value ." \n\n";
+        $this->atributos .= "\tprotected $" . $value . "; \n\t// References - " . $value ." \n\n";
     }
     #endregion
 
