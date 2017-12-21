@@ -175,9 +175,9 @@ trait Model
     {
         $table_name = $this->getTbName();
         if(is_null($this->sql))
-            $this->sql .= " WHERE " . $atribute . " " . $operator . " " . $value . " " . $oprador_logic;
+            $this->sql .= " WHERE " . $atribute . " " . $operator . " '" . $value . "' " . $oprador_logic;
         else
-            $this->sql .= " " . $atribute . " " . $operator . " " . $value . " " . $oprador_logic . " ";
+            $this->sql .= " " . $atribute . " " . $operator . " '" . $value . "' " . $oprador_logic . " ";
     }
 
 
