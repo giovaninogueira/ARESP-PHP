@@ -175,6 +175,7 @@ class ORMmodel
         $php .= "\tVersion 1.0.0\n";
         $php .= "**/\n\n";
         $php .= "namespace MVC\Model; \n\n";
+        $php .= "use SkyfallFramework\Common\CRUD\Model;\n\n";
         $php .= "class " . $table;
         $php .= " extends Model";
         $php .= "\n{";
