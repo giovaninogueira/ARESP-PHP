@@ -229,8 +229,8 @@ Trait Routes{
             new ExceptionFramework('Token não informado');
 
         Utils::$token = $headers['token'];
-        $result = Auth::authentication(Utils::$token);
-        Session::sessionStart($result->data->id,$result->data->email);
+        Auth::authentication(Utils::$token);
+        Session::sessionStart();
     }
 
 }

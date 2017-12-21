@@ -16,7 +16,7 @@ trait Sessions
     /**
      * @details Inicia a sessão e realiza as verificações e define o timestamp
      */
-    public static function sessionStart($userId, $email)
+    public static function sessionStart()
     {
         if(session_status() != PHP_SESSION_ACTIVE)
         {
@@ -30,8 +30,6 @@ trait Sessions
             session_start();
             $new_session_id = session_id();
             $_SESSION['new_session_id'] = $new_session_id;
-            $_SESSION['user_id'] = $userId;
-            $_SESSION['email_user'] = $email;
             $_SESSION['token'] = Utils::$token;
         }
     }
