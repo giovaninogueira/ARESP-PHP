@@ -36,6 +36,7 @@ trait Auth
     private function createToken()
     {
         $this->token = JWT::encode($this->data, Auth::$key);
+        $_SESSION['token'] = $this->token;
     }
 
 }

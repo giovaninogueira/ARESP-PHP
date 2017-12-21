@@ -45,7 +45,7 @@ class Config
     {
         $routes = new Routes();
         $routes->addRoutes('GET','/Usuario/Pessoa','Pessoa','getTbName',true, ['nome','email']);
-        $routes->addRoutes('GET','/Usuario/Cliente','Pessoa','getTbName',true);
-        $routes->addRoutes('POST','/Usuario/Pessoa','Pessoa','getTbName',true, ['email','email']);
+        $routes->addRoutes('GET','/Usuario/Cliente','Pessoa','getTbName',false);
+        $routes->addRoutes('POST','/Usuario/Pessoa','Pessoa','getTbName',false, ['email','email']);
     }
 }

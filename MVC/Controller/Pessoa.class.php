@@ -10,8 +10,8 @@ class Pessoa{
     {
         $auth = new Auth(
             [
-                'iat' => 86400000,
-                'nbf' => 86400000,
+                'iat' => 1000,
+                'nbf' => 1000,
                 'data' => ['id'=>1,'email'=>'giovani.cassiano99@hotmail.com']
             ]
         );

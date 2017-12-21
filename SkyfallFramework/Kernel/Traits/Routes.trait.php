@@ -212,6 +212,8 @@ Trait Routes{
          */
         if($this->objRoutes['Auth'])
             $this->validateToken();
+        else
+            Session::createSession();
 
         return $this->getParamsRoutes($this->getObjRoutes());
     }

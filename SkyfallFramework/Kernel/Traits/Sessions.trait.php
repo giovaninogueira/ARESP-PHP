@@ -26,16 +26,22 @@ trait Sessions
 
             self::destroy();
 
-            session_cache_expire(10);
-            session_name(md5('seg'.$_SERVER['REMOTE_ADDR'].time()));
+            //session_cache_expire(10);
             session_start();
-
             $new_session_id = session_id();
             $_SESSION['new_session_id'] = $new_session_id;
             $_SESSION['user_id'] = $userId;
             $_SESSION['email_user'] = $email;
             $_SESSION['token'] = Utils::$token;
         }
+    }
+
+    public static function createSession()
+    {
+        //session_cache_expire(10);
+        session_start();
+        $new_session_id = session_id();
+        $_SESSION['new_session_id'] = $new_session_id;
     }
 
     /**
