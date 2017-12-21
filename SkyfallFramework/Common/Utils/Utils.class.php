@@ -10,6 +10,7 @@ namespace SkyfallFramework\Common\Utils;
 class Utils
 {
     static $request = null;
+    static $token = null;
 
     public function __construct()
     {

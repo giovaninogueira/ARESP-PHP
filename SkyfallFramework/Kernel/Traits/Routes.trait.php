@@ -211,7 +211,7 @@ Trait Routes{
         /**
          * @details Validando Token
          */
-        if(key_exists('auth',$this->objRoutes))
+        if($this->objRoutes['Auth'])
             $this->validateToken();
 
         return $this->getParamsRoutes($this->getObjRoutes());
@@ -223,17 +223,19 @@ Trait Routes{
     private function validateToken()
     {
         $headers = getallheaders();
-        if(!isset($headers['Token']))
+        if(!isset($headers['token']))
             new ExceptionFramework('Token não informado');
-        $auth = new Auth(
+
+        Utils::$token = $headers['token'];
+        /*$auth = new Auth(
             [
                 'iat' => 86400000,
                 'iss' => 'teste.com.br',
                 'nbf' => 86400000,
                 'data' => 'User'
             ]
-        );
-       Auth::authentication($auth->token);
+        );*/
+       Auth::authentication(Utils::$token);
     }
 
 }

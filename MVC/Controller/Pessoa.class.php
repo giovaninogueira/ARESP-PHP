@@ -7,15 +7,19 @@ use SkyfallFramework\Common\Database\Connection;
 use SkyfallFramework\Common\CRUD\Model;
 use SkyfallFramework\Common\ORM\ORM;
 use SkyfallFramework\Common\Utils\Utils;
+use SkyfallFramework\Common\Auth\Auth;
 
 class Pessoa{
 
     public function getTbName($t)
     {
-        $array = [];
-        array_push($array,'teste');
-        array_push($array,'vwefwe');
-        array_push($array,'teste');
-        return Utils::$request;
+        $auth = new Auth(
+            [
+                'iat' => 86400000,
+                'nbf' => 86400000,
+                'data' => 'User'
+            ]
+        );
+        return $auth;
     }
 }
