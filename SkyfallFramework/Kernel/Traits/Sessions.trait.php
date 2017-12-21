@@ -2,6 +2,8 @@
 
 namespace SkyfallFramework\Kernel\Traits;
 
+use SkyfallFramework\Common\Utils\Utils;
+
 /**
  * Trait Sessions
  * @package SkyfallFramework\Kernel\Traits
@@ -12,11 +14,28 @@ trait Sessions
 {
 
     /**
-     * Sessions constructor.
+     * @details Inicia a sessão e realiza as verificações e define o timestamp
      */
-    public function __construct()
+    public static function sessionStart($userId, $email)
     {
-        $this->sessionStart();
+        if(session_status() != PHP_SESSION_ACTIVE)
+        {
+            session_start();
+            if(Utils::$token != $_SESSION['token'])
+                new \SkyfallFramework\Common\Exception\ExceptionFramework(403);
+
+            self::destroy();
+
+            session_cache_expire(10);
+            session_name(md5('seg'.$_SERVER['REMOTE_ADDR'].time()));
+            session_start();
+
+            $new_session_id = session_id();
+            $_SESSION['new_session_id'] = $new_session_id;
+            $_SESSION['user_id'] = $userId;
+            $_SESSION['email_user'] = $email;
+            $_SESSION['token'] = Utils::$token;
+        }
     }
 
     /**
@@ -29,44 +48,4 @@ trait Sessions
         session_destroy();
     }
 
-    /**
-     * @details Inicia a sessão e realiza as verificações e define o timestamp
-     */
-    private function sessionStart()
-    {
-        $t = session_status();
-        if(session_status() != PHP_SESSION_ACTIVE)
-        {
-            session_start();
-            if(isset($_SESSION['destroyed']))
-                $this->validation();
-            else
-            {
-                $new_session_id = session_id();
-                $_SESSION['new_session_id'] = $new_session_id;
-                $_SESSION['destroyed'] = time();
-            }
-        }
-    }
-
-    /**
-     * @details Faz as verificações para ver se a session está valida
-     */
-    private function validation()
-    {
-        if(isset($_SESSION['destroyed'])
-                && $_SESSION['destroyed'] < time() - 500 )
-        {
-            Sessions::destroy();
-            new \SkyfallFramework\Common\Exception\ExceptionFramework(403);
-        }
-
-        if(isset($_SESSION['new_session_id']))
-        {
-            session_commit();
-            session_id($_SESSION['new_session_id']);
-            session_start();
-            return;
-        }
-    }
 }

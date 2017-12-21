@@ -34,7 +34,6 @@ Trait Routes{
 
     public function __construct()
     {
-        new Session();
         new Utils();
     }
 
@@ -223,19 +222,13 @@ Trait Routes{
     private function validateToken()
     {
         $headers = getallheaders();
+
         if(!isset($headers['token']))
             new ExceptionFramework('Token não informado');
 
         Utils::$token = $headers['token'];
-        /*$auth = new Auth(
-            [
-                'iat' => 86400000,
-                'iss' => 'teste.com.br',
-                'nbf' => 86400000,
-                'data' => 'User'
-            ]
-        );*/
-       Auth::authentication(Utils::$token);
+        $result = Auth::authentication(Utils::$token);
+        Session::sessionStart($result->data->id,$result->data->email);
     }
 
 }
