@@ -142,17 +142,17 @@ class ORMmodel
     {
         $php = "<?php\n\n";
         $php .= "/**\n";
-        $php .= "\tSkyfall Micro-Framework\n";
-        $php .= "\tGenerate ORM Trait" . "\n";
-        $php .= "\tVersion 1.0.0\n";
-        $php .= "**/\n\n";
+        $php .= "* Skyfall Micro-Framework\n";
+        $php .= "* Generate ORM Trait" . "\n";
+        $php .= "* Version 1.0.0\n";
+        $php .= "*/\n\n";
         $php .= "namespace MVC\Traits;\n";
         $php .= $this->use . "\n\n";
         $php .=  "trait " . $this->table;
         $php .= "\n{";
         $php .= "\n\tpublic function ____construct()";
         $php .= "\n\t{\n";
-        $php .= "\n\t}\n";
+        $php .= "\n\t}\n\n";
         $php .= $this->atributos;
         $php .= $this->getSet;
         $php .= "\n}";
@@ -170,10 +170,10 @@ class ORMmodel
     {
         $php = "<?php\n\n";
         $php .= "/**\n";
-        $php .= "\tSkyfall Micro-Framework\n";
-        $php .= "\tGenerate ORM Model" . "\n";
-        $php .= "\tVersion 1.0.0\n";
-        $php .= "**/\n\n";
+        $php .= "* Skyfall Micro-Framework\n";
+        $php .= "* Generate ORM Model" . "\n";
+        $php .= "* Version 1.0.0\n";
+        $php .= "*/\n\n";
         $php .= "namespace MVC\Model; \n\n";
         $php .= "use SkyfallFramework\Common\CRUD\Model;\n\n";
         $php .= "class " . $table;
@@ -195,18 +195,18 @@ class ORMmodel
     {
         $php = "<?php\n\n";
         $php .= "/**\n";
-        $php .= "\tSkyfall Micro-Framework\n";
-        $php .= "\tGenerate ORM Controller" . "\n";
-        $php .= "\tVersion 1.0.0\n";
-        $php .= "**/\n\n";
+        $php .= "* Skyfall Micro-Framework\n";
+        $php .= "* Generate ORM Controller" . "\n";
+        $php .= "* Version 1.0.0\n";
+        $php .= "*/\n\n";
         $php .= "namespace MVC\Controller; \n\n";
         $php .= "class " . $table;
         $php .= "\n{\n";
         $php .= "/**\n";
-        $php .= "\tSkyfall Micro-Framework\n";
-        $php .= "\tController's body" . "\n";
-        $php .= "\tVersion 1.0.0\n";
-        $php .= "**/";
+        $php .= "* Skyfall Micro-Framework\n";
+        $php .= "* Controller's body" . "\n";
+        $php .= "* Version 1.0.0\n";
+        $php .= "*/";
         $php .= "\n}";
         return $php;
     }
