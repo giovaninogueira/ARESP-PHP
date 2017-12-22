@@ -28,7 +28,6 @@ class Utils
     public function __construct()
     {
         $result = file_get_contents('php://input');
-        self::$header = getallheaders();
 
         if(count($_REQUEST) != 0)
         {

@@ -33,6 +33,7 @@ Trait Routes{
 
     public function __construct()
     {
+        self::$header = getallheaders();
     }
 
     public function setRoutesModel($routesModel)
