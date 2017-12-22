@@ -33,7 +33,6 @@ Trait Routes{
 
     public function __construct()
     {
-        self::$header = getallheaders();
     }
 
     public function setRoutesModel($routesModel)
@@ -197,6 +196,7 @@ Trait Routes{
 
     private function rulesRoutes()
     {
+        Utils::$header = getallheaders();
         /**
          * @details Verificando se a rota permitite o metodo HTTP
          */
