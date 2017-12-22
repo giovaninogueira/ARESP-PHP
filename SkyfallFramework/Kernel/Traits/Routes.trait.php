@@ -172,7 +172,13 @@ Trait Routes{
         $count_Params = count($paramsObj['Params']);
 
         if (!($count_Params == $count_Request))
-            new ExceptionFramework(403);
+            new ExceptionFramework(422);
+
+        foreach ($paramsObj['Params'] as $index => $value)
+        {
+            if(key_exists($value, $array))
+                new ExceptionFramework(422);
+        }
 
         if(!is_null($paramsObj['Params']))
         {
@@ -222,7 +228,7 @@ Trait Routes{
         $headers = getallheaders();
 
         if(!isset($headers['token']))
-            new ExceptionFramework('Token não informado');
+            new ExceptionFramework('Token não informado',403);
 
         Utils::$token = $headers['token'];
         Auth::authentication(Utils::$token);
