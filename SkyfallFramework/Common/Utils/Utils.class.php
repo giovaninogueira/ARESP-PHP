@@ -9,12 +9,27 @@ namespace SkyfallFramework\Common\Utils;
  */
 class Utils
 {
+    /**
+     * @var mixed|null
+     */
     static $request = null;
+    /**
+     * @var null
+     */
     static $token = null;
+    /**
+     * @var array|false|null
+     */
+    static $header = null;
 
+    /**
+     * Utils constructor.
+     */
     public function __construct()
     {
         $result = file_get_contents('php://input');
+        self::$header = getallheaders();
+
         if(count($_REQUEST) != 0)
         {
             self::$request = (object)$_REQUEST;
@@ -23,5 +38,26 @@ class Utils
         {
             self::$request = json_decode($result);
         }
+    }
+
+    /**
+     * @param $header
+     */
+    public static function addHeaders($header)
+    {
+        if(!is_null($header))
+            header($header);
+        else
+            Utils::headerDefault();
+    }
+
+    /**
+     * @details Header de retorno padrão
+     */
+    public static function headerDefault()
+    {
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
     }
 }

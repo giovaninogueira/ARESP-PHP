@@ -3,7 +3,6 @@
 namespace SkyfallFramework\Kernel\Traits;
 
 use SkyfallFramework\Common\Exception\ExceptionFramework;
-use SkyfallFramework\Common\Sessions\Session;
 use SkyfallFramework\Common\Auth\Auth;
 use SkyfallFramework\Common\Utils\Utils;
 
@@ -34,7 +33,6 @@ Trait Routes{
 
     public function __construct()
     {
-        new Utils();
     }
 
     public function setRoutesModel($routesModel)
@@ -212,8 +210,6 @@ Trait Routes{
          */
         if($this->objRoutes['Auth'])
             $this->validateToken();
-        else
-            Session::createSession();
 
         return $this->getParamsRoutes($this->getObjRoutes());
     }
@@ -230,7 +226,6 @@ Trait Routes{
 
         Utils::$token = $headers['token'];
         Auth::authentication(Utils::$token);
-        Session::sessionStart();
     }
 
 }

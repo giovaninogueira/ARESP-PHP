@@ -12,34 +12,49 @@ use SkyfallFramework\Common\Utils\Utils;
  */
 trait Sessions
 {
+    /**
+     * @param array $array
+     * @param int $expired
+     * @details adiciona as sessões definidas pelo usuário
+     */
+    public static function createSession($array = array(), $expired = 60)
+    {
+        self::destroy();
+        session_regenerate_id(true);
+        session_cache_expire($expired);
+        session_start();
+        $new_session_id = session_id();
+        $_SESSION['new_session_id'] = $new_session_id;
+
+        if(count($array) != 0)
+        {
+            foreach ($array as $index => $value)
+            {
+                $_SESSION[$index] = $value;
+            }
+        }
+    }
 
     /**
-     * @details Inicia a sessão e realiza as verificações e define o timestamp
+     * @details validar session (chamando a função CreateSession)
      */
-    public static function sessionStart()
+    public static function validationSession()
+    {
+        Sessions::createSession();
+    }
+
+    /**
+     * @details Validando token pela index da sessão token
+     */
+    public static function validateSessionToken()
     {
         if(session_status() != PHP_SESSION_ACTIVE)
         {
             session_start();
-            if(Utils::$token != $_SESSION['token'])
-                new \SkyfallFramework\Common\Exception\ExceptionFramework(403);
-
-            self::destroy();
-
-            session_cache_expire(30);
-            session_start();
-            $new_session_id = session_id();
-            $_SESSION['new_session_id'] = $new_session_id;
-            $_SESSION['token'] = Utils::$token;
+            if(isset($_SESSION['token']))
+                if (Utils::$token != $_SESSION['token'])
+                    new \SkyfallFramework\Common\Exception\ExceptionFramework(403);
         }
-    }
-
-    public static function createSession()
-    {
-        session_cache_expire(30);
-        session_start();
-        $new_session_id = session_id();
-        $_SESSION['new_session_id'] = $new_session_id;
     }
 
     /**
@@ -51,5 +66,4 @@ trait Sessions
         unset($_COOKIE);
         session_destroy();
     }
-
 }

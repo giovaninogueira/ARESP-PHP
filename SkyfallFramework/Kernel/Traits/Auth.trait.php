@@ -13,7 +13,7 @@ trait Auth
 {
     public $token = "";
     private $data = array();
-    static $key = 'ARESP-PHP_#2018'; // valor padrão
+    static $key = 'SKYFALL_FRAMEWORK'; // valor padrão
 
     public function __construct($array)
     {
@@ -36,7 +36,6 @@ trait Auth
     private function createToken()
     {
         $this->token = JWT::encode($this->data, Auth::$key);
-        $_SESSION['token'] = $this->token;
     }
 
 }
