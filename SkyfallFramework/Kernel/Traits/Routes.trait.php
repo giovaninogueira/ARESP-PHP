@@ -174,12 +174,6 @@ Trait Routes{
         if (!($count_Params == $count_Request))
             new ExceptionFramework(422);
 
-        foreach ($paramsObj['Params'] as $index => $value)
-        {
-            if(key_exists($value, $array))
-                new ExceptionFramework(422);
-        }
-
         if(!is_null($paramsObj['Params']))
         {
             foreach ($paramsObj['Params'] as $params)

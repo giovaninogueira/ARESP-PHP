@@ -6,7 +6,7 @@ use SkyfallFramework\Common\Auth\Auth;
 
 class Pessoa{
 
-    public function getTbName($t)
+    public function getTbName()
     {
         $auth = new Auth(
             [
