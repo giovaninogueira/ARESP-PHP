@@ -222,10 +222,10 @@ Trait Routes{
     {
         $headers = getallheaders();
 
-        if(!isset($headers['token']))
+        if(!isset($headers['Authorization']))
             new ExceptionFramework('Token não informado',403);
 
-        Utils::$token = $headers['token'];
+        Utils::$token = $headers['Authorization'];
         Auth::authentication(Utils::$token);
     }
 

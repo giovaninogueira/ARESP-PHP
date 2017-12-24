@@ -8,6 +8,10 @@ class Pessoa{
 
     public function getTbName()
     {
+        $obj = new \MVC\Model\Pessoa();
+        $obj->setNome('giovani');
+        $obj->setId('1');
+        $obj->setEmail('fdwefwe');
         $auth = new Auth(
             [
                 'iat' => 1000,
@@ -16,6 +20,9 @@ class Pessoa{
             ]
         );
         $r = $auth->token;
-        return $auth;
+        $result[] = "teste";
+        $result[] = "tesdqwdqwte";
+        $result[] = "7897";
+        return $result;
     }
 }
