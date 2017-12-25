@@ -20,5 +20,6 @@ try{
     new Config();
     $obj->run();
 }catch (\Exception $e){
+    http_response_code($e->getCode());
     echo \json_encode(["msg"=>$e->getMessage()]);
 }

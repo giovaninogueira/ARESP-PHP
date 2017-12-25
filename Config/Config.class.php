@@ -29,7 +29,7 @@ class Config
         Utils::addHeaders('Content-Type: application/json');
         Utils::addHeaders('Access-Control-Allow-Origin: *');
         Utils::addHeaders('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
-        Utils::addHeaders('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+        Utils::addHeaders('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, Authentication');
         Utils::addHeaders('Access-Control-Max-Age: 86400');
 
         if(!file_exists(Config::$file_connection))

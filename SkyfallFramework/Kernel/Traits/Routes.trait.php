@@ -194,6 +194,9 @@ Trait Routes{
         /**
          * @details Verificando se a rota permitite o metodo HTTP
          */
+        if($this->getMethodHTTP() == 'OPTIONS')
+            die;
+
         if(!key_exists($this->getMethodHTTP(),Routes::$listaRoutes))
             new ExceptionFramework(405);
         $routes = Routes::$listaRoutes[$this->getMethodHTTP()];
@@ -212,6 +215,7 @@ Trait Routes{
         if($this->objRoutes['Auth'])
             $this->validateToken();
 
+        $headers = getallheaders();
         return $this->getParamsRoutes($this->getObjRoutes());
     }
 
