@@ -194,12 +194,6 @@ Trait Routes{
         Utils::$header = getallheaders();
 
         /**
-         * @details Validando Token
-         */
-        if($this->objRoutes['Auth'])
-            $this->validateToken();
-
-        /**
          * @details Verificando se a rota permitite o metodo HTTP
          */
         if($this->getMethodHTTP() == 'OPTIONS')
@@ -221,6 +215,12 @@ Trait Routes{
         $this->setObjRoutes($routes[$restFull->urlFinal]);
 
         /**
+         * @details Validando Token
+         */
+        if($this->objRoutes['Auth'])
+            $this->validateToken();
+
+        /**
          * @details Caso o método HTTP seja GET recuperar os parametros da rota e da url
          */
         if($this->getMethodHTTP() == 'GET')
@@ -230,6 +230,7 @@ Trait Routes{
             Utils::$request = (object)$params;
             return $this->getObjRoutes();
         }
+
 
         $headers = getallheaders();
         return $this->getParamsRoutes($this->getObjRoutes());
