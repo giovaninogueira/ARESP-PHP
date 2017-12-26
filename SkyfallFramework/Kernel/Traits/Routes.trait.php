@@ -203,7 +203,7 @@ Trait Routes{
          * @details Verificando se a rota permitite o metodo HTTP
          */
         if($this->getMethodHTTP() == 'OPTIONS')
-            die;
+            exit;
 
         if(!key_exists($this->getMethodHTTP(),Routes::$listaRoutes))
             new ExceptionFramework(405);
@@ -220,6 +220,9 @@ Trait Routes{
 
         $this->setObjRoutes($routes[$restFull->urlFinal]);
 
+        /**
+         * @details Caso o método HTTP seja GET recuperar os parametros da rota e da url
+         */
         if($this->getMethodHTTP() == 'GET')
         {
             $params = $restFull->checkParams();

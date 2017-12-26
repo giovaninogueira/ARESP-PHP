@@ -2,11 +2,23 @@
 
 namespace SkyfallFramework\Kernel\Traits;
 
+/**
+ * Trait RestFull
+ * @package SkyfallFramework\Kernel\Traits
+ * @author Giovani Cassiano Nogueira
+ */
 trait RestFull
 {
     public $params = null;
     public $urlFinal = null;
 
+    /**
+     * @param $routes
+     * @param $url
+     * @details Faz as verificações dos parametros das rotas e verifica a URL de request
+     *          recupera os parametos da url GET
+     * @observação Melhorar os métodos
+     */
     public function checkUrl($routes, $url)
     {
         $provi = null;
@@ -62,6 +74,10 @@ trait RestFull
         $this->params = $params;
     }
 
+    /**
+     * @return array
+     * @details Formata os parametros
+     */
     public function checkParams()
     {
         $list = array();
