@@ -42,7 +42,7 @@ class Utils
     /**
      * @param $header
      */
-    public static function addHeaders($header)
+    public static function addHeaders($header = null)
     {
         if(!is_null($header))
             header($header);
