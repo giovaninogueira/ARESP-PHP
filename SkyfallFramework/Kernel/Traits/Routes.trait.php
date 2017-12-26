@@ -5,6 +5,7 @@ namespace SkyfallFramework\Kernel\Traits;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
 use SkyfallFramework\Common\Auth\Auth;
 use SkyfallFramework\Common\Utils\Utils;
+use SkyfallFramework\Common\RestFull\RestFull;
 
 /**
  * Trait Routes
@@ -191,6 +192,13 @@ Trait Routes{
     private function rulesRoutes()
     {
         Utils::$header = getallheaders();
+
+        /**
+         * @details Validando Token
+         */
+        if($this->objRoutes['Auth'])
+            $this->validateToken();
+
         /**
          * @details Verificando se a rota permitite o metodo HTTP
          */
@@ -204,16 +212,21 @@ Trait Routes{
         /**
          * @details Validando se a URL tem nas rotas
          */
-        if(!key_exists($this->getUrl(),$routes))
+        $restFull = new RestFull();
+        $restFull->checkUrl($routes, $this->getUrl());
+
+        if(is_null($restFull->urlFinal))
             new ExceptionFramework(405);
 
-        $this->setObjRoutes($routes[$this->getUrl()]);
+        $this->setObjRoutes($routes[$restFull->urlFinal]);
 
-        /**
-         * @details Validando Token
-         */
-        if($this->objRoutes['Auth'])
-            $this->validateToken();
+        if($this->getMethodHTTP() == 'GET')
+        {
+            $params = $restFull->checkParams();
+            $this->setParams($params);
+            Utils::$request = (object)$params;
+            return $this->getObjRoutes();
+        }
 
         $headers = getallheaders();
         return $this->getParamsRoutes($this->getObjRoutes());
