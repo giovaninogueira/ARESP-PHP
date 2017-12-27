@@ -17,6 +17,8 @@ PHP a desenvolverem projetos.
 - Padrão MVC
 
 - Decode Request
+
+- RestFull
  
 - ORM 
 
@@ -32,15 +34,11 @@ PHP a desenvolverem projetos.
 
 - ORM com banco de dados não relacionais
 
-- Componente de controle de sessions
-
 - Componente de requisições HTTP
 
 - Melhoria na Autenticação
 
 - Melhoria (CRUD dinâmico)
-
-- Melhoria (Rotas)
 
 - Modulorizar componentes
 
