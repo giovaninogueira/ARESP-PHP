@@ -14,15 +14,7 @@ use SkyfallFramework\Common\RestFull\RestFull;
  */
 Trait Routes{
 
-    private $routesModel;
-
     private static $name_space = 'MVC\\Controller\\';
-
-    private $url;
-
-    private $methodHttp;
-
-    private $method;
 
     private $params = array();
 
@@ -30,50 +22,8 @@ Trait Routes{
 
     static  $listaRoutes;
 
-    private $teste = array();
-
     public function __construct()
     {
-    }
-
-    public function setRoutesModel($routesModel)
-    {
-        $this->routesModel = $routesModel;
-    }
-
-    public function getRoutesModel()
-    {
-        return $this->routesModel;
-    }
-
-    public function setUrl($url)
-    {
-        $this->url = $url;
-    }
-
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    public function setMethodHTTP($methodHttp)
-    {
-        $this->methodHttp = $methodHttp;
-    }
-
-    public function getMethodHTTP()
-    {
-        return $this->methodHttp;
-    }
-
-    public function setMethod($method)
-    {
-        $this->method = $method;
-    }
-
-    public function getMethod()
-    {
-        return $this->method;
     }
 
     public function setParams($params)
@@ -221,13 +171,13 @@ Trait Routes{
          */
         if($_SERVER['REQUEST_METHOD'] == 'GET')
         {
-            $params = $restFull->checkParams();
-            $this->setParams($params);
-            Utils::$request = (object)$params;
+            $this->setParams($restFull->params);
+            Utils::$request = (object)$restFull->params;
+
+            unset($restFull);
             return $this->getObjRoutes();
         }
 
-        $headers = getallheaders();
         return $this->getParamsRoutes($this->getObjRoutes());
     }
 
@@ -239,9 +189,10 @@ Trait Routes{
         $headers = getallheaders();
 
         if(!isset($headers['Authorization']))
-            new ExceptionFramework('Token não informado',403);
+            new ExceptionFramework('Token não informado', 403);
 
         Utils::$token = $headers['Authorization'];
+        unset($headers);
         Auth::authentication(Utils::$token);
     }
 
