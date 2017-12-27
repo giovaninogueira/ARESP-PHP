@@ -121,8 +121,6 @@ Trait Routes{
      */
     public function onRoutes()
     {
-        $this->setMethodHTTP($_SERVER['REQUEST_METHOD']);
-        $this->setUrl($_SERVER['PATH_INFO']);
         $this->callFunction();
     }
 
@@ -191,23 +189,21 @@ Trait Routes{
 
     private function rulesRoutes()
     {
-        Utils::$header = getallheaders();
-
         /**
          * @details Verificando se a rota permitite o metodo HTTP
          */
-        if($this->getMethodHTTP() == 'OPTIONS')
+        if($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
             exit;
 
-        if(!key_exists($this->getMethodHTTP(),Routes::$listaRoutes))
+        if(!key_exists($_SERVER['REQUEST_METHOD'],Routes::$listaRoutes))
             new ExceptionFramework(405);
-        $routes = Routes::$listaRoutes[$this->getMethodHTTP()];
+        $routes = Routes::$listaRoutes[$_SERVER['REQUEST_METHOD']];
 
         /**
          * @details Validando se a URL tem nas rotas
          */
         $restFull = new RestFull();
-        $restFull->checkUrl($routes, $this->getUrl());
+        $restFull->checkUrl($routes, $_SERVER['PATH_INFO']);
 
         if(is_null($restFull->urlFinal))
             new ExceptionFramework(405);
@@ -223,14 +219,13 @@ Trait Routes{
         /**
          * @details Caso o método HTTP seja GET recuperar os parametros da rota e da url
          */
-        if($this->getMethodHTTP() == 'GET')
+        if($_SERVER['REQUEST_METHOD'] == 'GET')
         {
             $params = $restFull->checkParams();
             $this->setParams($params);
             Utils::$request = (object)$params;
             return $this->getObjRoutes();
         }
-
 
         $headers = getallheaders();
         return $this->getParamsRoutes($this->getObjRoutes());
