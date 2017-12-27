@@ -12,26 +12,43 @@ use SkyfallFramework\Common\Exception\ExceptionFramework;
  */
 trait Model
 {
+    /**
+     * @var con
+     */
     static $connection;
+
+    /**
+     * @var null
+     */
     private $sql = null;
 
+    /**
+     * Model constructor.
+     */
     public function __construct()
     {
         self::$connection = new con();
     }
 
+    /**
+     * @return \ReflectionClass
+     */
     private function getClass()
     {
         return new  \ReflectionClass($this);
     }
 
+    /**
+     * @return string
+     * @details retorna o nome da classe instanciada
+     */
     public function getTbName(){
         $str = str_replace($this->getClass()->getNamespaceName() . '\\','',$this->getClass()->getName());
         return \strtolower($str);
     }
 
     /**
-     * Realiza o insert conforme a classe instanciada
+     * @details Realiza o insert conforme a classe instanciada
      * e pega os atributos com seus valores e realiza o insert
      * devolvendo o last_id no atributo da classe Model
      */
@@ -39,22 +56,23 @@ trait Model
     {
         $array_values = $this->getValuesAttibutes();
         $array_attr_name = [];
-
         foreach ($array_values as $index => $name)
         {
             $array_attr_name[] = $index;
         }
-
         $this->insert($this->getTbName(), $array_attr_name, $array_values);
     }
 
-
+    /**
+     * @param $sql
+     * @param null $array
+     * @return \PDOStatement
+     */
     public function query($sql, $array = null)
     {
         try
         {
             self::$connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
             $intruction = self::$connection->prepare($sql);
             $erro = $intruction->errorInfo();
             $intruction->execute($array);
@@ -67,6 +85,9 @@ trait Model
         }
     }
 
+    /**
+     * @return array
+     */
     public function getAttibutesName()
     {
         $array = $this->getClass()->getProperties();
@@ -80,6 +101,9 @@ trait Model
         return $return;
     }
 
+    /**
+     * @return array
+     */
     public function getValuesAttibutes()
     {
         $array = $this->getAttibutesName();
@@ -94,18 +118,19 @@ trait Model
     }
 
     /**
-     * Faz o select da table, buscando todos os registros
-     * caso tenha o limit ele limita a quantidade de retorno
+     * @param int $limit
+     * @return array
      */
     public function selectAll($limit = 10)
     {
         $sql = "select * from " . $this->getTbName();
         $array = $this->query($sql);
+
         return $array->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
-     * Faz o Delete da tabela seguindo a regra
+     * @details Faz o Delete da tabela seguindo a regra
      * definida pelo where
      */
     public function delete()
@@ -117,7 +142,8 @@ trait Model
     }
 
     /**
-     * Faz o select conforme a regra definida no where
+     * @return array
+     * @details Faz o select conforme a regra definida no where
      */
     public function select()
     {
@@ -125,6 +151,7 @@ trait Model
         {
             $sql = "SELECT * FROM " . $this->getTbName() . $this->sql;
             $array = $this->query($sql);
+
             return $array->fetchAll(\PDO::FETCH_ASSOC)[0];
         }
         else
@@ -132,7 +159,7 @@ trait Model
     }
 
     /**
-     * Faz o conforme a regra definida no wher
+     * @details Faz o conforme a regra definida no wher
      */
     public function update()
     {
@@ -152,7 +179,7 @@ trait Model
     }
 
     /**
-     * retorna o lastID da tabela
+     * @details Retorna o lastID da tabela
      */
     public function lastID()
     {
@@ -160,7 +187,7 @@ trait Model
     }
 
     /**
-     * Faz o insert passando a tabela e os valores
+     * @details Faz o insert passando a tabela e os valores
      */
     public function insert($table, $array_attr, $values)
     {
@@ -169,7 +196,7 @@ trait Model
     }
 
     /**
-     * Função que é definida o where do select, delete, update
+     * @details Função que é definida o where do select, delete, update
      */
     public function where($atribute, $operator, $value, $oprador_logic = null)
     {
@@ -180,9 +207,11 @@ trait Model
             $this->sql .= " " . $atribute . " " . $operator . " '" . $value . "' " . $oprador_logic . " ";
     }
 
-
     /**
-     * Caso precise que seja executada uma função em SQL possa ser inserida
+     * @param $script
+     * @param null $values
+     * @return \PDOStatement
+     * @details Caso precise que seja executada uma função em SQL possa ser inserida
      * um script
      */
     public function scriptSQL($script, $values = null)
@@ -190,12 +219,20 @@ trait Model
         return $this->query($script,$values);
     }
 
+    /**
+     * @param $sql
+     * @return array
+     */
     public function queryFetchAll($sql)
     {
         $retorno = $this->scriptSQL($sql);
+
         return $retorno->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @return string
+     */
     public function convertJson()
     {
         return \json_encode($this->getValuesAttibutes());

@@ -19,6 +19,10 @@ trait ExceptionFramework
 
     private $message;
 
+    /**
+     * @var array
+     * @details Lista dos códigos de response HTTP
+     */
     static $listCodeHttp = array(
         100 => 'Continue',
         101 => 'Switching Protocols',
@@ -63,31 +67,52 @@ trait ExceptionFramework
         504 => 'Gateway Timeout',
         505 => 'HTTP Version Not Supported');
 
+    /**
+     * @return array
+     */
     public function getListCodeHttp()
     {
         return ExceptionFramework::$listCodeHttp;
     }
 
+    /**
+     * @param $message
+     */
     public function setMessageException($message)
     {
         $this->message = $message;
     }
 
+    /**
+     * @return mixed
+     */
     public function getMessageException()
     {
         return $this->message;
     }
 
+    /**
+     * @param $code
+     */
     public function setCodeHttp($code)
     {
         $this->codeHttp = $code;
     }
 
+    /**
+     * @return mixed
+     */
     public function getCodeHttp()
     {
         return $this->codeHttp;
     }
 
+    /**
+     * ExceptionFramework constructor.
+     * @param $value
+     * @param null $code
+     * @throws Exception
+     */
     public function __construct($value,$code = null)
     {
         if(is_int($value))
@@ -97,11 +122,15 @@ trait ExceptionFramework
             $this->setMessageException($array[$this->getCodeHttp()]);
             $this->toSend($this->getMessageException(),$this->getCodeHttp());
         }
-
         $this->setMessageException($value);
         $this->toSend($this->getMessageException(),$code);
     }
 
+    /**
+     * @param $msg
+     * @param null $code
+     * @throws Exception
+     */
     private function toSend($msg, $code = null)
     {
         header('HTTP/1.1');

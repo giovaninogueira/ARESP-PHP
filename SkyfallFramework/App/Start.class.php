@@ -10,8 +10,14 @@ use SkyfallFramework\Common\Routes\Routes;
  */
 class Start{
 
+    /**
+     * @var null
+     */
     private $pathFunc = null;
 
+    /**
+     * Instancia o objeto rotas e executa a função onRoutes()
+     */
     public function run()
     {
         $obj = new Routes();
