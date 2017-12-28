@@ -26,7 +26,6 @@ class Config
     public function __construct()
     {
         new Utils();
-        Utils::$header = getallheaders();
         Utils::addHeaders('Content-Type: application/json');
         Utils::addHeaders('Access-Control-Allow-Origin: *');
         Utils::addHeaders('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');

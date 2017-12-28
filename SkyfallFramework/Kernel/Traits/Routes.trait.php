@@ -139,6 +139,7 @@ Trait Routes{
 
     private function rulesRoutes()
     {
+        Utils::$header = getallheaders();
         /**
          * @details Verificando se a rota permitite o metodo HTTP
          */
