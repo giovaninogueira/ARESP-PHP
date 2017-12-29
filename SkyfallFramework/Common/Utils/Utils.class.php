@@ -25,7 +25,7 @@ class Utils
     /**
      * Utils constructor.
      */
-    public function __construct()
+    public static function configure()
     {
         $result = file_get_contents('php://input');
 

@@ -11,10 +11,12 @@ require_once __DIR__ . DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR .
 
 use SkyfallFramework\App\Start;
 use Config\Config;
+use SkyfallFramework\Kernel\Traits\Sessions;
 
 try{
     $file_connection = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Config' . DIRECTORY_SEPARATOR . 'Database.ini';
     $obj = new Start();
+    Sessions::validateSessionToken();
     $obj->load();
     Config::$file_connection = $file_connection;
     new Config();

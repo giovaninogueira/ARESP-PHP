@@ -53,7 +53,7 @@ trait Sessions
             session_start();
             if(isset($_SESSION['token']))
                 if (Utils::$token != $_SESSION['token'])
-                    new \SkyfallFramework\Common\Exception\ExceptionFramework(403);
+                    new \SkyfallFramework\Common\Exception\ExceptionFramework(401);
         }
     }
 

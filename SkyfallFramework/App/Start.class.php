@@ -2,6 +2,7 @@
 
 namespace SkyfallFramework\App;
 use SkyfallFramework\Common\Routes\Routes;
+use SkyfallFramework\Common\Utils\Utils;
 
 /**
  * Class Start
@@ -20,6 +21,7 @@ class Start{
      */
     public function run()
     {
+        Utils::configure();
         $obj = new Routes();
         $obj->onRoutes();
     }
