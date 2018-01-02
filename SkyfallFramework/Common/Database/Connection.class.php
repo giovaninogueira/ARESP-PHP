@@ -2,6 +2,8 @@
 
 namespace SkyfallFramework\Common\Database;
 
+use SkyfallFramework\Common\Exception\ExceptionFramework;
+
 /**
  * Class Connection
  * @package SkyfallFramework\Common\Database
