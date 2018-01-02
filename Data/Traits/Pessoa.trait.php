@@ -1,6 +1,6 @@
 <?php
 
-namespace MVC\Traits;
+namespace Data\Traits;
 
 trait Pessoa{
 

@@ -146,7 +146,7 @@ class ORMmodel
         $php .= "* Generate ORM Trait" . "\n";
         $php .= "* Version 1.0.0\n";
         $php .= "*/\n\n";
-        $php .= "namespace MVC\Traits;\n";
+        $php .= "namespace Data\Traits;\n";
         $php .= $this->use . "\n\n";
         $php .=  "trait " . $this->table;
         $php .= "\n{";
@@ -174,7 +174,7 @@ class ORMmodel
         $php .= "* Generate ORM Model" . "\n";
         $php .= "* Version 1.0.0\n";
         $php .= "*/\n\n";
-        $php .= "namespace MVC\Model; \n\n";
+        $php .= "namespace Data\Model; \n\n";
         $php .= "use SkyfallFramework\Common\CRUD\Model;\n\n";
         $php .= "class " . $table;
         $php .= " extends Model";
@@ -199,7 +199,7 @@ class ORMmodel
         $php .= "* Generate ORM Controller" . "\n";
         $php .= "* Version 1.0.0\n";
         $php .= "*/\n\n";
-        $php .= "namespace MVC\Controller; \n\n";
+        $php .= "namespace Data\Controller; \n\n";
         $php .= "class " . $table;
         $php .= "\n{\n";
         $php .= "/**\n";
@@ -295,7 +295,7 @@ class ORMmodel
     #region CreateUse
     public function createUse($value, $path)
     {
-        $this->use .= "use \MVC\\" . $path ."\\" . $value . ";\n";
+        $this->use .= "use \Data\\" . $path ."\\" . $value . ";\n";
     }
     #endregion
 }

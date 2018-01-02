@@ -1,9 +1,9 @@
 <?php
 
-namespace MVC\Model;
+namespace Data\Model;
 
 use SkyfallFramework\Common\CRUD\Model;
 
 class Pessoa extends Model{
-    use \MVC\Traits\Pessoa;
+    use \Data\Traits\Pessoa;
 }
