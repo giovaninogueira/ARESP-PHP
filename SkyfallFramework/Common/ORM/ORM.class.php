@@ -39,7 +39,7 @@ class ORM extends Model
      * @details Recupera as tabelas
      */
     #region Get Tables
-    public function getTables()
+    private function getTables()
     {
         $this->con = Connection::$list_connection;
         $sql = "select table_name as tabela FROM information_schema.tables where table_schema='".$this->con['DATABASE']."'";
@@ -55,7 +55,7 @@ class ORM extends Model
      * @details Recupera as colunas
      */
     #region Get Columns
-    public function getColumns()
+    private function getColumns()
     {
         foreach ($this->list_tables as $index => $value)
         {
@@ -74,7 +74,7 @@ class ORM extends Model
      * @details Recupera as chaves estrangeiras das tabelas
      */
     #region Get Foreign Key
-    public function getForeignKey()
+    private function getForeignKey()
     {
         foreach ($this->list_tables as $index => $value)
         {
@@ -96,7 +96,7 @@ class ORM extends Model
      * @details Recupera as cháves primárias das tabelas
      */
     #region Get Primary Key
-    public function getPrimaryKey()
+    private function getPrimaryKey()
     {
         foreach ($this->list_tables as $index => $value)
         {
@@ -111,7 +111,7 @@ class ORM extends Model
      * @details Criar os arquivos de traits
      */
     #region Create Trait
-    public function createTrait()
+    private function createTrait()
     {
         foreach ($this->list_tables as $index => $table)
         {
@@ -152,7 +152,7 @@ class ORM extends Model
      * @details Cria os arquivos models
      */
     #region Create Class Model
-    public function createClassModel()
+    private function createClassModel()
     {
         foreach ($this->list_tables as $index => $table)
         {
@@ -169,7 +169,7 @@ class ORM extends Model
      * @details Cria os arquivos de controllers
      */
     #region Create Controller
-    public function createController()
+    private function createController()
     {
         foreach ($this->list_tables as $index => $table)
         {
@@ -187,7 +187,7 @@ class ORM extends Model
      * @details Cria os arquivos em duas devidas pastas
      */
     #region Create File
-    public function createFile($textFinal,$file){
+    private function createFile($textFinal,$file){
         $myfile = \fopen($file, "w") or die("Unable to open file!");
         \fwrite($myfile, $textFinal);
         \fclose($myfile);
@@ -201,7 +201,7 @@ class ORM extends Model
      * @details retorna o caminho dos arquivos que vão ser gerados
      */
     #region Path
-    public function path($type, $table, $model)
+    private function path($type, $table, $model)
     {
         $path = dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR;
         $path .= ".." . DIRECTORY_SEPARATOR . "Data" . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR;
