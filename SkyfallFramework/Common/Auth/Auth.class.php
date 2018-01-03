@@ -11,7 +11,6 @@ use \Firebase\JWT\JWT;
 class Auth
 {
     public $token = "";
-    private $data = array();
     static $key = 'SKYFALL_FRAMEWORK'; // valor padrão
 
     /**
@@ -20,8 +19,7 @@ class Auth
      */
     public function __construct($array)
     {
-        $this->data = $array;
-        $this->createToken();
+        $this->createToken($array);
     }
 
     /**
@@ -44,8 +42,8 @@ class Auth
     /**
      * @details Função privada que cria token conforme os parametos inseridos
      */
-    private function createToken()
+    public function createToken($array)
     {
-        $this->token = JWT::encode($this->data, Auth::$key);
+        $this->token = JWT::encode($array, Auth::$key);
     }
 }
