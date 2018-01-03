@@ -27,11 +27,13 @@ class ORM extends Model
     #region Generate ORM
     public function generateORM()
     {
+        echo "\n ## Inicialized ORM  ##\n";
         $this->getTables();
         $this->getColumns();
         $this->createTrait();
         $this->createClassModel();
         $this->createController();
+        echo "\n ## Finalized ORM ##\n";
     }
     #endregion
 
@@ -113,6 +115,7 @@ class ORM extends Model
     #region Create Trait
     private function createTrait()
     {
+        echo "\nGenerate Trait ... \n";
         foreach ($this->list_tables as $index => $table)
         {
             $model = "";
@@ -145,6 +148,7 @@ class ORM extends Model
             $file = $this->path("Traits",ucwords($table),'trait');
             $this->createFile($modelOrm->createFiles(), $file);
         }
+        echo "Finalized Trait \n";
     }
     #endregion
 
@@ -154,6 +158,7 @@ class ORM extends Model
     #region Create Class Model
     private function createClassModel()
     {
+        echo "\nGenerate Model ... \n";
         foreach ($this->list_tables as $index => $table)
         {
             $model = new ORMmodel();
@@ -161,7 +166,9 @@ class ORM extends Model
             $file = $this->path("Model",ucwords($table),'class');
             if(!file_exists($file))
                 $this->createFile($model->createModel(ucwords($table)), $file);
+            else  echo "File Exist in $file \n";
         }
+        echo "Finalized Model \n";
     }
     #endregion
 
@@ -171,13 +178,16 @@ class ORM extends Model
     #region Create Controller
     private function createController()
     {
+        echo "\nGenerate Controller ... \n";
         foreach ($this->list_tables as $index => $table)
         {
             $model = new ORMmodel();
             $file = $this->path("Controller",ucwords($table),'class');
             if(!file_exists($file))
                 $this->createFile($model->createController(ucwords($table)), $file);
+            else  echo "File Exist in $file \n";
         }
+        echo "Finalized Controller \n";
     }
     #endregion
 
@@ -188,6 +198,7 @@ class ORM extends Model
      */
     #region Create File
     private function createFile($textFinal,$file){
+        echo 'create file in ' . $file . "\n";
         $myfile = \fopen($file, "w") or die("Unable to open file!");
         \fwrite($myfile, $textFinal);
         \fclose($myfile);
