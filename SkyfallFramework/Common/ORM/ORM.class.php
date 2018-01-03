@@ -43,7 +43,7 @@ class ORM extends Model
     #region Get Tables
     private function getTables()
     {
-        $this->con = Connection::$list_connection;
+        $this->con = parse_ini_file(Connection::$list_connection);
         $sql = "select table_name as tabela FROM information_schema.tables where table_schema='".$this->con['DATABASE']."'";
         $list = $this->queryFetchAll($sql);
         foreach ($list as $index => $value)

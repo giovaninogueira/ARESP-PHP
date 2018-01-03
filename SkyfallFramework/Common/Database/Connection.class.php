@@ -24,7 +24,11 @@ class Connection extends \PDO
     {
         try
         {
-            $array = static::$list_connection;
+            if(!file_exists(static::$list_connection))
+                new ExceptionFramework('Arquivo de conexão não existe');
+
+            $array = \parse_ini_file(static::$list_connection);
+
             parent::__construct(
                 'mysql:host='.$array['HOST'].';'.
                 'dbname='.$array['DATABASE'],

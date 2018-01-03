@@ -16,6 +16,11 @@ class Start{
      */
     private $pathFunc = null;
 
+    public function __construct()
+    {
+        $this->load();
+    }
+
     /**
      * Instancia o objeto rotas e executa a função onRoutes()
      */
@@ -29,7 +34,7 @@ class Start{
     /**
      * @details Realiza um load dos arquivos requisitados
      */
-    public function load()
+    private function load()
     {
         spl_autoload_register(function($className)
         {
