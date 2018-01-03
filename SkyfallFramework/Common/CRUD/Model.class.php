@@ -159,7 +159,7 @@ class Model
     }
 
     /**
-     * @details Faz o conforme a regra definida no wher
+     * @details Faz o conforme a regra definida no Where
      */
     public function update()
     {

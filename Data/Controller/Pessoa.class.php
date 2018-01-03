@@ -2,19 +2,23 @@
 
 namespace Data\Controller;
 
-use SkyfallFramework\Common\Auth\Auth;
 use SkyfallFramework\Common\Utils\Utils;
 
-class Pessoa{
+class Pessoa
+{
 
     public function getTbName()
     {
-
         return "oi";
     }
 
     public function getSla()
     {
-        return $t = Utils::$request;
+        $t = Utils::$request;
+        $obj = new \Data\Model\Pessoa();
+        $obj->setNome('Giovani');
+        $obj->setId('2');
+        $obj->setEmail('giovani.cassiano99@hotmail.com');
+        return $obj->convertJson();
     }
 }
