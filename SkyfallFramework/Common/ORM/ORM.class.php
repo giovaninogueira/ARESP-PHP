@@ -134,14 +134,14 @@ class ORM extends Model
                         $r = "Model";
                     }
                     $modelOrm->createUse(ucwords($value['referencia']).$model, 'Model');
-                    $modelOrm->createAtributoRef(ucwords($value['referencia']));
+                    $modelOrm->createAtributoRef($value['referencia']);
                     $modelOrm->createSetRef($value['referencia'],$r);
                     $modelOrm->createGet($value['referencia']);
                 }
             }
             foreach ($this->list_atributos[$table] as $i => $atributo)
             {
-                $modelOrm->createAtribute(strtolower($atributo['Field']), $atributo['Type']);
+                $modelOrm->createAtribute($atributo['Field'], $atributo['Type']);
                 $modelOrm->createSet($atributo['Field']);
                 $modelOrm->createGet($atributo['Field']);
             }

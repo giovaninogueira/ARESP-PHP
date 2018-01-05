@@ -220,11 +220,11 @@ class ORMmodel
     #region CreateSetRef
     public function createSetRef($referencia, $model = "")
     {
-        $set = "\n\tpublic function set" . ucwords($referencia);
+        $set = "\n\tpublic function set" . ucfirst(strtolower($referencia));
         $set .= "(" . ucwords($referencia) . ucwords($model);
-        $set .= " $" . $referencia . ")\n";
+        $set .= " $" . strtolower($referencia) . ")\n";
         $set .= "\t{\n";
-        $set .= "\t\t$" . "this->" . strtolower($referencia) . " = $" . $referencia . ";";
+        $set .= "\t\t$" . "this->" . strtolower($referencia) . " = $" . strtolower($referencia) . ";";
         $set .= "\n\t}";
         $set .= "\n\n";
         $this->getSet .= $set;
@@ -238,7 +238,7 @@ class ORMmodel
     #region CreateSet
     public function createSet($referencia)
     {
-        $set = "\n\tpublic function set" . ucwords($referencia);
+        $set = "\n\tpublic function set" . ucfirst(strtolower($referencia));
         $set .= "($" . strtolower($referencia) . ")\n";
         $set .= "\t{\n";
         $set .= "\t\t$" . "this->" . strtolower($referencia) . " = $" . strtolower($referencia) . ";";
@@ -255,7 +255,7 @@ class ORMmodel
     #region CreateGet
     public function createGet($referencia)
     {
-        $get = "\n\tpublic function get" . ucwords($referencia);
+        $get = "\n\tpublic function get" . ucfirst(strtolower($referencia));
         $get .= "()";
         $get .= "\n\t{\n";
         $get .= "\t\treturn $" . "this->" . strtolower($referencia) . ";";
@@ -272,7 +272,7 @@ class ORMmodel
     #region CreateAtributoRef
     public function createAtributoRef($value)
     {
-        $this->atributos .= "\tprotected $" . $value . "; \n\t// References - " . $value ." \n\n";
+        $this->atributos .= "\tprotected $" . strtolower($value) . "; \n\t// References - " . $value ." \n\n";
     }
     #endregion
 
@@ -284,7 +284,7 @@ class ORMmodel
     #region CreateAtribute
     public function createAtribute($value, $type)
     {
-        $this->atributos .= "\tprivate $" . $value . "; \n\t// " . $type ." \n\n";
+        $this->atributos .= "\tprivate $" . strtolower($value) . "; \n\t// " . $type ." \n\n";
     }
     #endregion
 
