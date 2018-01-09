@@ -64,6 +64,7 @@ class Session
     {
         unset($_SESSION);
         unset($_COOKIE);
-        session_destroy();
+        if(session_status() == PHP_SESSION_ACTIVE)
+            session_destroy();
     }
 }
