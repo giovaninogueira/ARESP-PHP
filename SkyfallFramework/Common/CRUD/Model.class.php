@@ -151,8 +151,10 @@ class Model
         {
             $sql = "SELECT * FROM " . $this->getTbName() . $this->sql;
             $array = $this->query($sql);
-
-            return $array->fetchAll(\PDO::FETCH_ASSOC)[0];
+            $result = $array->fetchAll(\PDO::FETCH_ASSOC);
+            if(count($result) != 0)
+                return $result[0];
+            else return $result;
         }
         else
             return $this->selectAll();
