@@ -40,7 +40,9 @@ class Session
      */
     public static function validationSession()
     {
-        self::createSession();
+        session_start();
+        if(!isset($_SESSION['new_session_id']))
+            new ExceptionFramework('Sessão inválida',401);
     }
 
     /**
@@ -64,7 +66,6 @@ class Session
     {
         unset($_SESSION);
         unset($_COOKIE);
-        if(session_status() == PHP_SESSION_ACTIVE)
-            session_destroy();
+        session_destroy();
     }
 }

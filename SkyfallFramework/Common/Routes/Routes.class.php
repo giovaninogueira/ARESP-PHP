@@ -4,6 +4,7 @@ namespace SkyfallFramework\Common\Routes;
 
 use SkyfallFramework\Common\Exception\ExceptionFramework;
 use SkyfallFramework\Common\Auth\Auth;
+use SkyfallFramework\Common\Session\Session;
 use SkyfallFramework\Common\Utils\Utils;
 use SkyfallFramework\Common\RestFull\RestFull;
 
@@ -187,6 +188,9 @@ class Routes
      */
     private function validateToken()
     {
+        if(isset($_COOKIE))
+            Session::validationSession();
+
         $headers = getallheaders();
 
         if(!isset($headers['x-auth-token']))
