@@ -33,13 +33,12 @@ class Connection extends \PDO
                 'mysql:host='.$array['HOST'].';'.
                 'dbname='.$array['DATABASE'],
                 $array['USER'],
-                $array['PASSWORD'],
-                array(parent::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
+                $array['PASSWORD']
             );
         }
         catch (\Exception $e)
         {
-            new ExceptionFramework('Erro na hora de conectar, verifique os parametros de conexão');
+            throw new \Exception($e->getMessage());
             die;
         }
     }
