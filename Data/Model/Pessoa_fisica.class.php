@@ -15,3 +15,14 @@ class Pessoa_fisica extends Model
 	use \Data\Traits\Pessoa_fisica;
 
 }
+public function salvarPessoaFisica(){
+              $request = Utils::$request;
+
+        $obj = new \Data\Model\Instancia();
+        $obj->salvarInstancia();
+        $this->setId($obj->lastid());
+        $this->setNome($request->nome);
+
+        
+
+    }
