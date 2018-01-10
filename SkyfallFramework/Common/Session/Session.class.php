@@ -22,6 +22,7 @@ class Session
         self::destroy();
         session_regenerate_id(true);
         session_cache_expire($expired);
+        ob_start();
         session_start();
         $new_session_id = session_id();
         $_SESSION['new_session_id'] = $new_session_id;
@@ -40,7 +41,10 @@ class Session
      */
     public static function validationSession()
     {
-        self::createSession();
+        ob_start();
+        session_start();
+        if(!isset($_SESSION['new_session_id']))
+            new ExceptionFramework('Sessão inválida',401);
     }
 
     /**
@@ -50,6 +54,7 @@ class Session
     {
         if(session_status() != PHP_SESSION_ACTIVE)
         {
+            ob_start();
             session_start();
             if(isset($_SESSION['token']))
                 if (Utils::$token != $_SESSION['token'])
