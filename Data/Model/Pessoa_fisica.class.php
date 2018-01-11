@@ -9,20 +9,19 @@
 namespace Data\Model; 
 
 use SkyfallFramework\Common\CRUD\Model;
+use SkyfallFramework\Common\Utils\Utils;
 
 class Pessoa_fisica extends Model
 {
 	use \Data\Traits\Pessoa_fisica;
 
-}
-public function salvarPessoaFisica(){
-              $request = Utils::$request;
-
-        $obj = new \Data\Model\Instancia();
+    public function salvarPessoaFisica()
+    {
+        $request = Utils::$request;
+        $obj = new Instancia();
         $obj->salvarInstancia();
-        $this->setId($obj->lastid());
+        $this->setInstancia_id($obj->lastid());
         $this->setNome($request->nome);
-
         return $this->lastID();
-
     }
+}

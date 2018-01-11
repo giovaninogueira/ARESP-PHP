@@ -72,6 +72,7 @@ class Model
     {
         try
         {
+            $this->sql = null;
             self::$connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $intruction = self::$connection->prepare($sql);
             $erro = $intruction->errorInfo();
