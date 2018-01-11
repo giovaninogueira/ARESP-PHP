@@ -28,6 +28,6 @@ public function salvarCliente(){
 	$this->setData_nascimento($request->data_nascimento);
 	
 
-        return $this->lastID();
+        
 
     }

@@ -23,6 +23,6 @@ public function salvarPessoaFisica(){
         $this->setId($obj->lastid());
         $this->setNome($request->nome);
 
-        
+        return $this->lastID();
 
     }
