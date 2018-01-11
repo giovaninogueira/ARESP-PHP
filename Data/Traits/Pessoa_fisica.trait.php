@@ -7,8 +7,7 @@
 */
 
 namespace Data\Traits;
-use \Data\Model\Instancia;
-
+use Data\Model\Instancia;
 
 trait Pessoa_fisica
 {

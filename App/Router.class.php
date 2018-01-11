@@ -17,10 +17,9 @@ class Router
     public static function routes()
     {
         $routes = new Routes();
-        $routes->addRoutes('GET','/Usuario/Pessoa/:id/lista/:numero','Pessoa','getTbName',false);
-        $routes->addRoutes('GET','/Usuario/Cliente/teste','Pessoa','getTbName',true);
-        $routes->addRoutes('GET','/Usuario/Cliente','Pessoa','getTbName',true);
-        $routes->addRoutes('POST','/Usuario/Pessoa','Pessoa','getSla',false, ['array']);
-        $routes->addRoutes('GET','/Usuario/Pessoa/:id/teste/:numero','Pessoa','getSla',false);
+        $routes->addRoutes('GET','/Cliente/Save','Cliente','Save',false);
+        $routes->addRoutes('POST','/Usuario/Login','Usuario','login',false,['email','senha']);
+        $routes->addRoutes('POST','/Cliente/Save','Cliente','Save',false,
+            ['nome','cpf','rg','nome_pai','nome_mae','data_nascimento','observacao','email']);
     }
 }

@@ -27,7 +27,6 @@ class Model
      */
     public function __construct()
     {
-        self::$connection = new con();
     }
 
     /**
@@ -72,6 +71,7 @@ class Model
     {
         try
         {
+            $this->sql = null;
             self::$connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $intruction = self::$connection->prepare($sql);
             $erro = $intruction->errorInfo();

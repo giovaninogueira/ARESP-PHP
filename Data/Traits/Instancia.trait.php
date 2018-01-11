@@ -8,7 +8,6 @@
 
 namespace Data\Traits;
 
-
 trait Instancia
 {
 	public function ____construct()

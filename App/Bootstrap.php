@@ -10,6 +10,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Router.class.php';
 
 use SkyfallFramework\App\Start;
 use App\Router;
+use SkyfallFramework\Common\CRUD\Model;
 use SkyfallFramework\Common\Database\Connection;
 use SkyfallFramework\Common\Utils\Utils;
 
@@ -18,7 +19,7 @@ try
     $obj = new Start();
     $file_connection = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Database' . DIRECTORY_SEPARATOR . 'Database.ini';
     Connection::$list_connection = $file_connection;
-
+    Model::$connection = new Connection();
     Utils::addHeaders('Content-Type: application/json');
     Utils::addHeaders('Access-Control-Allow-Origin: *');
     Utils::addHeaders('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
