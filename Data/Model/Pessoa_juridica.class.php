@@ -14,7 +14,7 @@ class Pessoa_juridica extends Model
 {
 	use \Data\Traits\Pessoa_juridica;
 
-}
+
 
 public function salvarPessoaJuridica(){
               $request = Utils::$request;
@@ -29,5 +29,27 @@ public function salvarPessoaJuridica(){
          $this->setNome_social($request->nome_fantasia);
 
         return $this->lastID();
+      }
 
+      public function validationCnpj()
+    {
+        $explodeCnpj = explode('/',$this->getCnpj());
+        
+
+        if(count($explodeCnpj) > 1)
+            new ExceptionFramework('Cnpj invlálido',409);
+        
+        /**
+         * Fazendo as validações para ver se tem rg e cpf iguais
+         */
+
+        $this->where('cnpj','=',$this->getCnpj());
+        $resultCnpj = $this->select();
+
+        if(count($resultCnpj) !=0)
+            new ExceptionFramework('Cnpj existente, tente outro',409);
+
+        
     }
+
+ }
