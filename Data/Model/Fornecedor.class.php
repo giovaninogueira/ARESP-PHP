@@ -15,3 +15,8 @@ class Fornecedor extends Model
 	use \Data\Traits\Fornecedor;
 
 }
+public function salvarFornecedor(){
+
+	$obj = new \Data\Model\Pessoa_juridica();
+        $obj->salvarPessoaJuridica();
+}
