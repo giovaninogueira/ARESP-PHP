@@ -11,6 +11,7 @@ namespace Data\Model;
 use SkyfallFramework\Common\CRUD\Model;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
 use SkyfallFramework\Common\Utils\Utils;
+
 class Cliente extends Model
 {
 	use \Data\Traits\Cliente;

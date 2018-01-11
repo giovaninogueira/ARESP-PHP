@@ -17,6 +17,7 @@ class Router
     public static function routes()
     {
         $routes = new Routes();
+        $routes->addRoutes('GET','/Cliente/Save','Cliente','Save',false);
         $routes->addRoutes('POST','/Usuario/Login','Usuario','login',false,['email','senha']);
         $routes->addRoutes('POST','/Cliente/Save','Cliente','Save',false,
             ['nome','cpf','rg','nome_pai','nome_mae','data_nascimento','observacao','email']);

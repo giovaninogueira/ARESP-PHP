@@ -27,7 +27,6 @@ class Model
      */
     public function __construct()
     {
-        self::$connection = new con();
     }
 
     /**
