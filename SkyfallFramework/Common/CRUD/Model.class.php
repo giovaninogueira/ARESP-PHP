@@ -90,7 +90,6 @@ class Model
             self::$connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES,TRUE);
             $intruction = self::$connection->prepare($sql);
             $intruction->execute($array);
-            $erro = $intruction->errorInfo();
 
             return $intruction;
         }
@@ -189,7 +188,6 @@ class Model
             $sql .= \implode(', ',$r);
             $this->query($sql,$array);
         }
-
         else
             new ExceptionFramework('Ocorreu um erro ao atualizar cadastro');
     }
@@ -305,6 +303,9 @@ class Model
         return $retorno->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @return mixed
+     */
     private function getPrimaryKey()
     {
         $sql = "SHOW KEYS FROM " .$this->getTbName() ." WHERE Key_name = 'PRIMARY'";

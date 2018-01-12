@@ -53,7 +53,7 @@ class Utils
     /**
      * @details Header de retorno padrão
      */
-    public static function headerDefault()
+    private static function headerDefault()
     {
         header('Content-Type: application/json');
         header('Access-Control-Allow-Origin: *');
