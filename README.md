@@ -1,5 +1,5 @@
 ## Skyfall Framework
-Olá, seja bem vindo a versão 1.0.0 do nosso Framework ! 
+Olá, seja bem vindo a versão 1.2.7 do nosso Framework ! 
 
 ## Sobre SkyFall Framework
 
