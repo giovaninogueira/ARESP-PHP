@@ -23,18 +23,26 @@ class Model
     private $sql = null;
 
     /**
+     * @var null
+     */
+    private $join = null;
+
+    /**
+     * @var null
+     */
+    private $showValues = null;
+
+    /**
      * Model constructor.
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * @return \ReflectionClass
      */
     private function getClass()
     {
-        return new  \ReflectionClass($this);
+        return new \ReflectionClass($this);
     }
 
     /**
@@ -66,17 +74,23 @@ class Model
      * @param $sql
      * @param null $array
      * @return \PDOStatement
+     * @details Responsável por executar instruções em sql
      */
     public function query($sql, $array = null)
     {
         try
         {
+            #region Limpando variáveis de pesquisa
             $this->sql = null;
+            $this->join = null;
+            $this->showValues = null;
+            #endregion
+
             self::$connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             self::$connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES,TRUE);
             $intruction = self::$connection->prepare($sql);
-            $erro = $intruction->errorInfo();
             $intruction->execute($array);
+            $erro = $intruction->errorInfo();
 
             return $intruction;
         }
@@ -93,7 +107,6 @@ class Model
     {
         $array = $this->getClass()->getProperties();
         $return = array();
-
         foreach ($array as $index => $name)
         {
             if($name->name != 'connection' && !is_object($name->name))
@@ -109,7 +122,6 @@ class Model
     {
         $array = $this->getAttibutesName();
         $return = array();
-
         foreach ($array as $index => $value)
         {
             if(!empty($this->{$value}) && !is_object($this->{$value}))
@@ -122,11 +134,10 @@ class Model
      * @param int $limit
      * @return array
      */
-    public function selectAll($limit = 10)
+    public function selectAll($limit = 100)
     {
-        $sql = "select * from " . $this->getTbName();
+        $sql = "select * from " . $this->getTbName() . " limit " . $limit;
         $array = $this->query($sql);
-
         return $array->fetchAll(\PDO::FETCH_ASSOC);
     }
 
@@ -169,24 +180,18 @@ class Model
         $sql = "UPDATE " . $this->getTbName() . " SET ";
         if(!is_null($this->sql))
         {
+            $r = array();
             $array = $this->getValuesAttibutes();
             foreach ($array as $index => $values)
             {
-                $sql .= $index . "=:" . $index . " ";
+                $r[] = $index . "=:" . $index . ' ';
             }
+            $sql .= \implode(', ',$r);
             $this->query($sql,$array);
         }
 
         else
             new ExceptionFramework('Ocorreu um erro ao atualizar cadastro');
-    }
-
-    /**
-     * @details Retorna o lastID da tabela
-     */
-    public function lastID()
-    {
-        return self::$connection->lastInsertId();
     }
 
     /**
@@ -203,11 +208,78 @@ class Model
      */
     public function where($atribute, $operator, $value, $oprador_logic = null)
     {
-        $table_name = $this->getTbName();
         if(is_null($this->sql))
             $this->sql .= " WHERE " . $atribute . " " . $operator . " '" . $value . "' " . $oprador_logic;
         else
             $this->sql .= " " . $atribute . " " . $operator . " '" . $value . "' " . $oprador_logic . " ";
+    }
+
+    /**
+     * @param array $array
+     */
+    public function showValuesJoing($array = array())
+    {
+        $shows = array();
+        if(count($array) != 0)
+        {
+            foreach ($array as $table => $value)
+            {
+                $shows[] = $table . "." . $value;
+            }
+            $this->showValues = "SELECT ".\implode(', ',$shows) . " FROM " . $this->getTbName();
+        }
+        else
+            $this->showValues = "SELECT * FROM " . $this->getTbName();
+    }
+
+    /**
+     * @param $table
+     * @param $table_attr
+     * @param $logic
+     * @param $table2
+     * @param $table2_attr
+     */
+    public function joinAdd($table, $table_attr, $logic, $table2, $table2_attr, $type = NULL)
+    {
+        if(is_null($type))
+            $this->makeSQLJoin('INNER', $table, $table_attr, $logic, $table2, $table2_attr);
+        else
+            $this->makeSQLJoin($type, $table, $table_attr, $logic, $table2, $table2_attr);
+    }
+
+    /**
+     * @param $type
+     * @param $table
+     * @param $table_attr
+     * @param $logic
+     * @param $table2
+     * @param $table2_attr
+     */
+    private function makeSQLJoin($type, $table, $table_attr, $logic, $table2, $table2_attr)
+    {
+        if(is_null($this->showValues))
+        {
+            $this->join = "SELECT * FROM " . $this->getTbName();
+            $join = ' ' . $type . ' JOIN '. $table . ' on ' . $table . "." . $table_attr;
+            $join .= ' ' . $logic . ' ' . $table2 . '.' . $table2_attr;
+            $this->join .= $join;
+        }
+        else
+        {
+            $join = ' ' . $type . ' JOIN '. $table . ' on ' . $table . "." . $table_attr;
+            $join .= ' ' . $logic . ' ' . $table2 . '.' . $table2_attr;
+            $this->join .= $this->showValues;
+            $this->join .= $join;
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function join()
+    {
+        $this->join .= $this->sql;
+        return $this->queryFetchAll($this->join);
     }
 
     /**
@@ -219,18 +291,40 @@ class Model
      */
     public function scriptSQL($script, $values = null)
     {
-        return $this->query($script,$values);
+        return $this->query($script, $values);
     }
 
     /**
      * @param $sql
      * @return array
+     * @details Apenas para consulta
      */
     public function queryFetchAll($sql)
     {
         $retorno = $this->scriptSQL($sql);
-
         return $retorno->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    private function getPrimaryKey()
+    {
+        $sql = "SHOW KEYS FROM " .$this->getTbName() ." WHERE Key_name = 'PRIMARY'";
+        $result = $this->queryFetchAll($sql);
+        if(count($result) == 1)
+            return $result[0]['Column_name'];
+    }
+
+    /**
+     * @return int
+     * @details Retorna o maior id da tabela
+     */
+    public function lastID()
+    {
+        $primaryKey = $this->getPrimaryKey();
+        $sql = "SELECT MAX(" . $primaryKey . ") as maxId from " . $this->getTbName();
+        $result = $this->queryFetchAll($sql);
+        if(count($result) == 0)
+            return 0;
+        return $result[0]['maxId'];
     }
 
     /**
