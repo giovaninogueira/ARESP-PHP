@@ -24,28 +24,28 @@ trait Conta
 	protected $instancia; 
 	// References - instancia 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $agencia; 
+	protected $agencia; 
 	// varchar(15) 
 
-	private $dig_conta; 
+	protected $dig_conta; 
 	// varchar(2) 
 
-	private $dig_agencia; 
+	protected $dig_agencia; 
 	// varchar(2) 
 
-	private $nome_titular; 
+	protected $nome_titular; 
 	// varchar(70) 
 
-	private $data_atualizacao; 
+	protected $data_atualizacao; 
 	// date 
 
-	private $instancia_id; 
+	protected $instancia_id; 
 	// int(11) 
 
-	private $banco_id; 
+	protected $banco_id; 
 	// int(11) 
 
 

@@ -73,6 +73,7 @@ class Model
         {
             $this->sql = null;
             self::$connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            self::$connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES,TRUE);
             $intruction = self::$connection->prepare($sql);
             $erro = $intruction->errorInfo();
             $intruction->execute($array);
@@ -95,7 +96,7 @@ class Model
 
         foreach ($array as $index => $name)
         {
-            if($name->name != 'connection')
+            if($name->name != 'connection' && !is_object($name->name))
                 $return[] = $name->name;
         }
         return $return;
@@ -111,7 +112,7 @@ class Model
 
         foreach ($array as $index => $value)
         {
-            if(!empty($this->{$value}))
+            if(!empty($this->{$value}) && !is_object($this->{$value}))
                 $return[$value] = $this->{$value};
         }
         return $return;

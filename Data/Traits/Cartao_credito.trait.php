@@ -24,25 +24,25 @@ trait Cartao_credito
 	protected $operadora; 
 	// References - operadora 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $mes_vencimento; 
+	protected $mes_vencimento; 
 	// varchar(5) 
 
-	private $ano_vencimento; 
+	protected $ano_vencimento; 
 	// varchar(5) 
 
-	private $num_cartao; 
+	protected $num_cartao; 
 	// varchar(20) 
 
-	private $nome_titular; 
+	protected $nome_titular; 
 	// varchar(45) 
 
-	private $cliente_id; 
+	protected $cliente_id; 
 	// int(11) 
 
-	private $operadora_id; 
+	protected $operadora_id; 
 	// int(11) 
 
 

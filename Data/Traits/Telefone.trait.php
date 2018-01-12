@@ -20,13 +20,13 @@ trait Telefone
 	protected $instancia; 
 	// References - instancia 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $numero; 
+	protected $numero; 
 	// varchar(45) 
 
-	private $instancia_id; 
+	protected $instancia_id; 
 	// int(11) 
 
 

@@ -28,43 +28,43 @@ trait Pagamento
 	protected $tipo_pagamento; 
 	// References - tipo_pagamento 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $historico; 
+	protected $historico; 
 	// varchar(45) 
 
-	private $valor_pago; 
+	protected $valor_pago; 
 	// decimal(10,2) 
 
-	private $valor_multa; 
+	protected $valor_multa; 
 	// decimal(10,2) 
 
-	private $valor_juros; 
+	protected $valor_juros; 
 	// decimal(10,2) 
 
-	private $tx_juros; 
+	protected $tx_juros; 
 	// decimal(10,2) 
 
-	private $valor_desconto; 
+	protected $valor_desconto; 
 	// decimal(10,2) 
 
-	private $tx_desconto; 
+	protected $tx_desconto; 
 	// decimal(10,2) 
 
-	private $tx_multa; 
+	protected $tx_multa; 
 	// decimal(10,2) 
 
-	private $data_pagamento; 
+	protected $data_pagamento; 
 	// date 
 
-	private $parcela_pagar_id; 
+	protected $parcela_pagar_id; 
 	// int(11) 
 
-	private $cheque_emitido_id; 
+	protected $cheque_emitido_id; 
 	// int(11) 
 
-	private $tipo_pagamento_id; 
+	protected $tipo_pagamento_id; 
 	// int(11) 
 
 

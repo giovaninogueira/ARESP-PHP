@@ -24,26 +24,39 @@ class Cliente
 
     public function Save()
     {
-        $request = Utils::$request;
-
-        /*$data = DateTime::createFromFormat("Y-m-d", $request->data_nascimento);
-
-        $anoNascimento = intval($data->format('Y'));
-
-        if($anoNascimento >= intval(date('Y')))
-            new ExceptionFramework('Ano de nascimento inválida',409);*/
-
-
         $cliente = new clienteModel();
-        $instanciaObj = new Instancia();
+        try
+        {
+            $cliente::$connection->beginTransaction();
+            $pessoa_fisica = new \Data\Model\Pessoa_fisica();
 
-        /*$instanciaObj->setEmail($request->email);
-        $instanciaObj->validationEmail();
-        $cliente->setRg($request->rg);
-        $cliente->setCpf($request->cpf);
-        $cliente->validationRgCpf();
-        $cliente->salvarCliente();
-        $cliente->salvarCliente();*/
-        new ExceptionFramework('Error',400);
+            $cliente->setPessoa_fisica($pessoa_fisica);
+
+            $request = Utils::$request;
+            $data = DateTime::createFromFormat("Y-m-d", $request->data_nascimento);
+            $anoNascimento = intval($data->format('Y'));
+
+            if($anoNascimento >= intval(date('Y')))
+                new ExceptionFramework('Ano de nascimento inválida',409);
+
+            $instanciaObj = new Instancia();
+            $instanciaObj->setEmail($request->email);
+            $instanciaObj->validationEmail();
+
+            $cliente->setRg($request->rg);
+            $cliente->setCpf($request->cpf);
+            $cliente->setSexo($request->sexo);
+            $cliente->setTipo_socio_id($request->tipo_socio);
+            $cliente->setEstado_civil($request->estado_civil);
+
+            $cliente->validationRgCpf();
+            $cliente->salvarCliente();
+            $cliente::$connection->commit();
+            return true;
+        }catch (\Exception $e)
+        {
+            $cliente::$connection->rollBack();
+            new ExceptionFramework($e->getMessage(),$e->getCode());
+        }
     }
 }

@@ -16,13 +16,13 @@ trait Tipo_recebimento
 
 	}
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $descricao; 
+	protected $descricao; 
 	// varchar(45) 
 
-	private $situacao; 
+	protected $situacao; 
 	// varchar(45) 
 
 

@@ -20,31 +20,31 @@ trait Endereco
 	protected $instancia; 
 	// References - instancia 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $logradouro; 
+	protected $logradouro; 
 	// varchar(45) 
 
-	private $numero; 
+	protected $numero; 
 	// varchar(10) 
 
-	private $complemento; 
+	protected $complemento; 
 	// varchar(20) 
 
-	private $cidade; 
+	protected $cidade; 
 	// varchar(45) 
 
-	private $cep; 
+	protected $cep; 
 	// varchar(20) 
 
-	private $estado; 
+	protected $estado; 
 	// varchar(5) 
 
-	private $bairro; 
+	protected $bairro; 
 	// varchar(45) 
 
-	private $instancia_id; 
+	protected $instancia_id; 
 	// int(11) 
 
 

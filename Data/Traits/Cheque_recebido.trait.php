@@ -24,40 +24,40 @@ trait Cheque_recebido
 	protected $cliente; 
 	// References - cliente 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $nome; 
+	protected $nome; 
 	// varchar(45) 
 
-	private $custodia; 
+	protected $custodia; 
 	// date 
 
-	private $bom_para; 
+	protected $bom_para; 
 	// date 
 
-	private $data_emissao; 
+	protected $data_emissao; 
 	// date 
 
-	private $valor_recebido; 
+	protected $valor_recebido; 
 	// decimal(10,2) 
 
-	private $valor; 
+	protected $valor; 
 	// decimal(10,2) 
 
-	private $conta; 
+	protected $conta; 
 	// varchar(15) 
 
-	private $agencia; 
+	protected $agencia; 
 	// varchar(15) 
 
-	private $numero; 
+	protected $numero; 
 	// varchar(15) 
 
-	private $banco_id; 
+	protected $banco_id; 
 	// int(11) 
 
-	private $cliente_id; 
+	protected $cliente_id; 
 	// int(11) 
 
 

@@ -16,13 +16,13 @@ trait Grupo
 
 	}
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $data_criacao; 
+	protected $data_criacao; 
 	// date 
 
-	private $descricao; 
+	protected $descricao; 
 	// varchar(45) 
 
 

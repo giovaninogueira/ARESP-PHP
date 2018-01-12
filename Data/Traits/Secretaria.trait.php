@@ -20,13 +20,13 @@ trait Secretaria
 	protected $cliente; 
 	// References - cliente 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $nome; 
+	protected $nome; 
 	// varchar(45) 
 
-	private $cliente_id; 
+	protected $cliente_id; 
 	// int(11) 
 
 

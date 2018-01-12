@@ -16,19 +16,19 @@ trait Convenio
 
 	}
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $nome; 
+	protected $nome; 
 	// varchar(45) 
 
-	private $data_atualizacao; 
+	protected $data_atualizacao; 
 	// date 
 
-	private $obs; 
+	protected $obs; 
 	// varchar(255) 
 
-	private $telefone; 
+	protected $telefone; 
 	// varchar(45) 
 
 

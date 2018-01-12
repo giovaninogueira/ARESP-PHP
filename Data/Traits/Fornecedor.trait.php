@@ -20,7 +20,7 @@ trait Fornecedor
 	protected $pessoa_juridica; 
 	// References - pessoa_juridica 
 
-	private $pessoa_juridica_id; 
+	protected $pessoa_juridica_id; 
 	// int(11) 
 
 

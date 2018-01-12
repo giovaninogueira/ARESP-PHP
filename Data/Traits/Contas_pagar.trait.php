@@ -20,31 +20,31 @@ trait Contas_pagar
 	protected $fornecedor; 
 	// References - fornecedor 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $numero_documento; 
+	protected $numero_documento; 
 	// varchar(45) 
 
-	private $primeiro_numero; 
+	protected $primeiro_numero; 
 	// varchar(45) 
 
-	private $valor_total; 
+	protected $valor_total; 
 	// decimal(10,2) 
 
-	private $data_lancamento; 
+	protected $data_lancamento; 
 	// date 
 
-	private $valor_pagar; 
+	protected $valor_pagar; 
 	// decimal(10,2) 
 
-	private $qtde_parcela; 
+	protected $qtde_parcela; 
 	// int(11) 
 
-	private $fornecedor_id; 
+	protected $fornecedor_id; 
 	// int(11) 
 
-	private $usuario_id; 
+	protected $usuario_id; 
 	// int(11) 
 
 

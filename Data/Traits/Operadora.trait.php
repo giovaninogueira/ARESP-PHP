@@ -16,13 +16,13 @@ trait Operadora
 
 	}
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $nome; 
+	protected $nome; 
 	// varchar(45) 
 
-	private $icon; 
+	protected $icon; 
 	// varchar(255) 
 
 

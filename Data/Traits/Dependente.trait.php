@@ -20,25 +20,25 @@ trait Dependente
 	protected $cliente; 
 	// References - cliente 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $nome; 
+	protected $nome; 
 	// varchar(45) 
 
-	private $rg; 
+	protected $rg; 
 	// varchar(15) 
 
-	private $parentesco; 
+	protected $parentesco; 
 	// varchar(20) 
 
-	private $obs; 
+	protected $obs; 
 	// varchar(255) 
 
-	private $foto; 
+	protected $foto; 
 	// varchar(255) 
 
-	private $cliente_id; 
+	protected $cliente_id; 
 	// int(11) 
 
 

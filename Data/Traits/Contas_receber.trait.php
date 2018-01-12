@@ -20,22 +20,22 @@ trait Contas_receber
 	protected $cliente; 
 	// References - cliente 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $valor_receber; 
+	protected $valor_receber; 
 	// decimal(10,2) 
 
-	private $valor_total; 
+	protected $valor_total; 
 	// decimal(10,2) 
 
-	private $num_documento; 
+	protected $num_documento; 
 	// varchar(45) 
 
-	private $data_lancamento; 
+	protected $data_lancamento; 
 	// date 
 
-	private $cliente_id; 
+	protected $cliente_id; 
 	// int(11) 
 
 

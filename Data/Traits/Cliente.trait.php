@@ -24,34 +24,34 @@ trait Cliente
 	protected $tipo_socio; 
 	// References - tipo_socio 
 
-	private $pessoa_fisica_id; 
+	protected $pessoa_fisica_id; 
 	// int(11) 
 
-	private $rg; 
+	protected $rg; 
 	// varchar(15) 
 
-	private $cpf; 
+	protected $cpf; 
 	// varchar(45) 
 
-	private $nome_pai; 
+	protected $nome_pai; 
 	// varchar(45) 
 
-	private $nome_mae; 
+	protected $nome_mae; 
 	// varchar(45) 
 
-	private $data_nascimento; 
+	protected $data_nascimento; 
 	// varchar(45) 
 
-	private $sexo; 
+	protected $sexo; 
 	// char(1) 
 
-	private $estado_civil; 
+	protected $estado_civil; 
 	// varchar(20) 
 
-	private $foto; 
+	protected $foto; 
 	// varchar(255) 
 
-	private $tipo_socio_id; 
+	protected $tipo_socio_id; 
 	// int(11) 
 
 

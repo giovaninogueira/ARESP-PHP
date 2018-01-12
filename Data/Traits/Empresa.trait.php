@@ -24,10 +24,10 @@ trait Empresa
 	protected $pessoa_juridica; 
 	// References - pessoa_juridica 
 
-	private $pessoa_juridica_id; 
+	protected $pessoa_juridica_id; 
 	// int(11) 
 
-	private $convenio_id; 
+	protected $convenio_id; 
 	// int(11) 
 
 

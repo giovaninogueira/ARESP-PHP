@@ -20,8 +20,10 @@ class Pessoa_fisica extends Model
         $request = Utils::$request;
         $obj = new Instancia();
         $obj->salvarInstancia();
-        $this->setInstancia_id($obj->lastid());
+        $this->setInstancia_id($obj->lastID());
         $this->setNome($request->nome);
-        return $this->lastID();
+        $this->save();
+        $result = $this->queryFetchAll('SELECT MAX(instancia_id) as maxId FROM Pessoa_fisica');
+        return $result[0]['maxId'];
     }
 }

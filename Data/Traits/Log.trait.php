@@ -20,16 +20,16 @@ trait Log
 	protected $usuario; 
 	// References - usuario 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $data_acao; 
+	protected $data_acao; 
 	// date 
 
-	private $descricao; 
+	protected $descricao; 
 	// varchar(45) 
 
-	private $usuario_id; 
+	protected $usuario_id; 
 	// int(11) 
 
 

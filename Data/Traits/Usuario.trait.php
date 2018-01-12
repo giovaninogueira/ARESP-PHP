@@ -20,13 +20,13 @@ trait Usuario
 	protected $pessoa_fisica; 
 	// References - pessoa_fisica 
 
-	private $pessoa_fisica_id; 
+	protected $pessoa_fisica_id; 
 	// int(11) 
 
-	private $login; 
+	protected $login; 
 	// varchar(45) 
 
-	private $senha; 
+	protected $senha; 
 	// varchar(45) 
 
 

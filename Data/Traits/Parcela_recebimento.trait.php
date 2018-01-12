@@ -28,43 +28,43 @@ trait Parcela_recebimento
 	protected $tipo_recebimento; 
 	// References - tipo_recebimento 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $tx_juros; 
+	protected $tx_juros; 
 	// decimal(10,2) 
 
-	private $tx_desconto; 
+	protected $tx_desconto; 
 	// decimal(10,2) 
 
-	private $tx_multa; 
+	protected $tx_multa; 
 	// decimal(10,2) 
 
-	private $valor_juros; 
+	protected $valor_juros; 
 	// decimal(10,2) 
 
-	private $valor_desconto; 
+	protected $valor_desconto; 
 	// decimal(10,2) 
 
-	private $valor_multa; 
+	protected $valor_multa; 
 	// decimal(10,2) 
 
-	private $valor_recebido; 
+	protected $valor_recebido; 
 	// decimal(10,2) 
 
-	private $data_recebimento; 
+	protected $data_recebimento; 
 	// date 
 
-	private $historico; 
+	protected $historico; 
 	// varchar(45) 
 
-	private $parcela_receber_id; 
+	protected $parcela_receber_id; 
 	// int(11) 
 
-	private $cheque_recebido_id; 
+	protected $cheque_recebido_id; 
 	// int(11) 
 
-	private $tipo_recebimento_id; 
+	protected $tipo_recebimento_id; 
 	// int(11) 
 
 

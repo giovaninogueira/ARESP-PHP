@@ -24,16 +24,16 @@ trait Grupo_cliente
 	protected $grupo; 
 	// References - grupo 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $data_relacionamento; 
+	protected $data_relacionamento; 
 	// date 
 
-	private $cliente_id; 
+	protected $cliente_id; 
 	// int(11) 
 
-	private $grupo_id; 
+	protected $grupo_id; 
 	// int(11) 
 
 

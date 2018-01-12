@@ -19,14 +19,15 @@ class Cliente extends Model
     public function salvarCliente()
     {
         $request = Utils::$request;
-        $obj = new Pessoa_fisica();
-        $obj->salvarPessoaFisica();
-        $this->setPessoa_fisica_id($obj->lastid());
+        $obj = $this->getPessoa_fisica();
+        $id = $obj->salvarPessoaFisica();
+        $this->setPessoa_fisica_id($id);
         $this->setRg($request->rg);
         $this->setCpf($request->cpf);
         $this->setNome_pai($request->nome_pai);
         $this->setNome_mae($request->nome_mae);
         $this->setData_nascimento($request->data_nascimento);
+        $this->save();
     }
 
     public function validationRgCpf()

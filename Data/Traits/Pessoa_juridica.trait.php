@@ -20,22 +20,22 @@ trait Pessoa_juridica
 	protected $instancia; 
 	// References - instancia 
 
-	private $instancia_id; 
+	protected $instancia_id; 
 	// int(11) 
 
-	private $razao_social; 
+	protected $razao_social; 
 	// varchar(45) 
 
-	private $nome_fantasia; 
+	protected $nome_fantasia; 
 	// varchar(45) 
 
-	private $cnpj; 
+	protected $cnpj; 
 	// varchar(45) 
 
-	private $insc_municipal; 
+	protected $insc_municipal; 
 	// varchar(45) 
 
-	private $insc_estadual; 
+	protected $insc_estadual; 
 	// varchar(45) 
 
 

@@ -16,10 +16,10 @@ trait Tipo_socio
 
 	}
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $nome; 
+	protected $nome; 
 	// varchar(45) 
 
 

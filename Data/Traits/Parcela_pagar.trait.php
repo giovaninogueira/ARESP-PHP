@@ -24,43 +24,43 @@ trait Parcela_pagar
 	protected $status_parcela; 
 	// References - status_parcela 
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $data_emissao; 
+	protected $data_emissao; 
 	// date 
 
-	private $data_vencimento; 
+	protected $data_vencimento; 
 	// date 
 
-	private $valor; 
+	protected $valor; 
 	// decimal(10,2) 
 
-	private $valor_desconto; 
+	protected $valor_desconto; 
 	// decimal(10,2) 
 
-	private $tx_desconto; 
+	protected $tx_desconto; 
 	// decimal(10,2) 
 
-	private $desconto_ate; 
+	protected $desconto_ate; 
 	// date 
 
-	private $valor_multa; 
+	protected $valor_multa; 
 	// decimal(10,2) 
 
-	private $valor_juros; 
+	protected $valor_juros; 
 	// decimal(10,2) 
 
-	private $tx_multa; 
+	protected $tx_multa; 
 	// decimal(10,2) 
 
-	private $tx_juros; 
+	protected $tx_juros; 
 	// decimal(10,2) 
 
-	private $contas_pagar_id; 
+	protected $contas_pagar_id; 
 	// int(11) 
 
-	private $status_parcela_id; 
+	protected $status_parcela_id; 
 	// int(11) 
 
 

@@ -8,6 +8,7 @@
 
 namespace Data\Traits;
 
+
 trait Instancia
 {
 	public function ____construct()
@@ -15,19 +16,19 @@ trait Instancia
 
 	}
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $data_cadastro; 
+	protected $data_cadastro; 
 	// date 
 
-	private $data_atualizacao; 
+	protected $data_atualizacao; 
 	// date 
 
-	private $obs; 
+	protected $obs; 
 	// varchar(255) 
 
-	private $email; 
+	protected $email; 
 	// varchar(70) 
 
 

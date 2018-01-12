@@ -284,7 +284,7 @@ class ORMmodel
     #region CreateAtribute
     public function createAtribute($value, $type)
     {
-        $this->atributos .= "\tprivate $" . strtolower($value) . "; \n\t// " . $type ." \n\n";
+        $this->atributos .= "\tprotected $" . strtolower($value) . "; \n\t// " . $type ." \n\n";
     }
     #endregion
 

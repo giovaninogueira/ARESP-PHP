@@ -16,22 +16,22 @@ trait Cheque_emitido
 
 	}
 
-	private $id; 
+	protected $id; 
 	// int(11) 
 
-	private $data_compensacao; 
+	protected $data_compensacao; 
 	// date 
 
-	private $nominal; 
+	protected $nominal; 
 	// varchar(45) 
 
-	private $data_emissao; 
+	protected $data_emissao; 
 	// date 
 
-	private $valor; 
+	protected $valor; 
 	// decimal(10,2) 
 
-	private $numero; 
+	protected $numero; 
 	// varchar(10) 
 
 

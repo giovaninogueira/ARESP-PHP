@@ -7,7 +7,8 @@
 */
 
 namespace Data\Traits;
-use Data\Model\Instancia;
+use \Data\Model\Instancia;
+
 
 trait Pessoa_fisica
 {
@@ -19,10 +20,10 @@ trait Pessoa_fisica
 	protected $instancia; 
 	// References - instancia 
 
-	private $instancia_id; 
+	protected $instancia_id; 
 	// int(11) 
 
-	private $nome; 
+	protected $nome; 
 	// varchar(45) 
 
 
