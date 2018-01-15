@@ -21,6 +21,7 @@ class Instancia extends Model
         $this->setData_cadastro(date("Y/m/d H:i:s"));
         $this->setObs($request->observacao);
         $this->setEmail($request->email);
+        $this->validationEmail();
         $this->setData_atualizacao(date("Y/m/d H:i:s"));
         $this->save();
         return $this->lastID();

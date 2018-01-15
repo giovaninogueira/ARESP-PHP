@@ -36,12 +36,10 @@ class Cliente
             $data = DateTime::createFromFormat("Y-m-d", $request->data_nascimento);
             $anoNascimento = intval($data->format('Y'));
 
-            if($anoNascimento >= intval(date('Y')))
-                new ExceptionFramework('Ano de nascimento inválida',409);
+            $date = intval(date('Y')) - $anoNascimento;
 
-            $instanciaObj = new Instancia();
-            $instanciaObj->setEmail($request->email);
-            $instanciaObj->validationEmail();
+            if($date < 18)
+                new ExceptionFramework('Ano de nascimento inválida',409);
 
             $cliente->setRg($request->rg);
             $cliente->setCpf($request->cpf);
@@ -52,7 +50,7 @@ class Cliente
             $cliente->validationRgCpf();
             $cliente->salvarCliente();
             $cliente::$connection->commit();
-            return true;
+            return "Cadastro de cliente efetuada com sucesso !";
         }catch (\Exception $e)
         {
             $cliente::$connection->rollBack();
