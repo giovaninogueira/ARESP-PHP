@@ -22,6 +22,11 @@ class RestFull
      */
     public function checkUrl($routes, $url)
     {
+        /**
+         * Arrumarrotas,
+         * primeiro, fazer a busca procurando a url na lista
+         * caso ache, buscar a url, caso ao contrário, fazer as verificações porparametros
+         */
         $listUrl = array_filter(explode('/', $url));
         $countUrl = count($listUrl);
 
