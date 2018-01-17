@@ -266,7 +266,10 @@ class Model
         {
             $join = ' ' . $type . ' JOIN '. $table . ' on ' . $table . "." . $table_attr;
             $join .= ' ' . $logic . ' ' . $table2 . '.' . $table2_attr;
-            $this->join .= $this->showValues;
+            if(is_null($this->join))
+            {
+                $this->join .= $this->showValues;
+            }
             $this->join .= $join;
         }
     }

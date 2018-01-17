@@ -57,4 +57,39 @@ class Cliente
             new ExceptionFramework($e->getMessage(),$e->getCode());
         }
     }
+
+    public function getList()
+    {
+        $obj = new clienteModel();
+        $result = $obj->select();
+        $list = array();
+        foreach ($result as $index => $value)
+        {
+            $pessoa_fisica = new \Data\Model\Pessoa_fisica();
+            $pessoa_fisica->where('INSTANCIA_ID','=',$value['PESSOA_FISICA_ID']);
+            $res = $pessoa_fisica->select();
+            $list[] = [
+                'nome'=> $res['NOME'],
+                'id' => $value['PESSOA_FISICA_ID'],
+                'cpf' => $value['CPF']
+            ];
+        }
+        return $list;
+    }
+
+    public function getClienteById()
+    {
+        $request = Utils::$request;
+        $id = $request->id;
+        $cliente = new \Data\Model\Cliente();
+        $cliente->showValuesJoing();
+        $cliente->joinAdd('instancia','ID','=','cliente','PESSOA_FISICA_ID');
+        $cliente->joinAdd('pessoa_fisica','INSTANCIA_ID','=','instancia','ID');
+        $cliente->where('instancia.ID','=',$id);
+        $result = $cliente->join();
+
+        if(count($result) == 0)
+            new ExceptionFramework('Nenhum usuário foi encontrado',412);
+        return $result;
+    }
 }
