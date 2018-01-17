@@ -22,74 +22,77 @@ class RestFull
      */
     public function checkUrl($routes, $url)
     {
-        /**
-         * Arrumarrotas,
-         * primeiro, fazer a busca procurando a url na lista
-         * caso ache, buscar a url, caso ao contrário, fazer as verificações porparametros
-         */
-        $listUrl = array_filter(explode('/', $url));
-        $countUrl = count($listUrl);
-
-        foreach ($routes as $index => $value)
+        if(key_exists($url, $routes))
         {
-            /**
-             * @detaisl Variáveis locais
-             */
-            $provi = $index;
-            $params = null;
-            $urlFinal = null;
+            $this->urlFinal = $url;
+            $this->params = [];
+        }
+        else
+        {
+            $listUrl = array_filter(explode('/', $url));
+            $countUrl = count($listUrl);
 
-            /**
-             * @details Lista de parametos das rotas do config
-             */
-            $listRoutes = array_filter(explode('/',$index));
-
-            /**
-             * @details Se o número de parametos da url é igual ao número de parametos da url do config
-             */
-            if(count($listRoutes) == $countUrl)
+            foreach ($routes as $index => $value)
             {
                 /**
-                 * @details Percorre todos os parametos da url do config
+                 * @detaisl Variáveis locais
                  */
-                foreach ($listRoutes as $i => $result)
+                $provi = $index;
+                $params = null;
+                $urlFinal = null;
+
+                /**
+                 * @details Lista de parametos das rotas do config
+                 */
+                $listRoutes = array_filter(explode('/',$index));
+
+                /**
+                 * @details Se o número de parametos da url é igual ao número de parametos da url do config
+                 */
+                if(count($listRoutes) == $countUrl)
                 {
                     /**
-                     * @details Se o parametro do index (i) é igual ao
-                     * parametro da mesmoa posição da url do request
+                     * @details Percorre todos os parametos da url do config
                      */
-                    if($listRoutes[$i] == $listUrl[$i])
-                        continue;
-
-                    /**
-                     * @details Se existir algum parametro com a (\:) entra no if
-                     */
-                    if(preg_match("/\:.*?$/", $result, $output_array))
+                    foreach ($listRoutes as $i => $result)
                     {
-                        $params[explode(':',$output_array[0])[1]] = $listUrl[$i];
-                        unset($output_array);
-                        continue;
-                    }
+                        /**
+                         * @details Se o parametro do index (i) é igual ao
+                         * parametro da mesmoa posição da url do request
+                         */
+                        if($listRoutes[$i] == $listUrl[$i])
+                            continue;
 
-                    /**
-                     * @details Limpa a variavel provi, params e realiza um break
-                     */
-                    $provi = null;
-                    $params = [];
+                        /**
+                         * @details Se existir algum parametro com a (\:) entra no if
+                         */
+                        if(preg_match("/\:.*?$/", $result, $output_array))
+                        {
+                            $params[explode(':',$output_array[0])[1]] = $listUrl[$i];
+                            unset($output_array);
+                            continue;
+                        }
+
+                        /**
+                         * @details Limpa a variavel provi, params e realiza um break
+                         */
+                        $provi = null;
+                        $params = [];
+                        break;
+                    }
+                }
+                else
+                    continue;
+
+                /**
+                 * @details Se a variável provi seja diferente de nula
+                 */
+                if(!is_null($provi))
+                {
+                    $this->urlFinal = $provi;
+                    $this->params = $params;
                     break;
                 }
-            }
-            else
-                continue;
-
-            /**
-             * @details Se a variável provi seja diferente de nula
-             */
-            if(!is_null($provi))
-            {
-                $this->urlFinal = $provi;
-                $this->params = $params;
-                break;
             }
         }
     }

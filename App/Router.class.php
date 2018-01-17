@@ -19,8 +19,8 @@ class Router
         $routes = new Routes();
         $routes->addRoutes('GET','/Socio/Tipo/Lista','Tipo_socio','getList',false);
         $routes->addRoutes('GET','/Convenio/Lista','Convenio','getList',false);
-        $routes->addRoutes('GET','/Cliente/Lista','Cliente','getList',false);
         $routes->addRoutes('GET','/Cliente/:id','Cliente','getClienteById',false);
+        $routes->addRoutes('GET','/Cliente/Lista','Cliente','getList',false);
         $routes->addRoutes('POST','/Usuario/Login','Usuario','login',false,['email','senha']);
         $routes->addRoutes('POST','/Convenio/Save','Convenio','save',false,['nome','telefone','obs']);
         $routes->addRoutes('POST','/Empresa/Save','Empresa','save',false,
