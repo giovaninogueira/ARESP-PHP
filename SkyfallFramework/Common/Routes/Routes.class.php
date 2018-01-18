@@ -65,6 +65,7 @@ class Routes
             'Params' => $params
         ];
         Routes::$listaRoutes[$method][$url] = $array;
+        return $this;
     }
 
     /**

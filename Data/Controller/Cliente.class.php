@@ -26,6 +26,7 @@ class Cliente
     {
         $obj = new clienteModel();
         $obj->teste();
+        return 'funfou';
     }
     public function Save()
     {
