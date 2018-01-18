@@ -26,13 +26,15 @@ class Router
         $routes->addRoutes('POST','/Usuario/Login','Usuario','login',false,
             [
                 'email',
-                'senha']
+                'senha'
+            ]
         );
         $routes->addRoutes('POST','/Convenio/Save','Convenio','save',false,
             [
                 'nome',
                 'telefone',
-                'obs']
+                'obs'
+            ]
         );
         $routes->addRoutes('POST','/Empresa/Save','Empresa','save',false,
             [
@@ -60,7 +62,8 @@ class Router
                 'email',
                 'sexo',
                 'estado_civil',
-                'tipo_socio']
+                'tipo_socio'
+            ]
         );
     }
 }
