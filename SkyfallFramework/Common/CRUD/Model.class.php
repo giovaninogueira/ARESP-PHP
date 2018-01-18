@@ -123,7 +123,7 @@ class Model
         $return = array();
         foreach ($array as $index => $value)
         {
-            if(!empty($this->{$value}) && !is_object($this->{$value}))
+            if(!is_null($this->{$value}) && !is_object($this->{$value}))
                 $return[$value] = $this->{$value};
         }
         return $return;
@@ -186,6 +186,7 @@ class Model
                 $r[] = $index . "=:" . $index . ' ';
             }
             $sql .= \implode(', ',$r);
+            $sql .= $this->sql;
             $this->query($sql,$array);
         }
         else

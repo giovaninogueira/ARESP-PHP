@@ -26,4 +26,14 @@ class Pessoa_fisica extends Model
         $result = $this->queryFetchAll('SELECT MAX(instancia_id) as maxId FROM Pessoa_fisica');
         return $result[0]['maxId'];
     }
+
+    public function updatePessoaFisica()
+    {
+        $request = Utils::$request;
+        $obj = new Instancia();
+        $obj->updateInstancia();
+        $this->setNome($request->nome);
+        $this->where('INSTANCIA_ID','=',$request->id);
+        $this->update();
+    }
 }

@@ -26,6 +26,6 @@ class Router
         $routes->addRoutes('POST','/Empresa/Save','Empresa','save',false,
             ['email','observacao','razao_social','nome_fantasia','cnpj','insc_municipal','insc_estadual','convenio_id']);
         $routes->addRoutes('POST','/Cliente/Save','Cliente','Save',false,
-            ['nome','cpf','rg','nome_pai','nome_mae','data_nascimento','observacao','email','sexo','estado_civil','tipo_socio']);
+            ['nome','cpf','rg','nome_pai','update', 'id','nome_mae','data_nascimento','observacao','email','sexo','estado_civil','tipo_socio']);
     }
 }

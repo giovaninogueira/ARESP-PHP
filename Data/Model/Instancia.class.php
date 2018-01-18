@@ -27,11 +27,23 @@ class Instancia extends Model
         return $this->lastID();
     }
 
+    public function updateInstancia()
+    {
+        $request = Utils::$request;
+        $this->setObs($request->observacao);
+        $this->setEmail($request->email);
+        $this->validationEmail();
+        $this->setData_atualizacao(date("Y/m/d H:i:s"));
+        $this->where('ID','=', $request->id);
+        $this->update();
+    }
+
     public function validationEmail() {
+        $request = Utils::$request;
         $this->where('email','=',$this->getEmail());
         $result = $this->select();
 
-        if(count($result) !=0)
+        if(count($result) !=0 && $result['ID'] != $request->id)
             new ExceptionFramework('Email existe, tente outro',409);
     }
 

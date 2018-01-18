@@ -24,37 +24,61 @@ class Cliente
 
     public function Save()
     {
+        $request = Utils::$request;
+        if($request->update)
+            return $this->updateCliente();
+        else
+        {
+            $cliente = new clienteModel();
+            try
+            {
+                $cliente::$connection->beginTransaction();
+                $pessoa_fisica = new \Data\Model\Pessoa_fisica();
+
+                $cliente->setPessoa_fisica($pessoa_fisica);
+                $this->validationInput();
+                $cliente->setRg($request->rg);
+                $cliente->setCpf($request->cpf);
+                $cliente->setSexo($request->sexo);
+                $cliente->setTipo_socio_id($request->tipo_socio);
+                $cliente->setEstado_civil($request->estado_civil);
+
+                $cliente->validationRgCpf();
+                $cliente->salvarCliente();
+
+                $cliente::$connection->commit();
+                return "Cadastro de cliente efetuada com sucesso !";
+            }catch (\Exception $e)
+            {
+                $cliente::$connection->rollBack();
+                new ExceptionFramework($e->getMessage(),$e->getCode());
+            }
+        }
+    }
+
+    private function updateCliente()
+    {
+        $request = Utils::$request;
         $cliente = new clienteModel();
         try
         {
             $cliente::$connection->beginTransaction();
             $pessoa_fisica = new \Data\Model\Pessoa_fisica();
-
+            $this->validationInput();
             $cliente->setPessoa_fisica($pessoa_fisica);
-
-            $request = Utils::$request;
-            $data = DateTime::createFromFormat("Y-m-d", $request->data_nascimento);
-            $anoNascimento = intval($data->format('Y'));
-
-            $date = intval(date('Y')) - $anoNascimento;
-
-            if($date < 18)
-                new ExceptionFramework('Ano de nascimento inválida',409);
-
             $cliente->setRg($request->rg);
             $cliente->setCpf($request->cpf);
             $cliente->setSexo($request->sexo);
             $cliente->setTipo_socio_id($request->tipo_socio);
             $cliente->setEstado_civil($request->estado_civil);
-
             $cliente->validationRgCpf();
-            $cliente->salvarCliente();
+            $cliente->updateCliente();
+
             $cliente::$connection->commit();
-            return "Cadastro de cliente efetuada com sucesso !";
-        }catch (\Exception $e)
-        {
+            return "Cliente atualizado !";
+        }catch (\Exception $e) {
             $cliente::$connection->rollBack();
-            new ExceptionFramework($e->getMessage(),$e->getCode());
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
     }
 
@@ -90,6 +114,29 @@ class Cliente
 
         if(count($result) == 0)
             new ExceptionFramework('Nenhum usuário foi encontrado',412);
-        return $result;
+
+        return $result[0];
+    }
+
+    private function validationInput()
+    {
+        $request = Utils::$request;
+        $data = DateTime::createFromFormat("Y-m-d", $request->data_nascimento);
+        $anoNascimento = intval($data->format('Y'));
+        $date = intval(date('Y')) - $anoNascimento;
+
+        if($date < 18)
+            new ExceptionFramework('Ano de nascimento inválida',409);
+        if($date < 18)
+            new ExceptionFramework('Ano de nascimento inválida',409);
+
+        if($request->tipo_socio == 'selecione')
+            new ExceptionFramework('Campo Tipo de sócio é obrigatório',409);
+
+        if($request->sexo == 'selecione')
+            new ExceptionFramework('Campo sexo é obrigatório',409);
+
+        if($request->estado_civil == 'selecione')
+            new ExceptionFramework('Campo Estado civil é obrigatório',409);
     }
 }
