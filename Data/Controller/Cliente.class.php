@@ -22,6 +22,11 @@ class Cliente
 * Version 1.0.0
 */
 
+    public function teste()
+    {
+        $obj = new clienteModel();
+        $obj->teste();
+    }
     public function Save()
     {
         $request = Utils::$request;

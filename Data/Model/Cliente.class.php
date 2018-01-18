@@ -70,4 +70,11 @@ class Cliente extends Model
         if(count($resultRg) !=0 && $resultRg['PESSOA_FISICA_ID'] != $request->id)
             new ExceptionFramework('CPF existente, tente outro',409);
     }
+
+    public function teste() {
+        $obj = new Pessoa_fisica();
+        $instancia = new Instancia();
+        $obj->setNome('teste');
+        $instancia->setId(10);
+    }
 }

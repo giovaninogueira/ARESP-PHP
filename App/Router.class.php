@@ -17,6 +17,8 @@ class Router
     public static function routes()
     {
         $routes = new Routes();
+        $routes->addRoutes('GET','/Cliente/Teste','Cliente','teste',false);
+
         $routes->addRoutes('GET','/Socio/Tipo/Lista','Tipo_socio','getList',false);
         $routes->addRoutes('GET','/Convenio/Lista','Convenio','getList',false);
         $routes->addRoutes('GET','/Cliente/:id','Cliente','getClienteById',false);

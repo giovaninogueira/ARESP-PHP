@@ -55,4 +55,13 @@ class Usuario
             "email" => $request->email
         ];
     }
+
+    public function teste()
+    {
+        $obj = new \Data\Model\Usuario();
+        $obj->setNome('Testando update2');
+        $obj->setSenha('123456789');
+        $obj->where('id','=',1);
+        $obj->update();
+    }
 }
