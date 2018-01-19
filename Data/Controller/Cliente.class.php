@@ -31,60 +31,36 @@ class Cliente
     public function Save()
     {
         $request = Utils::$request;
-        if($request->update)
-            return $this->updateCliente();
-        else
-        {
-            $cliente = new clienteModel();
-            try
-            {
-                $cliente::$connection->beginTransaction();
-                $pessoa_fisica = new \Data\Model\Pessoa_fisica();
-
-                $cliente->setPessoa_fisica($pessoa_fisica);
-                $this->validationInput();
-                $cliente->setRg($request->rg);
-                $cliente->setCpf($request->cpf);
-                $cliente->setSexo($request->sexo);
-                $cliente->setTipo_socio_id($request->tipo_socio);
-                $cliente->setEstado_civil($request->estado_civil);
-
-                $cliente->validationRgCpf();
-                $cliente->salvarCliente();
-
-                $cliente::$connection->commit();
-                return "Cadastro de cliente efetuada com sucesso !";
-            }catch (\Exception $e)
-            {
-                $cliente::$connection->rollBack();
-                new ExceptionFramework($e->getMessage(),$e->getCode());
-            }
-        }
-    }
-
-    private function updateCliente()
-    {
-        $request = Utils::$request;
         $cliente = new clienteModel();
         try
         {
             $cliente::$connection->beginTransaction();
             $pessoa_fisica = new \Data\Model\Pessoa_fisica();
-            $this->validationInput();
+
             $cliente->setPessoa_fisica($pessoa_fisica);
+            $this->validationInput();
             $cliente->setRg($request->rg);
             $cliente->setCpf($request->cpf);
             $cliente->setSexo($request->sexo);
             $cliente->setTipo_socio_id($request->tipo_socio);
             $cliente->setEstado_civil($request->estado_civil);
-            $cliente->validationRgCpf();
-            $cliente->updateCliente();
 
+            $cliente->validationRgCpf();
+
+            if($request->update)
+            {
+                $cliente->updateCliente();
+                $cliente::$connection->commit();
+                return "Cliente atualizado !";
+            }
+            $cliente->salvarCliente();
             $cliente::$connection->commit();
-            return "Cliente atualizado !";
-        }catch (\Exception $e) {
+            return "Cadastro de cliente efetuada com sucesso !";
+        }
+        catch (\Exception $e)
+        {
             $cliente::$connection->rollBack();
-            new ExceptionFramework($e->getMessage(), $e->getCode());
+            new ExceptionFramework($e->getMessage(),$e->getCode());
         }
     }
 

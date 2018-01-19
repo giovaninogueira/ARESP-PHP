@@ -29,9 +29,16 @@ class Empresa
             $empresa->setPessoa_juridica($pessoa_juridica);
             $pessoa_juridica->setCnpj($request->cnpj);
             $pessoa_juridica->validationCnpj();
+
+            if($request->update)
+            {
+                $empresa->updateEmpresa();
+                $empresa::$connection->commit();
+                return "Empresa atualizada com sucesso !";
+            }
             $empresa->saveEmpresa();
             $empresa::$connection->commit();
-            return "Cadastro da empresa efetuado com sucesso";
+            return "Empresa atualizada !";
         }
         catch (\Exception $e)
         {

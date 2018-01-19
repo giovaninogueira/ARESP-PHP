@@ -16,7 +16,8 @@ class Pessoa_juridica extends Model
 {
 	use \Data\Traits\Pessoa_juridica;
 
-    public function salvarPessoaJuridica(){
+    public function salvarPessoaJuridica()
+    {
         $request = Utils::$request;
         $obj = new Instancia();
         $obj->salvarInstancia();
@@ -30,8 +31,23 @@ class Pessoa_juridica extends Model
         return $this->lastID();
       }
 
+      public function updatePessoaJuridica()
+      {
+          $request = Utils::$request;
+          $obj = new Instancia();
+          $obj->updateInstancia();
+          $this->setRazao_social($request->razao_social);
+          $this->setCnpj($request->cnpj);
+          $this->setInsc_municipal($request->insc_municipal);
+          $this->setInsc_estadual($request->insc_estadual);
+          $this->setNome_fantasia($request->nome_fantasia);
+          $this->where('INSTANCIA_ID','=', $request->id);
+          $this->update();
+      }
+
       public function validationCnpj()
       {
+          $request = Utils::$request;
         $explodeCnpj = explode('_',$this->getCnpj());
 
         if(count($explodeCnpj) > 1)
@@ -42,7 +58,7 @@ class Pessoa_juridica extends Model
         $this->where('cnpj','=',$this->getCnpj());
         $resultCnpj = $this->select();
 
-        if(count($resultCnpj) !=0)
+        if(count($resultCnpj) !=0 && $resultCnpj['INSTANCIA_ID'] != $request->id)
             new ExceptionFramework('Cnpj existente, tente outro',409);
       }
 

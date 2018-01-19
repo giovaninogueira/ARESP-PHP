@@ -24,4 +24,14 @@ class Empresa extends Model
         $this->setConvenio_id($request->convenio_id);
         $this->save();
     }
+
+    public function updateEmpresa()
+    {
+        $request = Utils::$request;
+        $obj = $this->getPessoa_juridica();
+        $obj->updatePessoaJuridica();
+        $this->setConvenio_id($request->convenio_id);
+        $this->where('PESSOA_JURIDICA_ID','=', $request->id);
+        $this->update();
+    }
 }
