@@ -35,6 +35,14 @@ class Convenio
                 new ExceptionFramework('Telefone inválido',409);
 
             $obj->setObs($request->obs);
+
+            if($request->update)
+            {
+                $obj->where('ID','=',$request->id);
+                $obj->update();
+                $obj::$connection->commit();
+                return "Convenio atualizado !";
+            }
             $obj->save();
             $obj::$connection->commit();
             return "Convenio salvo com sucesso";
@@ -50,5 +58,18 @@ class Convenio
     {
         $obj = new \Data\Model\Convenio();
         return $obj->selectAll();
+    }
+
+    public function getConvenioById()
+    {
+        $request = Utils::$request;
+        $obj = new \Data\Model\Convenio();
+        $obj->where('ID','=',$request->id);
+        $result = $obj->select();
+
+        if(count($result) == 0)
+            new ExceptionFramework('Nenhum convenio foi encontrado',412);
+
+        return $result;
     }
 }

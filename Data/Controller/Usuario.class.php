@@ -23,7 +23,7 @@ class Usuario
     {
         $request = Utils::$request;
         $usuario = new \Data\Model\Usuario();
-        $usuario->where('login','=', $request->email,'and');
+        $usuario->where('login','=', $request->login,'and');
         $usuario->where('senha','=', $request->senha);
         $result = $usuario->select();
 
@@ -43,7 +43,7 @@ class Usuario
                 "nbf" => 1357000000,
                 "data" => [
                     "userID" => $result['PESSOA_FISICA_ID'],
-                    "email" => $request->email,
+                    "email" => $request->login,
                     "data_creation_token" => date("Y/m/d H:i:s")
                 ]
             ]
@@ -52,7 +52,7 @@ class Usuario
         return [
             "token" => $token->token,
             "nome" => $result_pessoa['NOME'],
-            "email" => $request->email
+            "email" => $request->login
         ];
     }
 
