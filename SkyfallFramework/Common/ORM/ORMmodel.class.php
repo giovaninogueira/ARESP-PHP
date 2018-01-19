@@ -160,6 +160,26 @@ class ORMmodel
     }
     #endregion
 
+    public function createUtils()
+    {
+        $php = "<?php\n\n";
+        $php .= "/**\n";
+        $php .= "* Skyfall Micro-Framework\n";
+        $php .= "* Generate ORM Controller" . "\n";
+        $php .= "* Version 1.0.0\n";
+        $php .= "**/\n\n";
+        $php .= "namespace Data\UtilData; \n\n";
+        $php .= "class UtilData";
+        $php .= "\n{\n";
+        $php .= "\t/**\n";
+        $php .= "\t* Skyfall Micro-Framework\n";
+        $php .= "\t* UtilData body" . "\n";
+        $php .= "\t* Version 1.0.0\n";
+        $php .= "\t**/";
+        $php .= "\n}";
+        return $php;
+    }
+
     /**
      * @param $table
      * @return string
@@ -202,11 +222,11 @@ class ORMmodel
         $php .= "namespace Data\Controller; \n\n";
         $php .= "class " . $table;
         $php .= "\n{\n";
-        $php .= "/**\n";
-        $php .= "* Skyfall Micro-Framework\n";
-        $php .= "* Controller's body" . "\n";
-        $php .= "* Version 1.0.0\n";
-        $php .= "*/";
+        $php .= "\t/**\n";
+        $php .= "\t* Skyfall Micro-Framework\n";
+        $php .= "\t* Controller's body" . "\n";
+        $php .= "\t* Version 1.0.0\n";
+        $php .= "\t**/";
         $php .= "\n}";
         return $php;
     }

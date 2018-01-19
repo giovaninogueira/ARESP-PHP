@@ -33,6 +33,7 @@ class ORM extends Model
         $this->createTrait();
         $this->createClassModel();
         $this->createController();
+        $this->createUtils();
         echo "\n ## Finalized ORM ##\n";
     }
     #endregion
@@ -191,13 +192,26 @@ class ORM extends Model
     }
     #endregion
 
+    private function createUtils()
+    {
+        $modelOrm = new ORMmodel();
+        $file = $this->path('Util','UtilData','class');
+        if(!file_exists($file))
+            $this->createFile($modelOrm->createUtils(), $file);
+        else
+            echo  "file Exist in $file \n";
+
+        echo "Finalized Class Utils \n";
+    }
+
     /**
      * @param $textFinal
      * @param $file
      * @details Cria os arquivos em duas devidas pastas
      */
     #region Create File
-    private function createFile($textFinal,$file){
+    private function createFile($textFinal,$file)
+    {
         echo 'create file in ' . $file . "\n";
         $myfile = \fopen($file, "w") or die("Unable to open file!");
         \fwrite($myfile, $textFinal);
@@ -216,6 +230,10 @@ class ORM extends Model
     {
         $path = dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR;
         $path .= ".." . DIRECTORY_SEPARATOR . "Data" . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR;
+
+        if(!is_dir($path))
+            mkdir($path,0777);
+
         $path .= ucwords($table) . "." .$model .".php";
         return $path;
     }
