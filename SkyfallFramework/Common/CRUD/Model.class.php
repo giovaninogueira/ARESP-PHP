@@ -39,6 +39,7 @@ class Model
 
     /**
      * @return \ReflectionClass
+     * @throws \ReflectionException
      */
     private function getClass()
     {
@@ -47,7 +48,7 @@ class Model
 
     /**
      * @return string
-     * @details retorna o nome da classe instanciada
+     * @throws \ReflectionException
      */
     public function getTbName(){
         $str = str_replace($this->getClass()->getNamespaceName() . '\\','',$this->getClass()->getName());
@@ -74,7 +75,7 @@ class Model
      * @param $sql
      * @param null $array
      * @return \PDOStatement
-     * @details Responsável por executar instruções em sql
+     * @throws \Exception
      */
     public function query($sql, $array = null)
     {
@@ -101,6 +102,7 @@ class Model
 
     /**
      * @return array
+     * @throws \ReflectionException
      */
     public function getAttibutesName()
     {
@@ -116,6 +118,7 @@ class Model
 
     /**
      * @return array
+     * @throws \ReflectionException
      */
     public function getValuesAttibutes()
     {
@@ -132,6 +135,8 @@ class Model
     /**
      * @param int $limit
      * @return array
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function selectAll($limit = 100)
     {
@@ -154,7 +159,8 @@ class Model
 
     /**
      * @return array
-     * @details Faz o select conforme a regra definida no where
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function select()
     {
@@ -215,6 +221,7 @@ class Model
 
     /**
      * @param array $array
+     * @throws \ReflectionException
      */
     public function showValuesJoing($array = array())
     {
@@ -237,6 +244,8 @@ class Model
      * @param $logic
      * @param $table2
      * @param $table2_attr
+     * @param null $type
+     * @throws \ReflectionException
      */
     public function joinAdd($table, $table_attr, $logic, $table2, $table2_attr, $type = NULL)
     {
@@ -253,6 +262,7 @@ class Model
      * @param $logic
      * @param $table2
      * @param $table2_attr
+     * @throws \ReflectionException
      */
     private function makeSQLJoin($type, $table, $table_attr, $logic, $table2, $table2_attr)
     {
@@ -277,6 +287,7 @@ class Model
 
     /**
      * @return array
+     * @throws \Exception
      */
     public function join()
     {
@@ -288,8 +299,7 @@ class Model
      * @param $script
      * @param null $values
      * @return \PDOStatement
-     * @details Caso precise que seja executada uma função em SQL possa ser inserida
-     * um script
+     * @throws \Exception
      */
     public function scriptSQL($script, $values = null)
     {
@@ -299,7 +309,7 @@ class Model
     /**
      * @param $sql
      * @return array
-     * @details Apenas para consulta
+     * @throws \Exception
      */
     public function queryFetchAll($sql)
     {
@@ -309,6 +319,8 @@ class Model
 
     /**
      * @return mixed
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     private function getPrimaryKey()
     {
@@ -320,7 +332,8 @@ class Model
 
     /**
      * @return int
-     * @details Retorna o maior id da tabela
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function lastID()
     {
@@ -334,6 +347,7 @@ class Model
 
     /**
      * @return string
+     * @throws \ReflectionException
      */
     public function convertJson()
     {

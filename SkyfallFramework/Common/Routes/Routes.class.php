@@ -3,8 +3,6 @@
 namespace SkyfallFramework\Common\Routes;
 
 use SkyfallFramework\Common\Exception\ExceptionFramework;
-use SkyfallFramework\Common\Auth\Auth;
-use SkyfallFramework\Common\Session\Session;
 use SkyfallFramework\Common\Utils\Utils;
 use SkyfallFramework\Common\RestFull\RestFull;
 
@@ -13,14 +11,12 @@ use SkyfallFramework\Common\RestFull\RestFull;
  * @package SkyfallFramework\Common\Routes
  * @author Giovani Cassiano Nogueira <giovani.cassiano@outlook.com>
  */
-class Routes
+class Routes extends RestFullAPI
 {
     private static $name_space = 'Data\\Controller\\';
-
     private $params = array();
-
+    private $lastRoute = array();
     private $objRoutes;
-
     static  $listaRoutes;
 
     public function __construct()
@@ -48,27 +44,6 @@ class Routes
     }
 
     /**
-     * @param $method
-     * @param $url
-     * @param $controller
-     * @param $function
-     * @param null $auth
-     * @param null $params
-     * @details Adiciona na lista statica a lista de rotas
-     */
-    public function addRoutes($method, $url, $controller, $function, $auth = null, $params = null)
-    {
-        $array = [
-            'Controller' => $controller,
-            'Function' => $function,
-            'Auth' => $auth,
-            'Params' => $params
-        ];
-        Routes::$listaRoutes[$method][$url] = $array;
-        return $this;
-    }
-
-    /**
      * @details Recupera o metodd HTTP e a URL
      */
     public function onRoutes()
@@ -76,14 +51,13 @@ class Routes
         $this->callFunction();
     }
 
-
     /**
      * @details Chama a função inserida na lista conforme a URL
      */
     private function callFunction()
     {
         $array = $this->rulesRoutes();
-        $name_controller = 'Data\\Controller\\' . $array['Controller'];
+        $name_controller = self::$name_space . $array['Controller'];
         $function = $array['Function'];
         $controller = new $name_controller;
 
@@ -182,23 +156,5 @@ class Routes
         }
 
         return $this->getParamsRoutes($this->getObjRoutes());
-    }
-
-    /**
-     * @details Validando Token
-     */
-    private function validateToken()
-    {
-        if(isset($_COOKIE))
-            Session::validationSession();
-
-        $headers = getallheaders();
-
-        if(!isset($headers['x-auth-token']))
-            new ExceptionFramework('Token não informado', 403);
-
-        Utils::$token = $headers['x-auth-token'];
-        unset($headers);
-        Auth::authentication(Utils::$token);
     }
 }

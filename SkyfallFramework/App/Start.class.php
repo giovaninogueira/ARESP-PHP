@@ -46,7 +46,6 @@ class Start{
                 $index = 1;
 
             $this->pathFunc = $type[$index];
-            $name = '';
 
             if($type[$index] == 'Interfaces')
                 $name = '.interface.';

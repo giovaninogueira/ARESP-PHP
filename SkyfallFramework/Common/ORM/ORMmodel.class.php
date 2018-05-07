@@ -160,6 +160,10 @@ class ORMmodel
     }
     #endregion
 
+    /**
+     * @return string
+     * @details Retorna o texto para criar os arquivos utils
+     */
     public function createUtils()
     {
         $php = "<?php\n\n";
@@ -226,7 +230,23 @@ class ORMmodel
         $php .= "\t* Skyfall Micro-Framework\n";
         $php .= "\t* Controller's body" . "\n";
         $php .= "\t* Version 1.0.0\n";
-        $php .= "\t**/";
+        $php .= "\t**/\n";
+        $php .= "\tpublic function create($"."param = null)";
+        $php .= "\n\t{";
+        $php .= "\n\t\t/*Mehtod POST HTTP*/";
+        $php .= "\n\t}\n";
+        $php .= "\tpublic function search($"."param = null)";
+        $php .= "\n\t{";
+        $php .= "\n\t\t/*Mehtod GET HTTP*/";
+        $php .= "\n\t}\n";
+        $php .= "\tpublic function update($"."param = null)";
+        $php .= "\n\t{";
+        $php .= "\n\t\t/*Mehtod PUT HTTP*/";
+        $php .= "\n\t}\n";
+        $php .= "\tpublic function delete($"."param = null)";
+        $php .= "\n\t{";
+        $php .= "\n\t\t/*Mehtod DELETE HTTP*/";
+        $php .= "\n\t}\n";
         $php .= "\n}";
         return $php;
     }

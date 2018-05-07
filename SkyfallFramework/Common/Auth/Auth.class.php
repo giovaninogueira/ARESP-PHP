@@ -25,7 +25,7 @@ class Auth
     /**
      * @param $token
      * @return object
-     * @details Valida o token
+     * @throws \Exception
      */
     public static function authentication($token)
     {
