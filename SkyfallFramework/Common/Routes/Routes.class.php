@@ -5,13 +5,14 @@ namespace SkyfallFramework\Common\Routes;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
 use SkyfallFramework\Common\Utils\Utils;
 use SkyfallFramework\Common\RestFull\RestFull;
+use SkyfallFramework\Common\Routes\RestFull as restfullAPI;
 
 /**
  * Class Routes
  * @package SkyfallFramework\Common\Routes
  * @author Giovani Cassiano Nogueira <giovani.cassiano@outlook.com>
  */
-class Routes extends RestFullAPI
+class Routes extends restfullAPI
 {
     private static $name_space = 'Data\\Controller\\';
     private $params = array();
