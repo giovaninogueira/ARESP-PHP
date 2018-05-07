@@ -26,7 +26,6 @@ try
     Utils::addHeaders('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
     Utils::addHeaders('Access-Control-Max-Age: 86400');
     Router::routes();
-
     $obj->run();
 }
 catch (\Exception $e)
