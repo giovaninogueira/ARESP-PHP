@@ -6,15 +6,13 @@ use SkyfallFramework\Common\Exception\ExceptionFramework;
 use SkyfallFramework\Common\Auth\Auth;
 use SkyfallFramework\Common\Session\Session;
 use SkyfallFramework\Common\Utils\Utils;
-use SkyfallFramework\Common\RestFull\RestFull;
 use SkyfallFramework\Common\Routes\Routes;
 
 /**
  * Class RestFullAPI
  * @package SkyfallFramework\Common\Routes
- *
  */
-class RestFullAPI
+class RestFull
 {
     private $lastRoute = array();
 
