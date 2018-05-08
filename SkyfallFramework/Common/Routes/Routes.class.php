@@ -16,7 +16,6 @@ class Routes extends restfullAPI
 {
     private static $name_space = 'Data\\Controller\\';
     private $params = array();
-    private $lastRoute = array();
     private $objRoutes;
     static  $listaRoutes;
 
@@ -60,6 +59,25 @@ class Routes extends restfullAPI
         $array = $this->rulesRoutes();
         $name_controller = self::$name_space . $array['Controller'];
         $function = $array['Function'];
+        if(is_null($function)){
+            switch($_SERVER['REQUEST_METHOD']){
+                case 'POST': $this->functionController($name_controller, 'create');
+                break;
+                case 'GET': $this->functionController($name_controller, 'search');
+                break;
+                case 'PUT': $this->functionController($name_controller, 'update');
+                break;
+                case 'DELETE': $this->functionController($name_controller, 'delete');
+                break;
+                default: new ExceptionFramework(405);
+            }
+        }else{
+            $this->functionController($name_controller, $function);
+        }
+    }
+
+    private function functionController($name_controller, $function)
+    {
         $controller = new $name_controller;
 
         if(!\method_exists($controller, $function))
@@ -131,7 +149,7 @@ class Routes extends restfullAPI
          * @details Validando se a URL tem nas rotas
          */
         $restFull = new RestFull();
-        $restFull->checkUrl($routes, $_SERVER['PATH_INFO']);
+        $restFull->checkUrl($routes, "/".$_REQUEST["url"]);
 
         if(is_null($restFull->urlFinal))
             new ExceptionFramework(405);

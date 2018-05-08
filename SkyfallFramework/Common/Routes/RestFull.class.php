@@ -25,6 +25,8 @@ class RestFull
         $http = key($this->lastRoute);
         $end = end($this->lastRoute);
         Routes::$listaRoutes[$http][key($end)][$type] = $param;
+        $teste = Routes::$listaRoutes[$http];
+        $r = Routes::$listaRoutes;
     }
 
     private function factoryArrayRoute($method, $url, $controller, $function = null)

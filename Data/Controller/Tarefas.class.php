@@ -17,11 +17,11 @@ class Tarefas
 	**/
 	public function create($param = null)
 	{
-		/*Mehtod POST HTTP*/
+		return $param;
 	}
 	public function search($param = null)
 	{
-		/*Mehtod GET HTTP*/
+		return 'teste';
 	}
 	public function update($param = null)
 	{

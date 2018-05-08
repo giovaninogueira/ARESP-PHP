@@ -31,11 +31,11 @@ class Utils
 
         if(count($_REQUEST) != 0)
         {
-            self::$request = (object)$_REQUEST;
+            self::$request = json_decode($result);
         }
         else
         {
-            self::$request = json_decode($result);
+            self::$request = (object)$_REQUEST;
         }
     }
 
