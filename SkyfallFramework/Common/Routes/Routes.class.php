@@ -103,31 +103,26 @@ class Routes extends restfullAPI
     /**
      * @details verificando se a rota deve receber parametros junto a URL
      */
-    private function getParamsRoutes($paramsObj)
+    private function getParamsRoutes($paramsObj, $array = [])
     {
-        $lista = [];
-
-        if(is_object(Utils::$request))
-            $array = get_object_vars(Utils::$request);
-        else
-            $array = [];
-
         $count_Request = count($array);
         $count_Params = count($paramsObj['Params']);
+        if(is_null($count_Params)){
+            $lista = [];
+            if (!($count_Params == $count_Request))
+                new ExceptionFramework(422);
 
-        if (!($count_Params == $count_Request))
-            new ExceptionFramework(422);
-
-        if(!is_null($paramsObj['Params']))
-        {
-            foreach ($paramsObj['Params'] as $params)
+            if(!is_null($paramsObj['Params']))
             {
-                if (!key_exists($params, $array))
-                    new ExceptionFramework(422);
+                foreach ($paramsObj['Params'] as $params)
+                {
+                    if (!key_exists($params, $array))
+                        new ExceptionFramework(422);
 
-                $lista[$params] = $array[$params];
+                    $lista[$params] = $array[$params];
+                }
+                $this->setParams($lista);
             }
-            $this->setParams($lista);
         }
         return $paramsObj;
     }
@@ -162,18 +157,12 @@ class Routes extends restfullAPI
         if($this->objRoutes['Auth'])
             $this->validateToken();
 
-        /**
-         * @details Caso o método HTTP seja GET recuperar os parametros da rota e da url
-         */
-        if($_SERVER['REQUEST_METHOD'] == 'GET')
-        {
+        if($restFull->params) {
             $this->setParams($restFull->params);
             Utils::$request = (object)$restFull->params;
-
             unset($restFull);
-            return $this->getObjRoutes();
         }
 
-        return $this->getParamsRoutes($this->getObjRoutes());
+        return $this->getParamsRoutes($this->getObjRoutes(), $this->getParams());
     }
 }

@@ -15,6 +15,7 @@ use SkyfallFramework\Common\Routes\Routes;
 class RestFull
 {
     private $lastRoute = array();
+    private $lastHTTP = "";
 
     public function __construct()
     {
@@ -22,9 +23,10 @@ class RestFull
 
     private function mapthContents($type, $param)
     {
-        $http = key($this->lastRoute);
+        $http = $this->lastHTTP;
         $end = end($this->lastRoute);
         Routes::$listaRoutes[$http][key($end)][$type] = $param;
+        $this->validationParamsRoutes();
         $teste = Routes::$listaRoutes[$http];
         $r = Routes::$listaRoutes;
     }
@@ -37,6 +39,7 @@ class RestFull
         ];
         Routes::$listaRoutes[$method][$url] = $array;
         $this->lastRoute = Routes::$listaRoutes;
+        $this->lastHTTP = $method;
         return $this;
     }
 
@@ -67,13 +70,23 @@ class RestFull
     public function delete($url, $controller, $function = null)
     {
         $this->factoryArrayRoute('DELETE', $url, $controller, $function);
+        $this->validationParamsRoutes();
         return $this;
     }
 
-    public function update($url, $controller, $function = null)
+    public function put($url, $controller, $function = null)
     {
-        $this->factoryArrayRoute('UPDATE', $url, $controller, $function);
+        $this->factoryArrayRoute('PUT', $url, $controller, $function);
         return $this;
+    }
+
+    private function validationParamsRoutes()
+    {
+        $http = $this->lastHTTP;
+        $end = end($this->lastRoute);
+        if(!key_exists('Params',Routes::$listaRoutes[$http][key($end)])){
+            Routes::$listaRoutes[$http][key($end)]['Params'] = null;
+        }
     }
 
     /**
