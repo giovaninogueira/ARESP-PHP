@@ -87,14 +87,7 @@ class Routes extends restfullAPI
 
         if(count($reflection_function->getParameters()) != 0)
         {
-            if(count($this->getParams()) != 0)
-            {
-                $params = $this->getParams();
-                $object = (object)$params;
-                echo json_encode($controller->{$function}($object));
-            }
-            else
-                echo json_encode($controller->{$function}(null));
+            echo json_encode($controller->{$function}(Utils::$request));
         }
         else
             echo json_encode($controller->{$function}());

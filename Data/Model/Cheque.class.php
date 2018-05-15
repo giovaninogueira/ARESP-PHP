@@ -10,8 +10,8 @@ namespace Data\Model;
 
 use SkyfallFramework\Common\CRUD\Model;
 
-class Tarefas extends Model
+class Cheque extends Model
 {
-	use \Data\Traits\Tarefas;
+	use \Data\Traits\Cheque;
 
 }

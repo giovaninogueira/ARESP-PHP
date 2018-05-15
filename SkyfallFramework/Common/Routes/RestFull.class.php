@@ -38,7 +38,7 @@ class RestFull
             'Function' => $function,
         ];
         Routes::$listaRoutes[$method][$url] = $array;
-        $this->lastRoute = Routes::$listaRoutes;
+        $this->lastRoute[$method][$url] = $array;
         $this->lastHTTP = $method;
         return $this;
     }
@@ -52,23 +52,29 @@ class RestFull
     public function auth($auth)
     {
         $this->mapthContents('Auth', $auth);
+        $this->validationParamsRoutes();
         return $this;
     }
 
     public function get($url, $controller, $function = null)
     {
+        $this->lastRoute = [];
         $this->factoryArrayRoute('GET', $url, $controller, $function);
+        $this->validationParamsRoutes();
         return $this;
     }
 
     public function post($url, $controller, $function = null)
     {
+        $this->lastRoute = [];
         $this->factoryArrayRoute('POST', $url, $controller, $function);
+        $this->validationParamsRoutes();
         return $this;
     }
 
     public function delete($url, $controller, $function = null)
     {
+        $this->lastRoute = [];
         $this->factoryArrayRoute('DELETE', $url, $controller, $function);
         $this->validationParamsRoutes();
         return $this;
@@ -76,7 +82,9 @@ class RestFull
 
     public function put($url, $controller, $function = null)
     {
+        $this->lastRoute = [];
         $this->factoryArrayRoute('PUT', $url, $controller, $function);
+        $this->validationParamsRoutes();
         return $this;
     }
 

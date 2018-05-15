@@ -8,7 +8,7 @@
 
 namespace Data\Controller; 
 
-class Usuario
+class Categoria_pagamento
 {
 	/**
 	* Skyfall Micro-Framework

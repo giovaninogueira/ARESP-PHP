@@ -9,7 +9,7 @@
 namespace Data\Traits;
 
 
-trait Usuario
+trait Categoria_recebimento
 {
 	public function ____construct()
 	{
@@ -20,13 +20,7 @@ trait Usuario
 	// int(11) 
 
 	protected $nome; 
-	// varchar(50) 
-
-	protected $email; 
-	// varchar(70) 
-
-	protected $senha; 
-	// varchar(20) 
+	// varchar(45) 
 
 
 	public function setId($id)
@@ -50,30 +44,6 @@ trait Usuario
 	public function getNome()
 	{
 		return $this->nome;
-	}
-
-
-	public function setEmail($email)
-	{
-		$this->email = $email;
-	}
-
-
-	public function getEmail()
-	{
-		return $this->email;
-	}
-
-
-	public function setSenha($senha)
-	{
-		$this->senha = $senha;
-	}
-
-
-	public function getSenha()
-	{
-		return $this->senha;
 	}
 
 

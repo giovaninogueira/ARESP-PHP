@@ -8,7 +8,7 @@
 
 namespace Data\Controller; 
 
-class Tarefas
+class Status_parcela
 {
 	/**
 	* Skyfall Micro-Framework
@@ -17,11 +17,11 @@ class Tarefas
 	**/
 	public function create($param = null)
 	{
-		return $param;
+		/*Mehtod POST HTTP*/
 	}
 	public function search($param = null)
 	{
-		return 'teste';
+		/*Mehtod GET HTTP*/
 	}
 	public function update($param = null)
 	{

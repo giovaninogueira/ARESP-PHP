@@ -10,8 +10,8 @@ namespace Data\Model;
 
 use SkyfallFramework\Common\CRUD\Model;
 
-class Usuario extends Model
+class Cliente extends Model
 {
-	use \Data\Traits\Usuario;
+	use \Data\Traits\Cliente;
 
 }

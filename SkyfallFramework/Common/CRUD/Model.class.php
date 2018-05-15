@@ -142,7 +142,12 @@ class Model
     {
         $sql = "select * from " . $this->getTbName() . " limit " . $limit;
         $array = $this->query($sql);
-        return $array->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $array->fetchAll(\PDO::FETCH_ASSOC);
+        $selectAll = array();
+        foreach ($result as $index=> $res){
+            $selectAll[] = array_change_key_case($res,CASE_LOWER);
+        }
+        return $selectAll;
     }
 
     /**
@@ -169,9 +174,15 @@ class Model
             $sql = "SELECT * FROM " . $this->getTbName() . $this->sql;
             $array = $this->query($sql);
             $result = $array->fetchAll(\PDO::FETCH_ASSOC);
-            if(count($result) != 0)
-                return $result[0];
-            else return $result;
+            if(count($result) != 0){
+                $selectAll = array();
+                foreach ($result as $index=> $res){
+                    $selectAll[] = array_change_key_case($res,CASE_LOWER);
+                }
+                return $selectAll[0];
+            }
+            else
+                return $result;
         }
         else
             return $this->selectAll();

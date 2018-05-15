@@ -17,9 +17,9 @@ class Router
     public static function routes()
     {
         $routes = new Routes();
-        $routes->post('/Tarefas/Teste', 'Tarefas')->contents(['login','senha'])->auth(false);
-        $routes->get('/Tarefas/Teste/:id/:status', 'Tarefas')->contents(['login','senha'])->auth(false);
-        $routes->delete('/Tarefas/Teste/:id/:status', 'Tarefas')->auth(false);
-        $routes->put('/Tarefas/Teste/:id/:status', 'Tarefas')->auth(false);
+        $routes->get('/Bancos', 'Banco')->auth(false);
+        $routes->get('/Bancos/:id', 'Banco')->auth(false);
+        $routes->post('/Banco', 'Banco')->contents(['nome','numero','telefone'])->auth(false);
+        $routes->put('/Banco/:id', 'Banco')->contents(['nome','numero','telefone'])->auth(false);
     }
 }
