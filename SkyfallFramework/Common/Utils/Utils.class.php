@@ -28,15 +28,24 @@ class Utils
     public static function configure()
     {
         $result = file_get_contents('php://input');
+        $json = json_decode($result);
+        $utils = new Utils();
+        self::$request = $utils->toArray($json);
+    }
 
-        if(count($_REQUEST) != 0)
-        {
-            self::$request = json_decode($result);
+    private function toArray($obj)
+    {
+        if (is_object($obj)) $obj = (array)$obj;
+        if (is_array($obj)) {
+            $new = array();
+            foreach ($obj as $key => $val) {
+                $new[$key] = $this->toArray($val);
+            }
+        } else {
+            $new = $obj;
         }
-        else
-        {
-            self::$request = (object)$_REQUEST;
-        }
+
+        return $new;
     }
 
     /**

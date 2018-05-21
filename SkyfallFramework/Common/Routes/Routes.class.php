@@ -152,7 +152,9 @@ class Routes extends restfullAPI
 
         if($restFull->params) {
             $this->setParams($restFull->params);
-            Utils::$request = (object)$restFull->params;
+            foreach ($restFull->params as $index=>$value){
+                Utils::$request[$index]= $value;
+            }
             unset($restFull);
         }
 

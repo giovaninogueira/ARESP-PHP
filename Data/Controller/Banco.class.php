@@ -23,9 +23,9 @@ class Banco
 	{
 	    try{
             $banco  = new bancoModel();
-            $banco->setNome($param->nome);
-            $banco->setNumero($param->numero);
-            $banco->setTelefone($param->telefone);
+            $banco->setNome($param["nome"]);
+            $banco->setNumero($param["numero"]);
+            $banco->setTelefone($param["telefone"]);
             $banco->save();
             return [
                     "msg"=>"Cadastro efetuado com sucesso",
@@ -39,7 +39,7 @@ class Banco
 	public function search($param = null)
 	{
 		try{
-		    if(is_null($param)){
+		    if(!$param){
                 $banco  = new bancoModel();
                 $list = $banco->selectAll();
                 return [
@@ -47,7 +47,7 @@ class Banco
                 ];
             }else{
                 $banco  = new bancoModel();
-                $banco->where('id','=',$param->id);
+                $banco->where('id','=',$param["id"]);
                 $list = $banco->select();
                 return [
                     'result'=>$list
@@ -59,11 +59,34 @@ class Banco
 	}
 	public function update($param = null)
 	{
-		/*Mehtod PUT HTTP*/
+		try{
+            $banco  = new bancoModel();
+            $banco->setNome($param["nome"]);
+            $banco->setNumero($param["numero"]);
+            $banco->setTelefone($param["telefone"]);
+            $banco->where('id','=',$param["id"]);
+            $banco->update();
+            return [
+                "msg"=>"Cadastro altualizado com sucesso",
+                "code"=>201
+            ];
+        }catch (\Exception $e){
+            new ExceptionFramework(422);
+        }
 	}
 	public function delete($param = null)
 	{
-		/*Mehtod DELETE HTTP*/
+        try{
+            $banco  = new bancoModel();
+            $banco->where('id','=',$param["id"]);
+            $banco->delete();
+            return [
+                "msg"=>"Cadastro excluido com sucesso",
+                "code"=>201
+            ];
+        }catch (\Exception $e){
+            new ExceptionFramework(422);
+        }
 	}
 
 }

@@ -1,0 +1,117 @@
+<?php
+
+/**
+* Skyfall Micro-Framework
+* Generate ORM Controller
+* Version 1.0.0
+*/
+
+namespace Data\Controller; 
+
+use Data\Model\Agencia as agModel;
+use Data\Model\Banco;
+use SkyfallFramework\Common\Exception\ExceptionFramework;
+use SkyfallFramework\Common\Utils\Utils;
+
+class Agencia
+{
+	/**
+	* Skyfall Micro-Framework
+	* Controller's body
+	* Version 1.0.0
+	**/
+	public function create($param = null)
+	{
+	    try{
+            $agencia = new agModel();
+            $agencia->setNumero($param["numero"]);
+            $agencia->setGerente($param["gerente"]);
+            $agencia->setTelefone($param["telefone"]);
+
+            if(strlen($param["digito"])>1)
+                new ExceptionFramework('O digito deve ter apenas um caracter');
+
+            $agencia->setDigito($param["digito"]);
+            $agencia->setBanco_id($param["banco"]["id"]);
+            $agencia->save();
+            return ["result"=>"Cadastro efetuado com sucesso !","code"=>201];
+        }catch (\Exception $e){
+	        new ExceptionFramework($e->getMessage(),401);
+        }
+	}
+	public function search($param = null)
+	{
+        try{
+            $agencia = new agModel();
+            $banco = new Banco();
+            if(!$param){
+
+                $list = $agencia->selectAll();
+                /**
+                 * @details Recuperar o id do banco
+                 */
+                foreach ($list as $index => $value){
+                    $banco->where('id','=',$value["banco_id"]);
+                    $res = $banco->select();
+                    $list[$index]["banco"]["nome"] = $res["nome"];
+                    $list[$index]["banco"]["id"] = $res["id"];
+                }
+
+                return [
+                    'result'=>$list
+                ];
+
+            }else{
+
+                $agencia->where('id','=',$param["id"]);
+                $list = $agencia->select();
+                /**
+                 * @details Recuperar o id do banco
+                 */
+                $banco->where('id','=',$list["banco_id"]);
+                $res = $banco->select();
+                $list["banco"]["nome"] = $res["nome"];
+                $list["banco"]["id"] = $list["banco_id"];
+
+                return [
+                    'result'=>$list
+                ];
+            }
+        }catch (\Exception $e){
+            new ExceptionFramework(422);
+        }
+	}
+	public function update($param = null)
+	{
+		try{
+            $agencia = new agModel();
+            $agencia->setNumero($param["numero"]);
+            $agencia->setGerente($param["gerente"]);
+            $agencia->setTelefone($param["telefone"]);
+
+            if(strlen($param["digito"])>1)
+                new ExceptionFramework('O digito deve ter apenas um caracter');
+
+            $agencia->setDigito($param["digito"]);
+            $agencia->setBanco_id($param["banco"]["id"]);
+            $agencia->where('id','=',$param["id"]);
+            $agencia->update();
+            return ["result"=>"Cadastro atualizado com sucesso !","code"=>200];
+
+        }catch (\Exception $e){
+            new ExceptionFramework(422);
+        }
+	}
+	public function delete($param = null)
+	{
+		try{
+		    $agencia = new agModel();
+		    $agencia->where('id','=',$param["id"]);
+		    $agencia->delete();
+            return ["result"=>"Cadastro deletado com sucesso !","code"=>200];
+        }catch (\Exception $e){
+            new ExceptionFramework(422);
+        }
+	}
+
+}

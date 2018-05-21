@@ -7,6 +7,8 @@
 */
 
 namespace Data\Controller; 
+use Data\Model\Categoria_pagamento as catPagModel;
+use SkyfallFramework\Common\Exception\ExceptionFramework;
 
 class Categoria_pagamento
 {
@@ -17,19 +19,57 @@ class Categoria_pagamento
 	**/
 	public function create($param = null)
 	{
-		/*Mehtod POST HTTP*/
+		try{
+		    $categoriaPagamento = new catPagModel();
+            $categoriaPagamento->setNome($param["nome"]);
+            $categoriaPagamento->save();
+            return ["result"=>"Cadastro efetuado com sucesso !","code"=>200];
+        }catch (\Exception $e){
+		    new ExceptionFramework(422);
+        }
 	}
 	public function search($param = null)
 	{
-		/*Mehtod GET HTTP*/
+        try{
+            $categoriaPagamento = new catPagModel();
+            if(!$param){
+                $list = $categoriaPagamento->selectAll();
+                return [
+                    'result'=>$list
+                ];
+            }else{
+                $categoriaPagamento->where('id','=',$param["id"]);
+                $list = $categoriaPagamento->select();
+                return [
+                    'result'=>$list
+                ];
+            }
+        }catch (\Exception $e){
+            new ExceptionFramework(422);
+        }
 	}
 	public function update($param = null)
 	{
-		/*Mehtod PUT HTTP*/
+        try{
+            $categoriaPagamento = new catPagModel();
+            $categoriaPagamento->setNome($param["nome"]);
+            $categoriaPagamento->where('id','=',$param["id"]);
+            $categoriaPagamento->update();
+            return ["result"=>"Cadastro efetuado com sucesso !","code"=>200];
+        }catch (\Exception $e){
+            new ExceptionFramework(422);
+        }
 	}
 	public function delete($param = null)
 	{
-		/*Mehtod DELETE HTTP*/
+        try{
+            $categoriaPagamento = new catPagModel();
+            $categoriaPagamento->where('id','=',$param["id"]);
+            $categoriaPagamento->delete();
+            return ["result"=>"Cadastro efetuado com sucesso !","code"=>200];
+        }catch (\Exception $e){
+            new ExceptionFramework(422);
+        }
 	}
 
 }

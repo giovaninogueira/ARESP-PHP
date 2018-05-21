@@ -156,8 +156,10 @@ class Model
      */
     public function delete()
     {
-        if(!is_null($this->sql))
+        if(!is_null($this->sql)){
             $sql = "DELETE FROM " . $this->getTbName() . $this->sql;
+            $this->query($sql);
+        }
         else
             new ExceptionFramework('Ocorreu um erro ao deletar');
     }

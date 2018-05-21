@@ -41,6 +41,12 @@ trait Conta_caixa
 	protected $taxa_multa; 
 	// decimal(10,2) 
 
+	protected $saldo_inicial; 
+	// decimal(10,2) 
+
+	protected $saldo_atual; 
+	// decimal(10,2) 
+
 	protected $empresa_id; 
 	// int(11) 
 
@@ -138,6 +144,30 @@ trait Conta_caixa
 	public function getTaxa_multa()
 	{
 		return $this->taxa_multa;
+	}
+
+
+	public function setSaldo_inicial($saldo_inicial)
+	{
+		$this->saldo_inicial = $saldo_inicial;
+	}
+
+
+	public function getSaldo_inicial()
+	{
+		return $this->saldo_inicial;
+	}
+
+
+	public function setSaldo_atual($saldo_atual)
+	{
+		$this->saldo_atual = $saldo_atual;
+	}
+
+
+	public function getSaldo_atual()
+	{
+		return $this->saldo_atual;
 	}
 
 
