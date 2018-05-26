@@ -33,6 +33,11 @@ class Model
     private $showValues = null;
 
     /**
+     * @var null
+     */
+    private $viewSelect = null;
+
+    /**
      * Model constructor.
      */
     public function __construct() {}
@@ -44,6 +49,11 @@ class Model
     private function getClass()
     {
         return new \ReflectionClass($this);
+    }
+
+    public function viewSelect($array = array())
+    {
+        $this->viewSelect = implode(',',array_filter($array));
     }
 
     /**
@@ -140,7 +150,11 @@ class Model
      */
     public function selectAll($limit = 100)
     {
-        $sql = "select * from " . $this->getTbName() . " limit " . $limit;
+        if($this->viewSelect)
+            $sql = "select ".$this->viewSelect." from " . $this->getTbName() . " limit " . $limit;
+        else
+            $sql = "select * from " . $this->getTbName() . " limit " . $limit;
+
         $array = $this->query($sql);
         $result = $array->fetchAll(\PDO::FETCH_ASSOC);
         $selectAll = array();
@@ -173,7 +187,11 @@ class Model
     {
         if(!is_null($this->sql))
         {
-            $sql = "SELECT * FROM " . $this->getTbName() . $this->sql;
+            if($this->viewSelect)
+                $sql = "SELECT ".$this->viewSelect." FROM " . $this->getTbName() . $this->sql;
+            else
+                $sql = "SELECT * FROM " . $this->getTbName() . $this->sql;
+
             $array = $this->query($sql);
             $result = $array->fetchAll(\PDO::FETCH_ASSOC);
             if(count($result) != 0){
@@ -230,6 +248,7 @@ class Model
             $this->sql .= " WHERE " . $atribute . " " . $operator . " '" . $value . "' " . $oprador_logic;
         else
             $this->sql .= " " . $atribute . " " . $operator . " '" . $value . "' " . $oprador_logic . " ";
+        return $this;
     }
 
     /**

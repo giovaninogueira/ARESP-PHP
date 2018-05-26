@@ -44,17 +44,19 @@ class Agencia
         try{
             $agencia = new agModel();
             $banco = new Banco();
+            $agencia->viewSelect([
+                "id","numero","digito","telefone","gerente","banco_id as banco"
+            ]);
             if(!$param){
-
                 $list = $agencia->selectAll();
                 /**
                  * @details Recuperar o id do banco
                  */
                 foreach ($list as $index => $value){
-                    $banco->where('id','=',$value["banco_id"]);
+                    $banco->where('id','=',$value["banco"]);
                     $res = $banco->select();
-                    $list[$index]["banco"]["nome"] = $res["nome"];
-                    $list[$index]["banco"]["id"] = $res["id"];
+                    $value["banco"] = array();
+                    $list[$index]["banco"] = $res;
                 }
 
                 return [
@@ -68,10 +70,11 @@ class Agencia
                 /**
                  * @details Recuperar o id do banco
                  */
-                $banco->where('id','=',$list["banco_id"]);
+                $banco->where('id','=',$list["banco"]);
+                $idBanco = $list["banco"];
                 $res = $banco->select();
-                $list["banco"]["nome"] = $res["nome"];
-                $list["banco"]["id"] = $list["banco_id"];
+                $list["banco"] = array();
+                $list["banco"] = $res;
 
                 return [
                     'result'=>$list

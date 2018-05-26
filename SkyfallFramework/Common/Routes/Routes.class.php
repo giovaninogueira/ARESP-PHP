@@ -96,11 +96,11 @@ class Routes extends restfullAPI
     /**
      * @details verificando se a rota deve receber parametros junto a URL
      */
-    private function getParamsRoutes($paramsObj, $array = [])
+    private function getParamsRoutes($paramsObj)
     {
-        $count_Request = count($array);
+        $count_Request = count(Utils::$request);
         $count_Params = count($paramsObj['Params']);
-        if(is_null($count_Params)){
+        if($count_Params){
             $lista = [];
             if (!($count_Params == $count_Request))
                 new ExceptionFramework(422);
@@ -109,10 +109,10 @@ class Routes extends restfullAPI
             {
                 foreach ($paramsObj['Params'] as $params)
                 {
-                    if (!key_exists($params, $array))
+                    if (!key_exists($params, Utils::$request))
                         new ExceptionFramework(422);
 
-                    $lista[$params] = $array[$params];
+                    $lista[$params] = Utils::$request[$params];
                 }
                 $this->setParams($lista);
             }

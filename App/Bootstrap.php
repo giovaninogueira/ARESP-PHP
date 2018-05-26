@@ -16,6 +16,7 @@ use SkyfallFramework\Common\Utils\Utils;
 
 try
 {
+    date_default_timezone_set('America/Sao_Paulo');
     $obj = new Start();
     $file_connection = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Database' . DIRECTORY_SEPARATOR . 'Database.ini';
     Connection::$list_connection = $file_connection;
