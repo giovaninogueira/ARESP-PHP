@@ -8,6 +8,9 @@
 
 namespace Data\Controller; 
 
+use Data\Model\Secretaria as modelSecretaria;
+use SkyfallFramework\Common\Exception\ExceptionFramework;
+
 class Secretaria
 {
 	/**
@@ -17,19 +20,58 @@ class Secretaria
 	**/
 	public function create($param = null)
 	{
-		/*Mehtod POST HTTP*/
+        try{
+            $secretaria = new modelSecretaria();
+            $secretaria->setNome($param["nome"]);
+            $secretaria->save();
+            return json_encode(["result"=>"Cadastro efetuado com sucesso !","code"=>201]);
+        }catch (\Exception $e){
+            new ExceptionFramework(401);
+        }
 	}
 	public function search($param = null)
 	{
-		/*Mehtod GET HTTP*/
+        try{
+            if(!$param){
+                $secretaria  = new modelSecretaria();
+                $list = $secretaria->selectAll();
+                return [
+                    'result'=>$list
+                ];
+            }else{
+                $secretaria  = new modelSecretaria();
+                $secretaria->where('id','=',$param["id"]);
+                $list = $secretaria->select();
+                return [
+                    'result'=>$list
+                ];
+            }
+        }catch (\Exception $e){
+            new ExceptionFramework(422);
+        }
 	}
 	public function update($param = null)
 	{
-		/*Mehtod PUT HTTP*/
+        try{
+            $secretaria = new modelSecretaria();
+            $secretaria->setNome($param["nome"]);
+            $secretaria->where('id','=',$param["id"]);
+            $secretaria->update();
+            return json_encode(["result"=>"Cadastro atualizado com sucesso !","code"=>201]);
+        }catch (\Exception $e){
+            new ExceptionFramework(401);
+        }
 	}
 	public function delete($param = null)
 	{
-		/*Mehtod DELETE HTTP*/
+        try{
+            $secretaria = new modelSecretaria();
+            $secretaria->where('id','=',$param["id"]);
+            $secretaria->delete();
+            return json_encode(["result"=>"Cadastro deletado com sucesso !","code"=>201]);
+        }catch (\Exception $e){
+            new ExceptionFramework(401);
+        }
 	}
 
 }

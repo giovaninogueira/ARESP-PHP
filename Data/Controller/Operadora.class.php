@@ -8,6 +8,9 @@
 
 namespace Data\Controller; 
 
+use Data\Model\Operadora as modelOperadora;
+use SkyfallFramework\Common\Exception\ExceptionFramework;
+
 class Operadora
 {
 	/**
@@ -17,19 +20,58 @@ class Operadora
 	**/
 	public function create($param = null)
 	{
-		/*Mehtod POST HTTP*/
+        try{
+            $operadora = new modelOperadora();
+            $operadora->setNome($param["nome"]);
+            $operadora->save();
+            return json_encode(["result"=>"Cadastro efetuado com sucesso !","code"=>201]);
+        }catch (\Exception $e){
+            new ExceptionFramework(401);
+        }
 	}
 	public function search($param = null)
 	{
-		/*Mehtod GET HTTP*/
+        try{
+            if(!$param){
+                $operadora  = new modelOperadora();
+                $list = $operadora->selectAll();
+                return [
+                    'result'=>$list
+                ];
+            }else{
+                $operadora  = new modelOperadora();
+                $operadora->where('id','=',$param["id"]);
+                $list = $operadora->select();
+                return [
+                    'result'=>$list
+                ];
+            }
+        }catch (\Exception $e){
+            new ExceptionFramework(422);
+        }
 	}
 	public function update($param = null)
 	{
-		/*Mehtod PUT HTTP*/
+        try{
+            $operadora = new modelOperadora();
+            $operadora->setNome($param["nome"]);
+            $operadora->where('id','=',$param["id"]);
+            $operadora->update();
+            return json_encode(["result"=>"Cadastro atualizado com sucesso !","code"=>201]);
+        }catch (\Exception $e){
+            new ExceptionFramework(401);
+        }
 	}
 	public function delete($param = null)
 	{
-		/*Mehtod DELETE HTTP*/
+        try{
+            $operadora = new modelOperadora();
+            $operadora->where('id','=',$param["id"]);
+            $operadora->delete();
+            return json_encode(["result"=>"Cadastro deletado com sucesso !","code"=>201]);
+        }catch (\Exception $e){
+            new ExceptionFramework(401);
+        }
 	}
 
 }
