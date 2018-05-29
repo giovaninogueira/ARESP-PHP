@@ -115,5 +115,71 @@ class Router
         $routes->delete('/StatusParcela/:id', 'Status_parcela')->auth(false);
         $routes->post('/StatusParcela', 'Status_parcela')->contents(['nome','descricao'])->auth(false);
         $routes->put('/StatusParcela/:id', 'Status_parcela')->contents(['id','nome','descricao'])->auth(false);
+
+        /**
+         * @details Rotas Grupos
+         */
+        $routes->get('/GruposRecebimento', 'Grupo_recebimento')->auth(false);
+        $routes->get('/GrupoRecebimento/:id', 'Grupo_recebimento')->auth(false);
+        $routes->delete('/GrupoRecebimento/:id', 'Grupo_recebimento')->auth(false);
+        $routes->post('/GrupoRecebimento', 'Grupo_recebimento')->contents(['nome'])->auth(false);
+        $routes->put('/GrupoRecebimento/:id', 'Grupo_recebimento')->contents(['id','nome'])->auth(false);
+
+        /**
+         * @details Rotas Convenio
+         */
+        $routes->get('/Convenios', 'Convenio')->auth(false);
+        $routes->get('/Convenio/:id', 'Convenio')->auth(false);
+        $routes->delete('/Convenio/:id', 'Convenio')->auth(false);
+        $routes->post('/Convenio', 'Convenio')->contents(
+            [
+                'nome',
+                'numero',
+                'telefone',
+                'conta',
+                'observacao'
+            ]
+        )->auth(false);
+        $routes->put('/Convenio/:id', 'Convenio')->contents(
+            [
+                'id',
+                'nome',
+                'numero',
+                'telefone',
+                'conta',
+                'observacao'
+            ]
+        )->auth(false);
+
+        /**
+         * @details Rotas Grupos
+         */
+        $routes->get('/ContasCaixa', 'Conta_caixa')->auth(false);
+        $routes->get('/ContaCaixa/:id', 'Conta_caixa')->auth(false);
+        $routes->delete('/ContaCaixa/:id', 'Conta_caixa')->auth(false);
+        $routes->post('/ContaCaixa', 'Conta_caixa')->contents(
+            [
+                'numero',
+                'digito',
+                'nome',
+                'tipo',
+                'taxa_multa',
+                'taxa_juros',
+                'empresa',
+                'agencia'
+            ]
+        )->auth(false);
+        $routes->put('/ContaCaixa/:id', 'Conta_caixa')->contents([
+            'id',
+            'numero',
+            'digito',
+            'nome',
+            'tipo',
+            'taxa_multa',
+            'taxa_juros',
+            'empresa',
+            'agencia'
+        ]
+        )->auth(false);
     }
 }
