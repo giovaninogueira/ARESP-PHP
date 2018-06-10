@@ -7,11 +7,6 @@
 */
 
 namespace Data\Traits;
-use \Data\Model\Categoria_pagamento;
-use \Data\Model\Cheque;
-use \Data\Model\Conta_caixa;
-use \Data\Model\Fornecedor;
-use \Data\Model\Status_parcela;
 
 
 trait Pagamento
@@ -88,7 +83,7 @@ trait Pagamento
 	// int(11) 
 
 
-	public function setCategoria_pagamento(Categoria_pagamento $categoria_pagamento)
+	public function setCategoria_pagamento( $categoria_pagamento)
 	{
 		$this->categoria_pagamento = $categoria_pagamento;
 	}
@@ -100,7 +95,7 @@ trait Pagamento
 	}
 
 
-	public function setCheque(Cheque $cheque)
+	public function setCheque( $cheque)
 	{
 		$this->cheque = $cheque;
 	}
@@ -112,7 +107,7 @@ trait Pagamento
 	}
 
 
-	public function setConta_caixa(Conta_caixa $conta_caixa)
+	public function setConta_caixa( $conta_caixa)
 	{
 		$this->conta_caixa = $conta_caixa;
 	}
@@ -124,7 +119,7 @@ trait Pagamento
 	}
 
 
-	public function setFornecedor(Fornecedor $fornecedor)
+	public function setFornecedor( $fornecedor)
 	{
 		$this->fornecedor = $fornecedor;
 	}
@@ -136,7 +131,7 @@ trait Pagamento
 	}
 
 
-	public function setStatus_parcela(Status_parcela $status_parcela)
+	public function setStatus_parcela( $status_parcela)
 	{
 		$this->status_parcela = $status_parcela;
 	}

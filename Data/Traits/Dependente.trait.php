@@ -7,7 +7,6 @@
 */
 
 namespace Data\Traits;
-use \Data\Model\Cliente;
 
 
 trait Dependente
@@ -39,7 +38,7 @@ trait Dependente
 	// int(11) 
 
 
-	public function setCliente(Cliente $cliente)
+	public function setCliente( $cliente)
 	{
 		$this->cliente = $cliente;
 	}

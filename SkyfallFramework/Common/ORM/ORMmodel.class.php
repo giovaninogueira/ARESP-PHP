@@ -261,7 +261,7 @@ class ORMmodel
     public function createSetRef($referencia, $model = "")
     {
         $set = "\n\tpublic function set" . ucfirst(strtolower($referencia));
-        $set .= "(" . ucwords($referencia) . ucwords($model);
+        $set .= "(";
         $set .= " $" . strtolower($referencia) . ")\n";
         $set .= "\t{\n";
         $set .= "\t\t$" . "this->" . strtolower($referencia) . " = $" . strtolower($referencia) . ";";

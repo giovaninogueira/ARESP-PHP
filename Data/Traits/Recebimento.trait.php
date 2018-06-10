@@ -7,11 +7,6 @@
 */
 
 namespace Data\Traits;
-use \Data\Model\Categoria_recebimento;
-use \Data\Model\Cliente;
-use \Data\Model\Conta_caixa;
-use \Data\Model\Grupo_recebimento;
-use \Data\Model\Status_parcela;
 
 
 trait Recebimento
@@ -88,7 +83,7 @@ trait Recebimento
 	// int(11) 
 
 
-	public function setCategoria_recebimento(Categoria_recebimento $categoria_recebimento)
+	public function setCategoria_recebimento( $categoria_recebimento)
 	{
 		$this->categoria_recebimento = $categoria_recebimento;
 	}
@@ -100,7 +95,7 @@ trait Recebimento
 	}
 
 
-	public function setCliente(Cliente $cliente)
+	public function setCliente( $cliente)
 	{
 		$this->cliente = $cliente;
 	}
@@ -112,7 +107,7 @@ trait Recebimento
 	}
 
 
-	public function setConta_caixa(Conta_caixa $conta_caixa)
+	public function setConta_caixa( $conta_caixa)
 	{
 		$this->conta_caixa = $conta_caixa;
 	}
@@ -124,7 +119,7 @@ trait Recebimento
 	}
 
 
-	public function setGrupo_recebimento(Grupo_recebimento $grupo_recebimento)
+	public function setGrupo_recebimento( $grupo_recebimento)
 	{
 		$this->grupo_recebimento = $grupo_recebimento;
 	}
@@ -136,7 +131,7 @@ trait Recebimento
 	}
 
 
-	public function setStatus_parcela(Status_parcela $status_parcela)
+	public function setStatus_parcela( $status_parcela)
 	{
 		$this->status_parcela = $status_parcela;
 	}

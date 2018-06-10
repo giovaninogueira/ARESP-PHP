@@ -7,8 +7,6 @@
 */
 
 namespace Data\Traits;
-use \Data\Model\Banco;
-use \Data\Model\Operadora;
 
 
 trait Dados_bancarios
@@ -58,7 +56,7 @@ trait Dados_bancarios
 	// int(11) 
 
 
-	public function setBanco(Banco $banco)
+	public function setBanco( $banco)
 	{
 		$this->banco = $banco;
 	}
@@ -70,7 +68,7 @@ trait Dados_bancarios
 	}
 
 
-	public function setOperadora(Operadora $operadora)
+	public function setOperadora( $operadora)
 	{
 		$this->operadora = $operadora;
 	}

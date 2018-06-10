@@ -7,12 +7,6 @@
 */
 
 namespace Data\Traits;
-use \Data\Model\Cancelamento;
-use \Data\Model\Dados_bancarios;
-use \Data\Model\Endereco;
-use \Data\Model\Grupo_recebimento;
-use \Data\Model\Secretaria;
-use \Data\Model\Tipo_socio;
 
 
 trait Cliente
@@ -88,6 +82,9 @@ trait Cliente
 	protected $matricula; 
 	// varchar(20) 
 
+	protected $ativo; 
+	// tinyint(4) 
+
 	protected $endereco_id; 
 	// int(11) 
 
@@ -107,7 +104,7 @@ trait Cliente
 	// int(11) 
 
 
-	public function setCancelamento(Cancelamento $cancelamento)
+	public function setCancelamento( $cancelamento)
 	{
 		$this->cancelamento = $cancelamento;
 	}
@@ -119,7 +116,7 @@ trait Cliente
 	}
 
 
-	public function setDados_bancarios(Dados_bancarios $dados_bancarios)
+	public function setDados_bancarios( $dados_bancarios)
 	{
 		$this->dados_bancarios = $dados_bancarios;
 	}
@@ -131,7 +128,7 @@ trait Cliente
 	}
 
 
-	public function setEndereco(Endereco $endereco)
+	public function setEndereco( $endereco)
 	{
 		$this->endereco = $endereco;
 	}
@@ -143,7 +140,7 @@ trait Cliente
 	}
 
 
-	public function setGrupo_recebimento(Grupo_recebimento $grupo_recebimento)
+	public function setGrupo_recebimento( $grupo_recebimento)
 	{
 		$this->grupo_recebimento = $grupo_recebimento;
 	}
@@ -155,7 +152,7 @@ trait Cliente
 	}
 
 
-	public function setSecretaria(Secretaria $secretaria)
+	public function setSecretaria( $secretaria)
 	{
 		$this->secretaria = $secretaria;
 	}
@@ -167,7 +164,7 @@ trait Cliente
 	}
 
 
-	public function setTipo_socio(Tipo_socio $tipo_socio)
+	public function setTipo_socio( $tipo_socio)
 	{
 		$this->tipo_socio = $tipo_socio;
 	}
@@ -368,6 +365,18 @@ trait Cliente
 	public function getMatricula()
 	{
 		return $this->matricula;
+	}
+
+
+	public function setAtivo($ativo)
+	{
+		$this->ativo = $ativo;
+	}
+
+
+	public function getAtivo()
+	{
+		return $this->ativo;
 	}
 
 

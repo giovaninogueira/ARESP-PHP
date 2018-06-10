@@ -7,7 +7,6 @@
 */
 
 namespace Data\Traits;
-use \Data\Model\Conta_caixa;
 
 
 trait Convenio
@@ -39,7 +38,7 @@ trait Convenio
 	// int(11) 
 
 
-	public function setConta_caixa(Conta_caixa $conta_caixa)
+	public function setConta_caixa( $conta_caixa)
 	{
 		$this->conta_caixa = $conta_caixa;
 	}

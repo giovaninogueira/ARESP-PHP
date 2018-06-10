@@ -126,6 +126,27 @@ class Router
         $routes->put('/GrupoRecebimento/:id', 'Grupo_recebimento')->contents(['id','nome'])->auth(false);
 
         /**
+         * @details Rotas Clientes
+         */
+        $routes->get('/Clientes', 'Cliente')->auth(false);
+        $routes->get('/Cliente/:id', 'Cliente')->auth(false);
+        $routes->delete('/Cliente/:id', 'Cliente')->auth(false);
+        $routes->post('/Cliente', 'Cliente')->contents(
+            [
+                'cadastro','cancelado','cpf','dadosBancarios','dependentes','email','endereco',
+                'estadoCivil','grupo','mae','nascimento','nome','obs','pai','rg','secretaria',
+                'sexo','situacao','telefones','tipo','numAverbacao','ativo','matricula'
+            ]
+        )->auth(false);
+        $routes->put('/Cliente/:id', 'Cliente')->contents(
+            [
+                'cadastro','cancelado','cpf','dadosBancarios','dependentes','email','endereco',
+                'estadoCivil','grupo','mae','nascimento','nome','obs','pai','rg','secretaria',
+                'sexo','situacao','telefones','tipo','id','numAverbacao','ativo'
+            ]
+        )->auth(false);
+
+        /**
          * @details Rotas Convenio
          */
         $routes->get('/Convenios', 'Convenio')->auth(false);

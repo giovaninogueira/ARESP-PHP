@@ -7,7 +7,6 @@
 */
 
 namespace Data\Traits;
-use \Data\Model\Empresa;
 
 
 trait Conta_caixa
@@ -19,6 +18,9 @@ trait Conta_caixa
 
 	protected $empresa; 
 	// References - empresa 
+
+	protected $agencia; 
+	// References - agencia 
 
 	protected $id; 
 	// int(11) 
@@ -50,8 +52,14 @@ trait Conta_caixa
 	protected $empresa_id; 
 	// int(11) 
 
+	protected $agencia_id; 
+	// int(11) 
 
-	public function setEmpresa(Empresa $empresa)
+	protected $conta_caixacol; 
+	// varchar(45) 
+
+
+	public function setEmpresa( $empresa)
 	{
 		$this->empresa = $empresa;
 	}
@@ -60,6 +68,18 @@ trait Conta_caixa
 	public function getEmpresa()
 	{
 		return $this->empresa;
+	}
+
+
+	public function setAgencia( $agencia)
+	{
+		$this->agencia = $agencia;
+	}
+
+
+	public function getAgencia()
+	{
+		return $this->agencia;
 	}
 
 
@@ -180,6 +200,30 @@ trait Conta_caixa
 	public function getEmpresa_id()
 	{
 		return $this->empresa_id;
+	}
+
+
+	public function setAgencia_id($agencia_id)
+	{
+		$this->agencia_id = $agencia_id;
+	}
+
+
+	public function getAgencia_id()
+	{
+		return $this->agencia_id;
+	}
+
+
+	public function setConta_caixacol($conta_caixacol)
+	{
+		$this->conta_caixacol = $conta_caixacol;
+	}
+
+
+	public function getConta_caixacol()
+	{
+		return $this->conta_caixacol;
 	}
 
 

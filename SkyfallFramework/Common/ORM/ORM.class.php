@@ -134,7 +134,7 @@ class ORM extends Model
                         $model = " as " . ucwords($value['referencia']) . "Model";
                         $r = "Model";
                     }
-                    $modelOrm->createUse(ucwords($value['referencia']).$model, 'Model');
+                    //modelOrm->createUse(ucwords($value['referencia']).$model, 'Model');
                     $modelOrm->createAtributoRef($value['referencia']);
                     $modelOrm->createSetRef($value['referencia'],$r);
                     $modelOrm->createGet($value['referencia']);
@@ -163,7 +163,7 @@ class ORM extends Model
         foreach ($this->list_tables as $index => $table)
         {
             $model = new ORMmodel();
-            $model->createUse(ucwords($table),'Traits');
+            //$model->createUse(ucwords($table),'Traits');
             $file = $this->path("Model",ucwords($table),'class');
             if(!file_exists($file))
                 $this->createFile($model->createModel(ucwords($table)), $file);

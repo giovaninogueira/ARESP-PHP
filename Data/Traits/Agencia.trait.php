@@ -7,7 +7,6 @@
 */
 
 namespace Data\Traits;
-use \Data\Model\Banco;
 
 
 trait Agencia
@@ -39,7 +38,7 @@ trait Agencia
 	// int(11) 
 
 
-	public function setBanco(Banco $banco)
+	public function setBanco( $banco)
 	{
 		$this->banco = $banco;
 	}
