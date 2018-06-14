@@ -117,6 +117,44 @@ class Router
         $routes->put('/StatusParcela/:id', 'Status_parcela')->contents(['id','nome','descricao'])->auth(false);
 
         /**
+         * @details Rotas Status Parcela
+         */
+        $routes->get('/Recebimentos', 'Recebimento')->auth(false);
+        $routes->get('/Recebimento/:id', 'Recebimento')->auth(false);
+        $routes->delete('/Recebimento/:id', 'Recebimento')->auth(false);
+        $routes->post('/Recebimento', 'Recebimento')->contents(
+            [
+                'categoria',
+                'cliente',
+                'conta',
+                'descricao',
+                'dtCompetencia',
+                'dtEmissao',
+                'dtVencimento',
+                'grupo',
+                'ocorrencia',
+                'remessaGerada',
+                'situacao',
+                'valor'
+            ]
+        )->auth(false);
+        $routes->put('/Recebimento/:id', 'Recebimento')->contents(
+            'categoria',
+            'cliente',
+            'conta',
+            'descricao',
+            'dtCompetencia',
+            'dtEmissao',
+            'dtVencimento',
+            'grupo',
+            'ocorrencia',
+            'remessaGerada',
+            'situacao',
+            'valor',
+            'id'
+        )->auth(false);
+
+        /**
          * @details Rotas Grupos
          */
         $routes->get('/GruposRecebimento', 'Grupo_recebimento')->auth(false);
