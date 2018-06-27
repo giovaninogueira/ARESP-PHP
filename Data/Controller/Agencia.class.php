@@ -24,6 +24,7 @@ class Agencia
 	{
 	    try{
             $agencia = new agModel();
+            $this->validarCampos();
             $agencia->setNumero($param["numero"]);
             $agencia->setGerente($param["gerente"]);
             $agencia->setTelefone($param["telefone"]);
@@ -38,7 +39,19 @@ class Agencia
         }catch (\Exception $e){
 	        new ExceptionFramework($e->getMessage(),401);
         }
-	}
+    }
+    
+    public function validarCampos()
+    {
+        $dados = Utils::$request;
+        if(\is_null($dados['numero']) || !$dados['numero']){
+            new ExceptionFramework('Número é obrigatório',422);
+        }
+        if(\is_null($dados['banco']) || !$dados['banco'] || !$dados["banco"]["id"]){
+            new ExceptionFramework('Banco é obrigatório',422);
+        }
+    }
+
 	public function search($param = null)
 	{
         try{
@@ -81,13 +94,14 @@ class Agencia
                 ];
             }
         }catch (\Exception $e){
-            new ExceptionFramework(422);
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function update($param = null)
 	{
 		try{
             $agencia = new agModel();
+            $this->validarCampos();
             $agencia->setNumero($param["numero"]);
             $agencia->setGerente($param["gerente"]);
             $agencia->setTelefone($param["telefone"]);
@@ -102,7 +116,7 @@ class Agencia
             return ["result"=>"Cadastro atualizado com sucesso !","code"=>200];
 
         }catch (\Exception $e){
-            new ExceptionFramework(422);
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function delete($param = null)
@@ -116,5 +130,4 @@ class Agencia
             new ExceptionFramework(422);
         }
 	}
-
 }
