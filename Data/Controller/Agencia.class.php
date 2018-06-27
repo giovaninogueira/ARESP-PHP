@@ -24,6 +24,7 @@ class Agencia
     
 	public function create($param = null)
 	{
+        echo 'teste';
 	    try{
             $agencia = new agModel();
             $this->validarCampos();
