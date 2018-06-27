@@ -87,6 +87,17 @@ class Banco
         }catch (\Exception $e){
             new ExceptionFramework(422);
         }
-	}
+    }
+    
+    public function validarCampos()
+    {
+        $dados = Utils::$request;
+        if(\is_null($dados['numero']) || !$dados['numero']){
+            new ExceptionFramework('Número é obrigatório',422);
+        }
+        if(\is_null($dados['banco']) || !$dados['banco'] || !$dados["banco"]["id"]){
+            new ExceptionFramework('Banco é obrigatório',422);
+        }
+    }
 
 }

@@ -15,11 +15,13 @@ use SkyfallFramework\Common\Utils\Utils;
 
 class Agencia
 {
+    
 	/**
 	* Skyfall Micro-Framework
 	* Controller's body
 	* Version 1.0.0
-	**/
+    **/
+    
 	public function create($param = null)
 	{
 	    try{
@@ -96,7 +98,8 @@ class Agencia
         }catch (\Exception $e){
             new ExceptionFramework($e->getMessage(), $e->getCode());
         }
-	}
+    }
+    
 	public function update($param = null)
 	{
 		try{
@@ -118,7 +121,8 @@ class Agencia
         }catch (\Exception $e){
             new ExceptionFramework($e->getMessage(), $e->getCode());
         }
-	}
+    }
+    
 	public function delete($param = null)
 	{
 		try{
