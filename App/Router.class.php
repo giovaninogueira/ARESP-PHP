@@ -129,7 +129,6 @@ class Router
                 'conta',
                 'descricao',
                 'dtCompetencia',
-                'dtEmissao',
                 'dtVencimento',
                 'grupo',
                 'ocorrencia',
@@ -139,19 +138,21 @@ class Router
             ]
         )->auth(false);
         $routes->put('/Recebimento/:id', 'Recebimento')->contents(
-            'categoria',
-            'cliente',
-            'conta',
-            'descricao',
-            'dtCompetencia',
-            'dtEmissao',
-            'dtVencimento',
-            'grupo',
-            'ocorrencia',
-            'remessaGerada',
-            'situacao',
-            'valor',
-            'id'
+            [
+                'categoria',
+                'cliente',
+                'conta',
+                'descricao',
+                'dtCompetencia',
+                'dtEmissao',
+                'dtVencimento',
+                'grupo',
+                'ocorrencia',
+                'remessagerada',
+                'situacao',
+                'valor',
+                'id'
+            ]
         )->auth(false);
 
         /**
@@ -196,6 +197,7 @@ class Router
                 'numero',
                 'telefone',
                 'conta',
+                'conta_caixa_id',
                 'observacao'
             ]
         )->auth(false);
@@ -206,6 +208,7 @@ class Router
                 'numero',
                 'telefone',
                 'conta',
+                'conta_caixa_id',
                 'observacao'
             ]
         )->auth(false);
@@ -239,6 +242,48 @@ class Router
             'empresa',
             'agencia'
         ]
+        )->auth(false);
+
+        /**
+         * @details Rotas Contas a pagar
+         */
+        $routes->get('/Pagamentos', 'Pagamento')->auth(false);
+        $routes->get('/Pagamento/:id', 'Pagamento')->auth(false);
+        $routes->delete('/Pagamento/:id', 'Pagamento')->auth(false);
+        $routes->post('/Pagamento', 'Pagamento')->contents(
+            [
+                'categoria',
+                'cheque',
+                'chequeEmitido',
+                'conta',
+                'descricao',
+                'documento',
+                'dtCompetencia',
+                'dtVencimento',
+                'fornecedor',
+                'numNf',
+                'referecia',
+                'situacao',
+                'valor'
+            ]
+        )->auth(false);
+        $routes->put('/Pagamento/:id', 'Pagamento')->contents(
+            [
+                'categoria',
+                'cheque',
+                'chequeEmitido',
+                'conta',
+                'descricao',
+                'documento',
+                'dtCompetencia',
+                'dtVencimento',
+                'fornecedor',
+                'numNf',
+                'referecia',
+                'situacao',
+                'valor',
+                'id'
+            ]
         )->auth(false);
     }
 }

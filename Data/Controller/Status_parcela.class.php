@@ -10,6 +10,7 @@ namespace Data\Controller;
 
 use Data\Model\Status_parcela as modelStatusParcela;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
+use SkyfallFramework\Common\Utils\Utils;
 
 class Status_parcela
 {
@@ -21,13 +22,14 @@ class Status_parcela
 	public function create($param = null)
 	{
         try{
+            $this->validarCampos();
             $statusParcela = new modelStatusParcela();
             $statusParcela->setNome($param["nome"]);
             $statusParcela->setDescricao($param["descricao"]);
             $statusParcela->save();
             return json_encode(["result"=>"Cadastro efetuado com sucesso !","code"=>201]);
         }catch (\Exception $e){
-            new ExceptionFramework(401);
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function search($param = null)
@@ -54,6 +56,7 @@ class Status_parcela
 	public function update($param = null)
 	{
         try{
+            $this->validarCampos();
             $statusParcela = new modelStatusParcela();
             $statusParcela->setNome($param["nome"]);
             $statusParcela->setDescricao($param["descricao"]);
@@ -61,7 +64,7 @@ class Status_parcela
             $statusParcela->update();
             return json_encode(["result"=>"Cadastro atualizado com sucesso !","code"=>201]);
         }catch (\Exception $e){
-            new ExceptionFramework(401);
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function delete($param = null)
@@ -74,6 +77,11 @@ class Status_parcela
         }catch (\Exception $e){
             new ExceptionFramework(401);
         }
-	}
+    }
 
+    public function validarCampos()
+    {
+        $dados = Utils::$request;
+        Utils::validateFields($dados['nome'], 'Nome é obrigatório');
+    }
 }

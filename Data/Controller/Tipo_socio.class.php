@@ -10,6 +10,7 @@ namespace Data\Controller;
 
 use Data\Model\Tipo_socio as tipoSocio;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
+use SkyfallFramework\Common\Utils\Utils;
 
 class Tipo_socio
 {
@@ -21,12 +22,13 @@ class Tipo_socio
 	public function create($param = null)
 	{
 	    try{
+            $this->validarCampos();
             $tipoSocio = new tipoSocio();
             $tipoSocio->setNome($param["nome"]);
             $tipoSocio->save();
             return json_encode(["result"=>"Cadastro efetuado com sucesso !","code"=>201]);
         }catch (\Exception $e){
-            new ExceptionFramework(401);
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 
@@ -54,13 +56,14 @@ class Tipo_socio
 	public function update($param = null)
 	{
         try{
+            $this->validarCampos();
             $tipoSocio = new tipoSocio();
             $tipoSocio->setNome($param["nome"]);
             $tipoSocio->where('id','=',$param["id"]);
             $tipoSocio->update();
             return json_encode(["result"=>"Cadastro atualizado com sucesso !","code"=>201]);
         }catch (\Exception $e){
-            new ExceptionFramework(401);
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function delete($param = null)
@@ -73,6 +76,11 @@ class Tipo_socio
         }catch (\Exception $e){
             new ExceptionFramework(401);
         }
-	}
-
+    }
+    
+    public function validarCampos()
+    {
+        $dados = Utils::$request;
+        Utils::validateFields($dados['nome'], 'Nome é obrigatório');
+    }
 }

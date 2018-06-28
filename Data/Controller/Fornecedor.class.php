@@ -10,6 +10,7 @@ namespace Data\Controller;
 
 use Data\Model\Fornecedor as modelForncedor;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
+use SkyfallFramework\Common\Utils\Utils;
 
 class Fornecedor
 {
@@ -21,6 +22,7 @@ class Fornecedor
 	public function create($param = null)
 	{
 	    try{
+            $this->validarCampos();
             $fornecedor = new modelForncedor();
             $fornecedor->setTelefone($param["telefone"]);
             $fornecedor->setCadastro(date("Y-m-d H:i:s"));
@@ -36,7 +38,7 @@ class Fornecedor
                 "code"=>201
             ];
         }catch (\Exception $e){
-	        new ExceptionFramework(401);
+	        new ExceptionFramework($e->getMessage(),401);
         }
 	}
 	public function search($param = null)
@@ -63,6 +65,7 @@ class Fornecedor
 	public function update($param = null)
 	{
         try{
+            $this->validarCampos();
             $fornecedor = new modelForncedor();
             $fornecedor->setTelefone($param["telefone"]);
             $fornecedor->setCadastro(date("Y-m-d H:i:s"));
@@ -119,4 +122,10 @@ class Fornecedor
         }
     }
 
+    public function validarCampos()
+    {
+        $dados = Utils::$request;
+        Utils::validateFields($dados['razao'], 'Razão Social é obrigatório');
+        Utils::validateFields($dados['fantasia'], 'Nome Fantasia é obrigatório');
+    }
 }

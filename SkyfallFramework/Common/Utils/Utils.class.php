@@ -2,6 +2,8 @@
 
 namespace SkyfallFramework\Common\Utils;
 
+use SkyfallFramework\Common\Exception\ExceptionFramework;
+
 /**
  * Class Utils
  * @package SkyfallFramework\Common\Utils
@@ -46,6 +48,13 @@ class Utils
         }
 
         return $new;
+    }
+
+    public function validateFields($field, $msg, $code = 422)
+    {
+        if(\is_null($field) || !$field){
+            new ExceptionFramework($msg, $code);
+        }
     }
 
     /**

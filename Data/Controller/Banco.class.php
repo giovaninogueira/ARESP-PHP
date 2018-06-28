@@ -23,6 +23,7 @@ class Banco
 	{
 	    try{
             $banco  = new bancoModel();
+            $this->validarCampos();
             $banco->setNome($param["nome"]);
             $banco->setNumero($param["numero"]);
             $banco->setTelefone($param["telefone"]);
@@ -33,7 +34,7 @@ class Banco
                 ];
 
         }catch (\Exception $e){
-	        new ExceptionFramework(422);
+	        new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function search($param = null)
@@ -61,6 +62,7 @@ class Banco
 	{
 		try{
             $banco  = new bancoModel();
+            $this->validarCampos();
             $banco->setNome($param["nome"]);
             $banco->setNumero($param["numero"]);
             $banco->setTelefone($param["telefone"]);
@@ -71,7 +73,7 @@ class Banco
                 "code"=>201
             ];
         }catch (\Exception $e){
-            new ExceptionFramework(422);
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function delete($param = null)
@@ -92,12 +94,8 @@ class Banco
     public function validarCampos()
     {
         $dados = Utils::$request;
-        if(\is_null($dados['numero']) || !$dados['numero']){
-            new ExceptionFramework('Número é obrigatório',422);
-        }
-        if(\is_null($dados['banco']) || !$dados['banco'] || !$dados["banco"]["id"]){
-            new ExceptionFramework('Banco é obrigatório',422);
-        }
+        Utils::validateFields($dados['numero'], 'Número é obrigatório');
+        Utils::validateFields($dados['nome'], 'Nome é obrigatório');
     }
 
 }

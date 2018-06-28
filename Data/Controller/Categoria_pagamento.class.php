@@ -9,6 +9,7 @@
 namespace Data\Controller; 
 use Data\Model\Categoria_pagamento as catPagModel;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
+use SkyfallFramework\Common\Utils\Utils;
 
 class Categoria_pagamento
 {
@@ -20,6 +21,7 @@ class Categoria_pagamento
 	public function create($param = null)
 	{
 		try{
+            $this->validarCampos();
 		    $categoriaPagamento = new catPagModel();
             $categoriaPagamento->setNome($param["nome"]);
             $categoriaPagamento->save();
@@ -51,13 +53,14 @@ class Categoria_pagamento
 	public function update($param = null)
 	{
         try{
+            $this->validarCampos();
             $categoriaPagamento = new catPagModel();
             $categoriaPagamento->setNome($param["nome"]);
             $categoriaPagamento->where('id','=',$param["id"]);
             $categoriaPagamento->update();
             return ["result"=>"Cadastro efetuado com sucesso !","code"=>200];
         }catch (\Exception $e){
-            new ExceptionFramework(422);
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function delete($param = null)
@@ -70,6 +73,12 @@ class Categoria_pagamento
         }catch (\Exception $e){
             new ExceptionFramework(422);
         }
-	}
+    }
+    
+    public function validarCampos()
+    {
+        $dados = Utils::$request;
+        Utils::validateFields($dados['nome'], 'Nome é obrigatório');
+    }
 
 }

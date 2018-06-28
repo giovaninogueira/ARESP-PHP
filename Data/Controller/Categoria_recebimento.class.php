@@ -10,6 +10,7 @@ namespace Data\Controller;
 
 use Data\Model\Categoria_recebimento as catRecebimento;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
+use SkyfallFramework\Common\Utils\Utils;
 
 class Categoria_recebimento
 {
@@ -21,6 +22,7 @@ class Categoria_recebimento
     public function create($param = null)
     {
         try{
+            $this->validarCampos();
             $categoriaRecebimento = new catRecebimento();
             $categoriaRecebimento->setNome($param["nome"]);
             $categoriaRecebimento->save();
@@ -52,6 +54,7 @@ class Categoria_recebimento
     public function update($param = null)
     {
         try{
+            $this->validarCampos();
             $categoriaRecebimento = new catRecebimento();
             $categoriaRecebimento->setNome($param["nome"]);
             $categoriaRecebimento->where('id','=',$param["id"]);
@@ -73,4 +76,9 @@ class Categoria_recebimento
         }
     }
 
+    public function validarCampos()
+    {
+        $dados = Utils::$request;
+        Utils::validateFields($dados['nome'], 'Nome é obrigatório');
+    }
 }

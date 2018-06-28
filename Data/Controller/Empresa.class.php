@@ -10,6 +10,7 @@ namespace Data\Controller;
 
 use Data\Model\Empresa as modelEmpresa;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
+use SkyfallFramework\Common\Utils\Utils;
 
 class Empresa
 {
@@ -21,6 +22,7 @@ class Empresa
 	public function create($param = null)
 	{
 		try{
+            $this->validarCampos();
 		    $empresa = new modelEmpresa();
 		    $empresa->setFantasia($param["fantasia"]);
 		    $empresa->setRazao($param["razao"]);
@@ -59,6 +61,7 @@ class Empresa
 	public function update($param = null)
 	{
         try{
+            $this->validarCampos();
             $empresa = new modelEmpresa();
             $empresa->setFantasia($param["fantasia"]);
             $empresa->setRazao($param["razao"]);
@@ -99,5 +102,13 @@ class Empresa
         } catch (\Exception $e) {
             new ExceptionFramework($e->getMessage());
         }
+    }
+
+    public function validarCampos()
+    {
+        $dados = Utils::$request;
+        Utils::validateFields($dados['cnpj'], 'CNPJ é obrigatório');
+        Utils::validateFields($dados['razao'], 'Razão Social é obrigatório');
+        Utils::validateFields($dados['fantasia'], 'Nome Fantasia é obrigatório');
     }
 }

@@ -24,7 +24,6 @@ class Agencia
     
 	public function create($param = null)
 	{
-        echo 'teste1023';
 	    try{
             $agencia = new agModel();
             $this->validarCampos();
@@ -40,19 +39,16 @@ class Agencia
             $agencia->save();
             return ["result"=>"Cadastro efetuado com sucesso !","code"=>201];
         }catch (\Exception $e){
-	        new ExceptionFramework($e->getMessage(),401);
+	        new ExceptionFramework($e->getMessage(),$e->getCode());
         }
     }
     
     public function validarCampos()
     {
         $dados = Utils::$request;
-        if(\is_null($dados['numero']) || !$dados['numero']){
-            new ExceptionFramework('Número é obrigatório',422);
-        }
-        if(\is_null($dados['banco']) || !$dados['banco'] || !$dados["banco"]["id"]){
-            new ExceptionFramework('Banco é obrigatório',422);
-        }
+        Utils::validateFields($dados['numero'], 'Número é obrigatório');
+        Utils::validateFields($dados['banco'], 'Banco é obrigatório');
+        Utils::validateFields($dados['banco']['id'], 'Banco é obrigatório');
     }
 
 	public function search($param = null)

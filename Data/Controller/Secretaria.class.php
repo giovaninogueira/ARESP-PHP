@@ -10,6 +10,7 @@ namespace Data\Controller;
 
 use Data\Model\Secretaria as modelSecretaria;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
+use SkyfallFramework\Common\Utils\Utils;
 
 class Secretaria
 {
@@ -21,12 +22,13 @@ class Secretaria
 	public function create($param = null)
 	{
         try{
+            $this->validarCampos();
             $secretaria = new modelSecretaria();
             $secretaria->setNome($param["nome"]);
             $secretaria->save();
             return json_encode(["result"=>"Cadastro efetuado com sucesso !","code"=>201]);
         }catch (\Exception $e){
-            new ExceptionFramework(401);
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function search($param = null)
@@ -53,13 +55,14 @@ class Secretaria
 	public function update($param = null)
 	{
         try{
+            $this->validarCampos();
             $secretaria = new modelSecretaria();
             $secretaria->setNome($param["nome"]);
             $secretaria->where('id','=',$param["id"]);
             $secretaria->update();
             return json_encode(["result"=>"Cadastro atualizado com sucesso !","code"=>201]);
         }catch (\Exception $e){
-            new ExceptionFramework(401);
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function delete($param = null)
@@ -72,6 +75,11 @@ class Secretaria
         }catch (\Exception $e){
             new ExceptionFramework(401);
         }
-	}
-
+    }
+    
+    public function validarCampos()
+    {
+        $dados = Utils::$request;
+        Utils::validateFields($dados['nome'], 'Nome é obrigatório');
+    }
 }

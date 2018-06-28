@@ -37,7 +37,7 @@ class Cliente
             $cliente->setCpf($param["cpf"]);
             $cliente->setRg($param["rg"]);
             $cliente->setNome($param["nome"]);
-            $cliente->setNascimento(date('Y-m-d',strtotime($param["nascimento"])));
+            $cliente->setNascimento($param["nascimento"]);
             $cliente->setSexo($param["sexo"]);
             $cliente->setPai($param["pai"]);
             $cliente->setMae($param["mae"]);

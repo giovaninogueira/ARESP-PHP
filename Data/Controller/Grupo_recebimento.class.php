@@ -10,6 +10,7 @@ namespace Data\Controller;
 
 use Data\Model\Grupo_recebimento as modelGrupo;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
+use SkyfallFramework\Common\Utils\Utils;
 
 class Grupo_recebimento
 {
@@ -21,12 +22,13 @@ class Grupo_recebimento
 	public function create($param = null)
 	{
         try{
+            $this->validarCampos();
             $grupo = new modelGrupo();
             $grupo->setNome($param["nome"]);
             $grupo->save();
             return json_encode(["result"=>"Cadastro efetuado com sucesso !","code"=>201]);
         }catch (\Exception $e){
-            new ExceptionFramework(401);
+            new ExceptionFramework($e->getMessage(),$e->getCode());
         }
 	}
 	public function search($param = null)
@@ -53,13 +55,14 @@ class Grupo_recebimento
 	public function update($param = null)
 	{
         try{
+            $this->validarCampos();
             $grupo = new modelGrupo();
             $grupo->setNome($param["nome"]);
             $grupo->where('id','=',$param["id"]);
             $grupo->update();
             return json_encode(["result"=>"Cadastro atualizado com sucesso !","code"=>201]);
         }catch (\Exception $e){
-            new ExceptionFramework(401);
+            new ExceptionFramework($e->getMessage(),$e->getCode());
         }
 	}
 	public function delete($param = null)
@@ -72,6 +75,11 @@ class Grupo_recebimento
         }catch (\Exception $e){
             new ExceptionFramework(401);
         }
-	}
-
+    }
+    
+    public function validarCampos()
+    {
+        $dados = Utils::$request;
+        Utils::validateFields($dados['nome'], 'Nome é obrigatório');
+    }
 }

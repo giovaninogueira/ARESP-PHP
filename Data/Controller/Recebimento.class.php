@@ -20,20 +20,30 @@ class Recebimento
 	public function create($param = null)
 	{
 		try{
-		    $receber = new \Data\Model\Recebimento();
-		    $receber->setCategoria_recebimento_id($param['categoria']['id']);
-		    $receber->setCliente_id($param['cliente']['id']);
-		    $receber->setConta_caixa_id($param['conta']['id']);
-		    $receber->setDescricao($param['descricao']);
-		    $receber->setDt_compentencia(date('Y-m-d',strtotime($param["dtCompetencia"])));
-            $receber->setDt_emissao(date('Y-m-d',strtotime($param["dtEmissao"])));
-            $receber->setDt_vencimento(date('Y-m-d',strtotime($param["dtVencimento"])));
-            $receber->setGrupo_recebimento_id($param['grupo']['id']);
-            $receber->setOcorrencia($param['ocorrencia']);
-            $receber->setRemessa_gerada(0);
-            $receber->setValor($param['valor']);
-            $receber->setStatus_parcela_id(1);
-            $receber->save();
+            $valorDiv = $param['valor'] / $param['ocorrencia'];
+            $newDate = null;
+            $num = strtotime(date('Y-m-d H:i:s'));
+            for($i = 0; $i < $param['ocorrencia']; $i++){
+                if(!$newDate){
+                    $newDate = date('Y-m-d', strtotime("+1 month", strtotime($param["dtVencimento"])));
+                }else{
+                    $newDate = date('Y-m-d', strtotime("+1 month", strtotime($newDate)));
+                }
+                $receber = new \Data\Model\Recebimento();
+                $receber->setCategoria_recebimento_id($param['categoria']['id']);
+                $receber->setCliente_id($param['cliente']['id']);
+                $receber->setConta_caixa_id($param['conta']['id']);
+                $receber->setDescricao($param['descricao']);
+                $receber->setDt_compentencia($param["dtCompetencia"]);
+                $receber->setDt_emissao(date ("Y-m-d"));
+                $receber->setDt_vencimento($newDate);
+                $receber->setGrupo_recebimento_id($param['grupo']['id']);
+                $receber->setOcorrencia($param['ocorrencia']);
+                $receber->setRemessa_gerada(0);
+                $receber->setValor($valorDiv);
+                $receber->setStatus_parcela_id(1);
+                $receber->save();
+            }
         }catch (\Exception $e){
             new ExceptionFramework($e->getMessage(),402);
         }
@@ -61,11 +71,19 @@ class Recebimento
         try{
             if($param){
                 $receber->where('id','=',$param['id']);
-                $list = $receber->select();
+                $list = $receber->selectAll(1)[0];
+
+                $list['dtCompetencia'] = $list['dtcompetencia'];
+                $list['dtEmissao'] = $list['dtemissao'];
+                $list['dtVencimento'] = $list['dtvencimento'];
+                unset($list['dtcompetencia']);
+                unset($list['dtemissao']);
+                unset($list['dtvencimento']);
+
                 $categoria = new \Data\Model\Categoria_recebimento();
                 $categoria->where('id','=',$list['categoria']);
                 $list['categoria'] = $categoria->select();
-
+                //$list['valor'] = $list['valor'] * $list['ocorrencia'];
                 $cliente = new \Data\Model\Cliente();
                 $cliente->where('id','=',$list['cliente']);
                 $list['cliente'] = $cliente->select();
@@ -87,6 +105,11 @@ class Recebimento
             }else{
                 $list = $receber->selectAll();
                 foreach ($list as $index=> $value){
+
+                    $list[$index]['dtCompetencia'] = $value['dtcompetencia'];
+                    $list[$index]['dtEmissao'] = $value['dtemissao'];
+                    $list[$index]['dtVencimento'] = $value['dtvencimento'];
+
                     $categoria = new \Data\Model\Categoria_recebimento();
                     $categoria->where('id','=',$value['categoria']);
                     $list[$index]['categoria'] = $categoria->select();
@@ -117,15 +140,16 @@ class Recebimento
 	}
 	public function update($param = null)
 	{
-        try{
+        try{    
+            $num = strtotime(date('Y-m-d H:i:s'));
             $receber = new \Data\Model\Recebimento();
             $receber->setCategoria_recebimento_id($param['categoria']['id']);
             $receber->setCliente_id($param['cliente']['id']);
             $receber->setConta_caixa_id($param['conta']['id']);
             $receber->setDescricao($param['descricao']);
-            $receber->setDt_compentencia(date('Y-m-d',strtotime($param["dtCompetencia"])));
-            $receber->setDt_emissao(date('Y-m-d',strtotime($param["dtEmissao"])));
-            $receber->setDt_vencimento(date('Y-m-d',strtotime($param["dtVencimento"])));
+            $receber->setDt_compentencia($param["dtCompetencia"]);
+            $receber->setDt_emissao(date ("Y-m-d"));
+            $receber->setDt_vencimento($param['dtVencimento']);
             $receber->setGrupo_recebimento_id($param['grupo']['id']);
             $receber->setOcorrencia($param['ocorrencia']);
             $receber->setRemessa_gerada(0);
@@ -133,6 +157,10 @@ class Recebimento
             $receber->setStatus_parcela_id(1);
             $receber->where('id','=',$param['id']);
             $receber->update();
+            return [
+                "msg"=>"Cadastro altualizado com sucesso",
+                "code"=>201
+            ];
         }catch (\Exception $e){
             new ExceptionFramework($e->getMessage(),402);
         }
@@ -147,5 +175,4 @@ class Recebimento
             new ExceptionFramework($e->getMessage(),402);
         }
 	}
-
 }

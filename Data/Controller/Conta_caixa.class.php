@@ -10,6 +10,7 @@ namespace Data\Controller;
 
 use Data\Model\Conta_caixa as modelContaCaixa;
 use SkyfallFramework\Common\Exception\ExceptionFramework;
+use SkyfallFramework\Common\Utils\Utils;
 
 class Conta_caixa
 {
@@ -21,6 +22,7 @@ class Conta_caixa
 	public function create($param = null)
 	{
         try{
+            $this->validarCampos();
             $contaCaixa = new modelContaCaixa();
             $contaCaixa->setNome($param["nome"]);
             $contaCaixa->setDigito($param["digito"]);
@@ -33,7 +35,7 @@ class Conta_caixa
             $contaCaixa->save();
             return json_encode(["msg"=>"Cadastro efetuado com sucesso !","code"=>201]);
         }catch (\Exception $e){
-            new ExceptionFramework(401);
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function search($param = null)
@@ -95,12 +97,13 @@ class Conta_caixa
                 ];
             }
         }catch (\Exception $e){
-            new ExceptionFramework(422);
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function update($param = null)
 	{
         try{
+            $this->validarCampos();
             $contaCaixa = new modelContaCaixa();
             $contaCaixa->setNome($param["nome"]);
             $contaCaixa->setDigito($param["digito"]);
@@ -114,7 +117,7 @@ class Conta_caixa
             $contaCaixa->update();
             return ["result"=>$param,"code"=>201];
         }catch (\Exception $e){
-            new ExceptionFramework(401);
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function delete($param = null)
@@ -127,6 +130,13 @@ class Conta_caixa
         }catch (\Exception $e){
             new ExceptionFramework(401);
         }
-	}
-
+    }
+    
+    public function validarCampos()
+    {
+        $dados = Utils::$request;
+        Utils::validateFields($dados['nome'], 'Nome é obrigatório');
+        Utils::validateFields($dados['empresa'], 'Empresa é obrigatório');
+        Utils::validateFields($dados['empresa']['id'], 'Empresa é obrigatório');
+    }
 }
