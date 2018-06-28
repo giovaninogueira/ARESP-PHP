@@ -27,7 +27,7 @@ class Convenio
             $convenio->setNome($param["nome"]);
             $convenio->setNumero($param["numero"]);
             $convenio->setTelefone($param["telefone"]);
-            $convenio->setConta_caixa_id($param["conta_caixa_id"]);
+            $convenio->setConta_caixa_id($param["conta"]['id']);
             $convenio->setObservacao($param["observacao"]);
             $convenio->save();
             return json_encode(["result"=>"Cadastro efetuado com sucesso !"]);
@@ -84,7 +84,7 @@ class Convenio
             $convenio->setNome($param["nome"]);
             $convenio->setNumero($param["numero"]);
             $convenio->setTelefone($param["telefone"]);
-            $convenio->setConta_caixa_id($param["conta_caixa_id"]);
+            $convenio->setConta_caixa_id($param["conta"]['id']);
             $convenio->setObservacao($param["observacao"]);
             $convenio->where('id','=',$param["id"]);
             $convenio->update();

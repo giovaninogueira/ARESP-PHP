@@ -197,7 +197,6 @@ class Router
                 'numero',
                 'telefone',
                 'conta',
-                'conta_caixa_id',
                 'observacao'
             ]
         )->auth(false);
@@ -208,7 +207,6 @@ class Router
                 'numero',
                 'telefone',
                 'conta',
-                'conta_caixa_id',
                 'observacao'
             ]
         )->auth(false);
