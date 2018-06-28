@@ -98,7 +98,7 @@ class Routes extends restfullAPI
      */
     private function getParamsRoutes($paramsObj)
     {
-        $count_Request = count(Utils::$request);
+        /*$count_Request = count(Utils::$request);
         $count_Params = count($paramsObj['Params']);
         if($count_Params){
             $lista = [];
@@ -116,7 +116,7 @@ class Routes extends restfullAPI
                 }
                 $this->setParams($lista);
             }
-        }
+        }*/
         return $paramsObj;
     }
 
