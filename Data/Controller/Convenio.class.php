@@ -48,7 +48,7 @@ class Convenio
                         "numero",
                         "telefone",
                         "observacao",
-                        "conta_caixa_id as conta"
+                        "conta_caixa_id as 'conta'"
                     ]
                 );
                 $list = $convenio->selectAll();
@@ -61,22 +61,13 @@ class Convenio
                     'result'=>$list
                 ];
             }else{
-                $convenio->viewSelect(
-                    [
-                        "id",
-                        "nome",
-                        "numero",
-                        "telefone",
-                        "observacao",
-                        "conta_caixa_id as conta"
-                    ]
-                );
                 $convenio  = new modelConvenio();
                 $convenio->where('id','=',$param["id"]);
                 $list = $convenio->select();
-                $contaCaixa->where('id','=',$list['conta']);
+                $contaCaixa->where('id','=',$list['conta_caixa_id']);
                 $result = $contaCaixa->select();
                 $list["conta"] = $result;
+                unset($list["conta_caixa_id"]);
                 return [
                     'result'=>$list
                 ];
