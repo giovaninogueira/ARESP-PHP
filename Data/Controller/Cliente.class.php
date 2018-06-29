@@ -233,7 +233,7 @@ class Cliente
 		try{
 		    Model::$connection->beginTransaction();
             $cliente = new modelCliente();
-		    $this->verificarEmailCPFRG($cliente, $param);
+		    $this->verificarEmailCPFRG($cliente, $param,$param['id']);
 		    $endereco = new Endereco();
             $lastIdEnd = $endereco->update($param["endereco"]);
             $dadosBancarios = new Dados_bancarios();
