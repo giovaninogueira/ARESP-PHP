@@ -285,25 +285,24 @@ class Cliente
             /**
              * @details os loops de dependentes e telefone
              */
-            $dep = new Dependente();
+            $dep = new \Data\Model\Dependente();
             $dep->where('idCliente','=',$lastIdCliente);
             $dep->delete($value);
 
-            $tel = new Telefone();
+            $tel = new \Data\Model\Telefone();
             $tel->where('idCliente','=',$lastIdCliente);
             $tel->delete();
-            echo 'oi';
-			die;
+
             if(isset($param["dependentes"])){
                 foreach ($param["dependentes"] as $index=>$value){
-                    $dependente = new Dependente();
+                    $dependente = new \Data\Model\Dependente();
                     $value["idCliente"] = $lastIdCliente;
                     $dependente->create($value);
                 }
             }
             if(isset($param["telefones"])){
                 foreach ($param["telefones"] as $index=>$value){
-                    $telefone = new Telefone();
+                    $telefone = new \Data\Model\Telefone();
                     $value["idCliente"] = $lastIdCliente;
                     $telefone->create($value);
                 }
