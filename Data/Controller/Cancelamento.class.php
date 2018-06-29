@@ -28,8 +28,6 @@ class Cancelamento
 			$cancelamento->setObs($param['obs']);
 			$cancelamento->save();
 			$id = $cancelamento->lastID();
-			echo 'oi';
-			die;
 			return $id;
 		}catch(\Exception $e){
 			new ExceptionFramework($e->getMessage(), $e->getCode());

@@ -255,7 +255,6 @@ class Cliente
             }
             $cancelamento = new Cancelamento();
             $lastIDCancelamento = $cancelamento->create($param['cancelamento']);
-        
             /**
              * @details Cliente
              */
@@ -283,7 +282,8 @@ class Cliente
             $cliente->where('id','=',$param['id']);
             $cliente->update();
             $lastIdCliente = $cliente->lastID();
-
+            echo 'oi';
+			die;
             /**
              * @details os loops de dependentes e telefone
              */
