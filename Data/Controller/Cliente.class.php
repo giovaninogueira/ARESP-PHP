@@ -66,15 +66,15 @@ class Cliente
              */
             if(isset($param["dependentes"])){
                 foreach ($param["dependentes"] as $index=>$value){
-                    $dependente = new \Data\Controller\Dependente();
-                    $value["idCliente"] = $lastIdCliente;
+                    $dependente = new \Data\Model\Dependente();
+                    $value["cliente_id"] = $lastIdCliente;
                     $dependente->create($value);
                 }
             }
             if(isset($param["telefones"])){
                 foreach ($param["telefones"] as $index=>$value){
-                    $telefone = new \Data\Controller\Telefone();
-                    $value["idCliente"] = $lastIdCliente;
+                    $telefone = new \Data\Model\Telefone();
+                    $value["cliente_id"] = $lastIdCliente;
                     $telefone->create($value);
                 }
             }
