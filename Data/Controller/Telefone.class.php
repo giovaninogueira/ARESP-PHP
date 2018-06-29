@@ -7,7 +7,7 @@
 */
 
 namespace Data\Controller; 
-use SkyfallFramework\Common\Exception\ExceptionFramework;
+use \SkyfallFramework\Common\Exception\ExceptionFramework;
 
 class Telefone
 {
@@ -19,6 +19,8 @@ class Telefone
 	public function create($param = null)
 	{
 		try{
+			echo 'oi';
+			die;
             $this->validarCampos($param);
             $telefone = new \Data\Model\Telefone();
             $telefone->setNumero($param["numero"]);
