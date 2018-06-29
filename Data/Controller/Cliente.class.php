@@ -149,13 +149,16 @@ class Cliente
         $tipo = new \Data\Model\Tipo_socio();
         $tipo->where('id','=',$obj["tipo"]);
         $obj["tipo"] = $tipo->select();
+
         $dadosBancarios->where('id','=',$obj["dadosBancarios"]);
         $listDadoBancarios = $dadosBancarios->select();
         $banco = new \Data\Model\Banco();
+
         $banco->where('id','=',$listDadoBancarios["banco"]);
         $listBanco = $banco->select();
         $listDadoBancarios["banco"] = $listBanco;
         $operadora = new \Data\Model\Operadora();
+
         $operadora->where('id','=',$listDadoBancarios["operadora"]);
         $listaAgencia = $operadora->select();
         $listDadoBancarios["operadora"] = $listaAgencia;
@@ -170,7 +173,25 @@ class Cliente
         $telefone->where('id','=',$obj["id"]);
         $listTelefone = $telefone->select();
         $obj["telefones"] = $listTelefone;
-        $obj['secretaria'] = new \stdClass();
+        
+        $secretaria = new \Data\Model\Secretaria();
+        $secretaria->where('id','=',$obj['secretaria']);
+
+        $cancelamento = new \Data\Model\Cancelamento();
+        $cancelamento->where('id','=',$obj['cancelamento']);
+        $resSecre = $secretaria->select();
+        $resCancelamento = $cancelamento->select();
+
+        if(!$resSecre)
+            $obj['secretaria'] = new \stdClass();
+        else
+            $obj['secretaria'] = $resSecre;
+
+        if(!$resCancelamento)
+            $obj['cancelamento'] = new \stdClass();
+        else
+            $obj['cancelamento'] = $resCancelamento;
+
         return $obj;
     }
 
