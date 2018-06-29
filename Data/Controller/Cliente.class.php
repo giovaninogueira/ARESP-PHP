@@ -249,13 +249,13 @@ class Cliente
             $lastIdEnd = $endereco->update($param["endereco"]);
             $dadosBancarios = new Dados_bancarios();
             $lastIdBanco = $dadosBancarios->update($param["dadosBancarios"]);
+            echo 'oi';
+            die;
             if($lastIdBanco){
                 $cliente->setDados_bancarios_id($lastIdBanco);
             }
             $cancelamento = new \Data\Model\Cancelamento();
             $lastIDCancelamento = $cancelamento->create($param['cancelamento']);
-            echo 'oi';
-        
             /**
              * @details Cliente
              */

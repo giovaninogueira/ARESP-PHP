@@ -8,6 +8,8 @@
 
 namespace Data\Controller; 
 
+
+
 class Cancelamento
 {
 	/**
@@ -18,8 +20,6 @@ class Cancelamento
 	public function create($param = null)
 	{
 		try{
-			echo 'oi 2';
-			die;
 			$cancelamento = new \Data\Model\Cancelamento();
 			$cancelamento->setData_cancelamento($param['dataCancelamento']);
 			$cancelamento->setData_pedido($param['dataPedido']);
@@ -27,7 +27,6 @@ class Cancelamento
 			$cancelamento->setObs($param['obs']);
 			$cancelamento->save();
 			$id = $cancelamento->lastID();
-			
 			return $id;
 		}catch(\Exception $e){
 			new ExceptionFramework($e->getMessage(), $e->getCode());
