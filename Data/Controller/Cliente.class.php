@@ -31,6 +31,9 @@ class Cliente
             $lastIdEnd = $endereco->create($param["endereco"]);
             $dadosBancarios = new Dados_bancarios();
             $lastIdBanco = $dadosBancarios->create($param["dadosBancarios"]);
+            if($lastIdBanco){
+                $cliente->setDados_bancarios_id($lastIdBanco);
+            }
             /**
              * @details Cliente
              */
@@ -47,7 +50,7 @@ class Cliente
             $cliente->setSecretaria_id($param["secretaria"]["id"]);
             $cliente->setObs($param["obs"]);
             $cliente->setEndereco_id($lastIdEnd);
-            $cliente->setDados_bancarios_id($lastIdBanco);
+            
             $cliente->setCadastro(date('Y-m-d h:i:s'));
             $cliente->setEntrada(date('Y-m-d h:i:s'));
             $cliente->setSituacao($param["situacao"]);
@@ -79,7 +82,7 @@ class Cliente
             return json_encode(["result"=>"Cadastro efetuado com sucesso !","code"=>201]);
         }catch (\Exception $e){
             Model::$connection->rollBack();
-		    new ExceptionFramework($e->getMessage());
+		    new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 
@@ -174,7 +177,7 @@ class Cliente
             $listResult = $cliente->select();
 
             if($listResult){
-                new ExceptionFramework("Email já está sendo usado em outro cadastro.");
+                new ExceptionFramework("Email já está sendo usado em outro cadastro.",401);
             }
 
             $cliente->where('cpf','=',$param["cpf"],'and')
@@ -182,7 +185,7 @@ class Cliente
             $result = $cliente->select();
 
             if($result){
-                new ExceptionFramework("o CPF já está sendo usado em outro cadastro.");
+                new ExceptionFramework("o CPF já está sendo usado em outro cadastro.", 401);
             }
 
             $cliente->where('rg','=',$param["rg"],'and')
@@ -190,11 +193,11 @@ class Cliente
             $listResult = $cliente->select();
 
             if($listResult){
-                new ExceptionFramework("RG já está sendo usado em outro cadastro.");
+                new ExceptionFramework("RG já está sendo usado em outro cadastro.", 401);
             }
 
         }catch (\Exception $e){
-            new ExceptionFramework($e->getMessage());
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
     }
 

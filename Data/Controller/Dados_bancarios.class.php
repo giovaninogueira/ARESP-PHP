@@ -21,11 +21,15 @@ class Dados_bancarios
 	{
 		try{
             $dadosBancarios = new \Data\Model\Dados_bancarios();
+            
             if(!$param["tipo"])
                 new ExceptionFramework('Escolha um tipo de dados bancarios',422);
 
             $dadosBancarios->setTipo($param["tipo"]);
             switch ($param["tipo"]){
+                case 'BOLETO':
+                    return false;
+                    break;
                 case 'DEBITO':
                     $dadosBancarios->setAgencia($param["agencia"]);
 
