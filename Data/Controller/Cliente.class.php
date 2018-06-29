@@ -141,6 +141,11 @@ class Cliente
             'conta_digito','numero_cartao','mes','ano','operadora_id as operadora',
             'banco_id as banco'
         ]);
+
+        $grupo = new \Data\Model\Grupo_recebimento();
+        $grupo->where('id','=',$obj['grupo']);
+        $obj['grupo'] = $grupo->select();
+
         $tipo = new \Data\Model\Tipo_socio();
         $tipo->where('id','=',$obj["tipo"]);
         $obj["tipo"] = $tipo->select();
