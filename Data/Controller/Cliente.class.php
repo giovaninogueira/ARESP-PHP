@@ -165,7 +165,7 @@ class Cliente
         $telefone->where('id','=',$obj["id"]);
         $listTelefone = $telefone->select();
         $obj["telefones"] = $listTelefone;
-
+        $obj['secretaria'] = new \stdClass();
         return $obj;
     }
 
