@@ -254,6 +254,8 @@ class Cliente
             }
             $cancelamento = new \Data\Model\Cancelamento();
             $lastIDCancelamento = $cancelamento->create($param['cancelamento']);
+            echo 'oi';
+        
             /**
              * @details Cliente
              */
