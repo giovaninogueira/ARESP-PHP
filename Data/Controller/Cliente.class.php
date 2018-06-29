@@ -230,7 +230,76 @@ class Cliente
 
 	public function update($param = null)
 	{
-		/*Mehtod PUT HTTP*/
+		try{
+		    Model::$connection->beginTransaction();
+            $cliente = new modelCliente();
+		    $this->verificarEmailCPFRG($cliente, $param);
+		    $endereco = new Endereco();
+            $lastIdEnd = $endereco->update($param["endereco"]);
+            $dadosBancarios = new Dados_bancarios();
+            $lastIdBanco = $dadosBancarios->update($param["dadosBancarios"]);
+            if($lastIdBanco){
+                $cliente->setDados_bancarios_id($lastIdBanco);
+            }
+            /**
+             * @details Cliente
+             */
+            $cliente->setCpf($param["cpf"]);
+            $cliente->setRg($param["rg"]);
+            $cliente->setNome($param["nome"]);
+            $cliente->setNascimento($param["nascimento"]);
+            $cliente->setSexo($param["sexo"]);
+            $cliente->setPai($param["pai"]);
+            $cliente->setMae($param["mae"]);
+            $cliente->setEmail($param["email"]);
+            $cliente->setEstado_civil($param["estadoCivil"]);
+            $cliente->setTipo_socio_id($param["tipo"]);
+            $cliente->setSecretaria_id($param["secretaria"]["id"]);
+            $cliente->setObs($param["obs"]);
+            $cliente->setEndereco_id($lastIdEnd);
+            
+            $cliente->setCadastro(date('Y-m-d h:i:s'));
+            $cliente->setEntrada(date('Y-m-d h:i:s'));
+            $cliente->setSituacao($param["situacao"]);
+            $cliente->setGrupo_recebimento_id($param["grupo"]["id"]);
+            $cliente->setNum_averbacao($param["numAverbacao"]);
+            $cliente->setAtivo($param["ativo"]);
+            $cliente->setMatricula($param["matricula"]);
+            $cliente->where('id','=',$param['id']);
+            $cliente->update();
+            $lastIdCliente = $cliente->lastID();
+
+            /**
+             * @details os loops de dependentes e telefone
+             */
+            $dep = new \Data\Controller\Dependente();
+            $dep->where('idCliente','=',$lastIdCliente);
+            $dep->delete($value);
+
+            $tel = new \Data\Controller\Telefone();
+            $tel->where('idCliente','=',$lastIdCliente);
+            $tel->delete();
+
+            if(isset($param["dependentes"])){
+                foreach ($param["dependentes"] as $index=>$value){
+                    $dependente = new \Data\Controller\Dependente();
+                    $value["idCliente"] = $lastIdCliente;
+                    $dependente->create($value);
+                }
+            }
+            if(isset($param["telefones"])){
+                foreach ($param["telefones"] as $index=>$value){
+                    $telefone = new \Data\Controller\Telefone();
+                    $value["idCliente"] = $lastIdCliente;
+                    $telefone->create($value);
+                }
+            }
+            Model::$connection->commit();
+            return json_encode(["result"=>"Cadastro Atualizado com sucesso !","code"=>201]);
+        }catch (\Exception $e){
+            Model::$connection->rollBack();
+		    new ExceptionFramework($e->getMessage(), $e->getCode());
+        }
 	}
 
 	public function delete($param = null)

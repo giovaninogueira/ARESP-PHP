@@ -58,7 +58,23 @@ class Endereco
 	}
 	public function update($param = null)
 	{
-		/*Mehtod PUT HTTP*/
+		try{
+            $this->validarCampos($param);
+            $endereco = new \Data\Model\Endereco();
+            $endereco->setBairro($param["bairro"]);
+            $endereco->setCep($param["cep"]);
+            $endereco->setCidade($param["cidade"]);
+            $endereco->setComplemento($param["complemento"]);
+            $endereco->setEstado($param["estado"]);
+            $endereco->setLogradouro($param["logradouro"]);
+            $endereco->setNumero($param["numero"]);
+            $endereco->where('id','=',$param['id']);
+            $endereco->update();
+            $lastIdEnd = $endereco->lastID();
+            return $lastIdEnd;
+        }catch (\Exception $e){
+            new ExceptionFramework($e->getMessage());
+        }
 	}
 	public function delete($param = null)
 	{
