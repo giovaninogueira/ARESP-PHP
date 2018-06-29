@@ -282,29 +282,28 @@ class Cliente
             $cliente->where('id','=',$param['id']);
             $cliente->update();
             $lastIdCliente = $cliente->lastID();
-            echo 'oi';
-			die;
             /**
              * @details os loops de dependentes e telefone
              */
-            $dep = new \Data\Controller\Dependente();
+            $dep = new Dependente();
             $dep->where('idCliente','=',$lastIdCliente);
             $dep->delete($value);
 
-            $tel = new \Data\Controller\Telefone();
+            $tel = new Telefone();
             $tel->where('idCliente','=',$lastIdCliente);
             $tel->delete();
-
+            echo 'oi';
+			die;
             if(isset($param["dependentes"])){
                 foreach ($param["dependentes"] as $index=>$value){
-                    $dependente = new \Data\Controller\Dependente();
+                    $dependente = new Dependente();
                     $value["idCliente"] = $lastIdCliente;
                     $dependente->create($value);
                 }
             }
             if(isset($param["telefones"])){
                 foreach ($param["telefones"] as $index=>$value){
-                    $telefone = new \Data\Controller\Telefone();
+                    $telefone = new Telefone();
                     $value["idCliente"] = $lastIdCliente;
                     $telefone->create($value);
                 }
