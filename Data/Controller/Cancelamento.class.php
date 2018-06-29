@@ -24,7 +24,9 @@ class Cancelamento
 			$cancelamento->setMotivo($param['motivo']);
 			$cancelamento->setObs($param['obs']);
 			$cancelamento->save();
-			return $cancelamento->lastID();
+			$id = $cancelamento->lastID();
+			echo 'oi 2';
+			return $id;
 		}catch(\Exception $e){
 			new ExceptionFramework($e->getMessage(), $e->getCode());
 		}
