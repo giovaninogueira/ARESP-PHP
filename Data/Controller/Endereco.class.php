@@ -73,7 +73,7 @@ class Endereco
             $lastIdEnd = $endereco->lastID();
             return $lastIdEnd;
         }catch (\Exception $e){
-            new ExceptionFramework($e->getMessage());
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function delete($param = null)

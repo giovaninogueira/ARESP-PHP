@@ -17,7 +17,17 @@ class Cancelamento
 	**/
 	public function create($param = null)
 	{
-		/*Mehtod POST HTTP*/
+		try{
+			$cancelamento = new \Data\Model\Cancelamento();
+			$cancelamento->setData_cancelamento($param['dataCancelamento']);
+			$cancelamento->setData_pedido($param['dataPedido']);
+			$cancelamento->setMotivo($param['motivo']);
+			$cancelamento->setObs($param['obs']);
+			$cancelamento->save();
+			return $cancelamento->lastID();
+		}catch(\Exception $e){
+			new ExceptionFramework($e->getMessage(), $e->getCode());
+		}
 	}
 	public function search($param = null)
 	{
