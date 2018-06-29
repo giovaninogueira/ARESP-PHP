@@ -20,8 +20,6 @@ class Cancelamento
 	public function create($param = null)
 	{
 		try{
-			echo 'oi';
-            die;
 			$cancelamento = new \Data\Model\Cancelamento();
 			$cancelamento->setData_cancelamento($param['dataCancelamento']);
 			$cancelamento->setData_pedido($param['dataPedido']);
