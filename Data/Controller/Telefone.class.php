@@ -7,6 +7,7 @@
 */
 
 namespace Data\Controller; 
+use SkyfallFramework\Common\Exception\ExceptionFramework;
 
 class Telefone
 {
@@ -25,7 +26,7 @@ class Telefone
             $telefone->setCliente_id($param["idCliente"]);
             $telefone->save();
         }catch (\Exception $e){
-            new ExceptionFramework($e->getMessage());
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 

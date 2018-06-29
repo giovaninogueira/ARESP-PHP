@@ -29,7 +29,7 @@ class Dependente
             $dependente->setCliente_id($param["idCliente"]);
             $dependente->save();
         }catch (\Exception $e){
-            new ExceptionFramework($e->getMessage());
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
     private function validarCampos($param)
