@@ -290,7 +290,7 @@ class Cliente
             $dep->delete($value);
 
             $tel = new \Data\Model\Telefone();
-            $tel->where('instancia_id','=',$param['id']);
+            $tel->where('cliente_id','=',$param['id']);
             $tel->delete();
 
             if(isset($param["dependentes"])){
@@ -303,7 +303,7 @@ class Cliente
             if(isset($param["telefones"])){
                 foreach ($param["telefones"] as $index=>$value){
                     $telefone = new \Data\Model\Telefone();
-                    $value["instancia_id"] = $param['id'];
+                    $value["cliente_id"] = $param['id'];
                     $telefone->create($value);
                 }
             }
