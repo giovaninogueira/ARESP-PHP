@@ -286,24 +286,24 @@ class Cliente
              * @details os loops de dependentes e telefone
              */
             $dep = new \Data\Model\Dependente();
-            $dep->where('idCliente','=',$param['id']);
+            $dep->where('cliente_id','=',$param['id']);
             $dep->delete($value);
 
             $tel = new \Data\Model\Telefone();
-            $tel->where('idCliente','=',$param['id']);
+            $tel->where('instancia_id','=',$param['id']);
             $tel->delete();
 
             if(isset($param["dependentes"])){
                 foreach ($param["dependentes"] as $index=>$value){
                     $dependente = new \Data\Model\Dependente();
-                    $value["idCliente"] = $param['id'];
+                    $value["cliente_id"] = $param['id'];
                     $dependente->create($value);
                 }
             }
             if(isset($param["telefones"])){
                 foreach ($param["telefones"] as $index=>$value){
                     $telefone = new \Data\Model\Telefone();
-                    $value["idCliente"] = $param['id'];
+                    $value["instancia_id"] = $param['id'];
                     $telefone->create($value);
                 }
             }
