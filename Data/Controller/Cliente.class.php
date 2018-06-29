@@ -254,9 +254,9 @@ class Cliente
                 $cliente->setDados_bancarios_id($lastIdBanco);
             }
             $cancelamento = new \Data\Model\Cancelamento();
+            $lastIDCancelamento = $cancelamento->create($param['cancelamento']);
             echo 'oi';
             die;
-            $lastIDCancelamento = $cancelamento->create($param['cancelamento']);
             /**
              * @details Cliente
              */
