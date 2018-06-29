@@ -298,14 +298,14 @@ class Cliente
 
             if(isset($param["dependentes"])){
                 foreach ($param["dependentes"] as $index=>$value){
-                    $dependente = new \Data\Model\Dependente();
+                    $dependente = new \Data\Controller\Dependente();
                     $value["cliente_id"] = $param['id'];
                     $dependente->create($value);
                 }
             }
             if(isset($param["telefones"])){
                 foreach ($param["telefones"] as $index=>$value){
-                    $telefone = new \Data\Model\Telefone();
+                    $telefone = new \Data\Controller\Telefone();
                     $value["cliente_id"] = $param['id'];
                     $telefone->create($value);
                 }

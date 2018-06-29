@@ -19,8 +19,6 @@ class Telefone
 	public function create($param = null)
 	{
 		try{
-			echo 'oi';
-			die;
             $this->validarCampos($param);
             $telefone = new \Data\Model\Telefone();
             $telefone->setNumero($param["numero"]);
