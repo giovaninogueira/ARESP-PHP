@@ -137,7 +137,7 @@ class Cliente
         $listEndereco = $endereco->select();
         $obj["endereco"] = $listEndereco;
         $dadosBancarios = new \Data\Model\Dados_bancarios();
-        $dadosBancarios->viewSelect(['id','tipo','agencia','agencia_digito','conta',
+        $dadosBancarios->viewSelect(['id','tipo','agencia','agencia_digito as agenciaDigito','conta',
             'conta_digito','numero_cartao','mes','ano','operadora_id as operadora',
             'banco_id as banco'
         ]);
