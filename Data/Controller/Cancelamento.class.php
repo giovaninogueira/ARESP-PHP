@@ -20,6 +20,7 @@ class Cancelamento
 	public function create($param = null)
 	{
 		try{
+			
 			$cancelamento = new \Data\Model\Cancelamento();
 			$cancelamento->setData_cancelamento($param['dataCancelamento']);
 			$cancelamento->setData_pedido($param['dataPedido']);
@@ -27,6 +28,8 @@ class Cancelamento
 			$cancelamento->setObs($param['obs']);
 			$cancelamento->save();
 			$id = $cancelamento->lastID();
+			echo 'oi';
+			die;
 			return $id;
 		}catch(\Exception $e){
 			new ExceptionFramework($e->getMessage(), $e->getCode());
