@@ -141,9 +141,6 @@ class Cliente
             'conta_digito','numero_cartao','mes','ano','operadora_id as operadora',
             'banco_id as banco'
         ]);
-        $auxGrp = $obj['agenciadigito'];
-        unset($obj['agenciadigito']);
-        $obj['agenciadigito'] = $auxGrp;
         $grupo = new \Data\Model\Grupo_recebimento();
         $grupo->where('id','=',$obj['grupo']);
         $obj['grupo'] = $grupo->select();
@@ -165,6 +162,9 @@ class Cliente
         $listaAgencia = $operadora->select();
         $listDadoBancarios["operadora"] = $listaAgencia;
         $obj["dadosBancarios"] = $listDadoBancarios;
+        $auxGrp = $obj["dadosBancarios"]['agenciadigito'];
+        unset($obj["dadosBancarios"]['agenciadigito']);
+        $obj["dadosBancarios"]['agenciaDigito'] = $auxGrp;
 
         $dependentes = new \Data\Model\Dependente();
         $dependentes->where('id','=',$obj["id"]);
