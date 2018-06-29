@@ -253,8 +253,11 @@ class Cliente
             if($lastIdBanco){
                 $cliente->setDados_bancarios_id($lastIdBanco);
             }
-            $cancelamento = new Cancelamento();
-            $lastIDCancelamento = $cancelamento->create($param['cancelamento']);
+            if($param['cancelamento']){
+                $cancelamento = new Cancelamento();
+                $lastIDCancelamento = $cancelamento->create($param['cancelamento']);
+                $cliente->setCancelamento_id($lastIDCancelamento);
+            }
             /**
              * @details Cliente
              */
@@ -271,7 +274,7 @@ class Cliente
             $cliente->setSecretaria_id($param["secretaria"]["id"]);
             $cliente->setObs($param["obs"]);
             $cliente->setEndereco_id($lastIdEnd);
-            $cliente->setCancelamento_id($lastIDCancelamento);
+            
             $cliente->setCadastro(date('Y-m-d h:i:s'));
             $cliente->setEntrada(date('Y-m-d h:i:s'));
             $cliente->setSituacao($param["situacao"]);
