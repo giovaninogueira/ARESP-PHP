@@ -198,8 +198,8 @@ class Cliente
 
         $telefone = new \Data\Model\Telefone();
         $telefone->viewSelect(['numero','tipo']);
-        $telefone->where('cliente_id','=',$obj["id"]);
-        $listTelefone = $telefone->select();
+        $resul = $telefone->query('select ID as id, NUMERO as numero, CLIENTE_ID as cliente_id, TIPO as tipo from telefone where cliente_id =:cliente_id',[':cliente_id'=>$obj["id"]]);
+        $listTelefone = $resul->fetchAll(\PDO::FETCH_ASSOC);
         if(count($listTelefone) == 1)
             $obj["telefones"][] = $listTelefone;
         else
