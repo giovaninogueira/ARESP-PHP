@@ -200,7 +200,10 @@ class Cliente
         $telefone->viewSelect(['numero','tipo']);
         $telefone->where('cliente_id','=',$obj["id"]);
         $listTelefone = $telefone->select();
-        $obj["telefones"] = $listTelefone;
+        if(coun($listTelefone) == 1)
+            $obj["telefones"][] = $listTelefone;
+        else
+            $obj["telefones"] = $listTelefone;
         
         $secretaria = new \Data\Model\Secretaria();
         $secretaria->where('id','=',$obj['secretaria']);
