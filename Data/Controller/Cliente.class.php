@@ -286,6 +286,8 @@ class Cliente
             $cliente->setMatricula($param["matricula"]);
             $cliente->where('id','=',$param['id']);
             $cliente->update();
+            echo 'oi';
+            die;
             $lastIdCliente = $cliente->lastID();
             /**
              * @details os loops de dependentes e telefone
@@ -297,8 +299,7 @@ class Cliente
             $tel = new \Data\Model\Telefone();
             $tel->where('cliente_id','=',$param['id']);
             $tel->delete();
-            echo 'oi';
-            die;
+            
             if(isset($param["dependentes"])){
                 foreach ($param["dependentes"] as $index=>$value){
                     $dependente = new Dependente();
