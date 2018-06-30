@@ -243,7 +243,82 @@ class Cliente
 
 	public function update($param = null)
 	{
-        echo 'oi';
+		try{
+		    Model::$connection->beginTransaction();
+            $cliente = new modelCliente();
+		    $this->verificarEmailCPFRG($cliente, $param,$param['id']);
+		    $endereco = new Endereco();
+            $lastIdEnd = $endereco->update($param["endereco"]);
+            $dadosBancarios = new Dados_bancarios();
+            $lastIdBanco = $dadosBancarios->update($param["dadosBancarios"]);
+        
+            if($lastIdBanco){
+                $cliente->setDados_bancarios_id($lastIdBanco);
+            }
+            if($param['cancelamento']){
+                $cancelamento = new Cancelamento();
+                $lastIDCancelamento = $cancelamento->create($param['cancelamento']);
+                $cliente->setCancelamento_id($lastIDCancelamento);
+            }
+            /**
+             * @details Cliente
+             */
+            $cliente->setCpf($param["cpf"]);
+            $cliente->setRg($param["rg"]);
+            $cliente->setNome($param["nome"]);
+            $cliente->setNascimento($param["nascimento"]);
+            $cliente->setSexo($param["sexo"]);
+            $cliente->setPai($param["pai"]);
+            $cliente->setMae($param["mae"]);
+            $cliente->setEmail($param["email"]);
+            $cliente->setEstado_civil($param["estadoCivil"]);
+            $cliente->setTipo_socio_id($param["tipo"]['id']);
+            $cliente->setSecretaria_id($param["secretaria"]["id"]);
+            $cliente->setObs($param["obs"]);
+            $cliente->setEndereco_id($lastIdEnd);
+            
+            $cliente->setCadastro(date('Y-m-d h:i:s'));
+            $cliente->setEntrada(date('Y-m-d h:i:s'));
+            $cliente->setSituacao($param["situacao"]);
+            $cliente->setGrupo_recebimento_id($param["grupo"]["id"]);
+            $cliente->setNum_averbacao($param["numAverbacao"]);
+            $cliente->setAtivo($param["ativo"]);
+            $cliente->setMatricula($param["matricula"]);
+            $cliente->where('id','=',$param['id']);
+            $cliente->update();
+            $lastIdCliente = $cliente->lastID();
+            /**
+             * @details os loops de dependentes e telefone
+             */
+            $dep = new \Data\Model\Dependente();
+            $dep->where('cliente_id','=',$param['id']);
+            $dep->delete();
+
+            $tel = new \Data\Model\Telefone();
+            $tel->where('cliente_id','=',$param['id']);
+            $tel->delete();
+            echo 'oi';
+            die;
+            if(isset($param["dependentes"])){
+                foreach ($param["dependentes"] as $index=>$value){
+                    $dependente = new Dependente();
+                    $value["cliente_id"] = $param['id'];
+                    $dependente->create($value);
+                }
+            }
+            if(isset($param["telefones"])){
+                foreach ($param["telefones"] as $index=>$value){
+                    $telefone = new Telefone();
+                    $value["cliente_id"] = $param['id'];
+                    $telefone->create($value);
+                }
+            }
+            Model::$connection->commit();
+            return json_encode(["result"=>"Cadastro Atualizado com sucesso !","code"=>201]);
+        }catch (\Exception $e){
+            Model::$connection->rollBack();
+		    new ExceptionFramework($e->getMessage(), $e->getCode());
+        }
 	}
 
 	public function delete($param = null)
