@@ -26,7 +26,7 @@ class Dependente
             $dependente->setNome($param["nome"]);
             $dependente->setParentesco($param["parentesco"]);
             $dependente->setRg($param["rg"]);
-            $dependente->setCliente_id($param["idCliente"]);
+            $dependente->setCliente_id($param["cliente_id"]);
             $dependente->save();
         }catch (\Exception $e){
             new ExceptionFramework($e->getMessage(), $e->getCode());

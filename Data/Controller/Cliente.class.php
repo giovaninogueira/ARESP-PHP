@@ -153,35 +153,37 @@ class Cliente
         $listDadoBancarios = $dadosBancarios->select();
         $banco = new \Data\Model\Banco();
 
-        $banco->where('id','=',$listDadoBancarios["banco"]);
-        $listBanco = $banco->select();
-        $listDadoBancarios["banco"] = $listBanco;
-        $operadora = new \Data\Model\Operadora();
+        if($listDadoBancarios){
+            $banco->where('id','=',$listDadoBancarios["banco"]);
+            $listBanco = $banco->select();
+            $listDadoBancarios["banco"] = $listBanco;
+            $operadora = new \Data\Model\Operadora();
 
-        $operadora->where('id','=',$listDadoBancarios["operadora"]);
-        $listaAgencia = $operadora->select();
-        $listDadoBancarios["operadora"] = $listaAgencia;
-        $obj["dadosBancarios"] = $listDadoBancarios;
+            $operadora->where('id','=',$listDadoBancarios["operadora"]);
+            $listaAgencia = $operadora->select();
+            $listDadoBancarios["operadora"] = $listaAgencia;
+            $obj["dadosBancarios"] = $listDadoBancarios;
 
-        $auxGrp = $obj["dadosBancarios"]['agenciadigito'];
-        $auxGrpContaDigito = $obj["dadosBancarios"]['conta_digito'];
-        $auxGrpNumCartao = $obj["dadosBancarios"]['numero_cartao'];
-        
-        unset($obj["dadosBancarios"]['agenciadigito']);
-        unset($obj["dadosBancarios"]['conta_digito']);
-        unset($obj["dadosBancarios"]['numero_cartao']);
+            $auxGrp = $obj["dadosBancarios"]['agenciadigito'];
+            $auxGrpContaDigito = $obj["dadosBancarios"]['conta_digito'];
+            $auxGrpNumCartao = $obj["dadosBancarios"]['numero_cartao'];
+            
+            unset($obj["dadosBancarios"]['agenciadigito']);
+            unset($obj["dadosBancarios"]['conta_digito']);
+            unset($obj["dadosBancarios"]['numero_cartao']);
+        }
 
         $obj["dadosBancarios"]['agenciaDigito'] = $auxGrp;
         $obj["dadosBancarios"]['contaDigito'] = $auxGrpContaDigito;
         $obj["dadosBancarios"]['numeroCartao'] = $auxGrpNumCartao;
 
         $dependentes = new \Data\Model\Dependente();
-        $dependentes->where('id','=',$obj["id"]);
+        $dependentes->where('cliente_id','=',$obj["id"]);
         $listDependentes = $dependentes->select();
         $obj["dependentes"] = $listDependentes;
 
         $telefone = new \Data\Model\Telefone();
-        $telefone->where('id','=',$obj["id"]);
+        $telefone->where('cliente_id','=',$obj["id"]);
         $listTelefone = $telefone->select();
         $obj["telefones"] = $listTelefone;
         
@@ -290,7 +292,7 @@ class Cliente
              */
             $dep = new \Data\Model\Dependente();
             $dep->where('cliente_id','=',$param['id']);
-            $dep->delete($value);
+            $dep->delete();
 
             $tel = new \Data\Model\Telefone();
             $tel->where('cliente_id','=',$param['id']);

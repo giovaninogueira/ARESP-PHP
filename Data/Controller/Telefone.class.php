@@ -23,7 +23,7 @@ class Telefone
             $telefone = new \Data\Model\Telefone();
             $telefone->setNumero($param["numero"]);
             $telefone->setTipo($param["tipo"]);
-            $telefone->setCliente_id($param["idCliente"]);
+            $telefone->setCliente_id($param["cliente_id"]);
             $telefone->save();
         }catch (\Exception $e){
             new ExceptionFramework($e->getMessage(), $e->getCode());
