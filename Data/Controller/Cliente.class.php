@@ -171,11 +171,11 @@ class Cliente
             unset($obj["dadosBancarios"]['agenciadigito']);
             unset($obj["dadosBancarios"]['conta_digito']);
             unset($obj["dadosBancarios"]['numero_cartao']);
-        }
 
-        $obj["dadosBancarios"]['agenciaDigito'] = $auxGrp;
-        $obj["dadosBancarios"]['contaDigito'] = $auxGrpContaDigito;
-        $obj["dadosBancarios"]['numeroCartao'] = $auxGrpNumCartao;
+            $obj["dadosBancarios"]['agenciaDigito'] = $auxGrp;
+            $obj["dadosBancarios"]['contaDigito'] = $auxGrpContaDigito;
+            $obj["dadosBancarios"]['numeroCartao'] = $auxGrpNumCartao;
+        }
 
         $dependentes = new \Data\Model\Dependente();
         $dependentes->where('cliente_id','=',$obj["id"]);
