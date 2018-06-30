@@ -183,6 +183,7 @@ class Cliente
         $obj["dependentes"] = $listDependentes;
 
         $telefone = new \Data\Model\Telefone();
+        $telefone->viewSelect(['numero','tipo']);
         $telefone->where('cliente_id','=',$obj["id"]);
         $listTelefone = $telefone->select();
         $obj["telefones"] = $listTelefone;
