@@ -105,7 +105,7 @@ class Dados_bancarios
             $dadosBancarios->setTipo($param["tipo"]);
             switch ($param["tipo"]){
                 case 'BOLETO':
-                    return false;
+                    //não faz nada
                     break;
                 case 'DEBITO':
                     $dadosBancarios->setAgencia($param["agencia"]);
