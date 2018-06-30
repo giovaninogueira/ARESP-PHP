@@ -158,7 +158,7 @@ class Cliente
         $banco = new \Data\Model\Banco();
 
         if($listDadoBancarios){
-            echo $listDadoBancarios['tipo'];
+            var_dump($listDadoBancarios);
             die;
             if($listDadoBancarios['tipo'] == 'BOLETO'){
                 $obj["dadosBancarios"]['banco'] = new \stdClass();
