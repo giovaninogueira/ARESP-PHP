@@ -251,8 +251,7 @@ class Cliente
             $lastIdEnd = $endereco->update($param["endereco"]);
             $dadosBancarios = new Dados_bancarios();
             $lastIdBanco = $dadosBancarios->update($param["dadosBancarios"]);
-            echo 'oi';
-            die;
+            
             if($lastIdBanco){
                 $cliente->setDados_bancarios_id($lastIdBanco);
             }
@@ -260,6 +259,8 @@ class Cliente
                 $cancelamento = new Cancelamento();
                 $lastIDCancelamento = $cancelamento->create($param['cancelamento']);
                 $cliente->setCancelamento_id($lastIDCancelamento);
+                echo 'oi';
+                die;
             }
             /**
              * @details Cliente

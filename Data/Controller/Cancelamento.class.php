@@ -8,7 +8,7 @@
 
 namespace Data\Controller; 
 
-
+use SkyfallFramework\Common\Exception\ExceptionFramework;
 
 class Cancelamento
 {
