@@ -46,7 +46,7 @@ class Cliente
             $cliente->setMae($param["mae"]);
             $cliente->setEmail($param["email"]);
             $cliente->setEstado_civil($param["estadoCivil"]);
-            $cliente->setTipo_socio_id($param["tipo"]['id']);
+            $cliente->setTipo_socio_id($param["tipo"]);
             $cliente->setSecretaria_id($param["secretaria"]["id"]);
             $cliente->setObs($param["obs"]);
             $cliente->setEndereco_id($lastIdEnd);
