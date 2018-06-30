@@ -251,7 +251,8 @@ class Cliente
             $lastIdEnd = $endereco->update($param["endereco"]);
             $dadosBancarios = new Dados_bancarios();
             $lastIdBanco = $dadosBancarios->update($param["dadosBancarios"]);
-        
+            echo 'oi';
+            die;
             if($lastIdBanco){
                 $cliente->setDados_bancarios_id($lastIdBanco);
             }
@@ -286,8 +287,6 @@ class Cliente
             $cliente->setMatricula($param["matricula"]);
             $cliente->where('id','=',$param['id']);
             $cliente->update();
-            echo 'oi';
-            die;
             $lastIdCliente = $cliente->lastID();
             /**
              * @details os loops de dependentes e telefone
