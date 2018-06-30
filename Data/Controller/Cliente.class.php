@@ -180,10 +180,8 @@ class Cliente
             $obj["dadosBancarios"]['contaDigito'] = $auxGrpContaDigito;
             $obj["dadosBancarios"]['numeroCartao'] = $auxGrpNumCartao;
         }else{
-            $obj["dadosBancarios"]['banco']['agenciaDigito'] = null;
-            $obj["dadosBancarios"]['banco']['contaDigito'] = null;
-            $obj["dadosBancarios"]['banco']['numeroCartao'] = null;
-            $obj["dadosBancarios"]['banco']['id'] = null;
+            $obj["dadosBancarios"]['banco'] = new \strClass();
+            $obj["dadosBancarios"]['operadora'] = new \strClass();            
         }
 
         $dependentes = new \Data\Model\Dependente();
