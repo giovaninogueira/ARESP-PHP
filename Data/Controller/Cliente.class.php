@@ -194,8 +194,7 @@ class Cliente
         $dependentes = new \Data\Model\Dependente();
         $resulDep = $dependentes->query('
             select 
-                ID as id, N
-                OME as nome, 
+                ID as id, NOME as nome, 
                 RG as rg, 
                 PARENTESCO as parentesco,
                 NASCIMENTO as nascimento,
