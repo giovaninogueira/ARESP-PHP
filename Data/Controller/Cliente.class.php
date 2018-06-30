@@ -46,7 +46,7 @@ class Cliente
             $cliente->setMae($param["mae"]);
             $cliente->setEmail($param["email"]);
             $cliente->setEstado_civil($param["estadoCivil"]);
-            $cliente->setTipo_socio_id($param["tipo"]["id"]);
+            $cliente->setTipo_socio_id($param["tipo"]['id']);
             $cliente->setSecretaria_id($param["secretaria"]["id"]);
             $cliente->setObs($param["obs"]);
             $cliente->setEndereco_id($lastIdEnd);
@@ -251,7 +251,7 @@ class Cliente
             $lastIdEnd = $endereco->update($param["endereco"]);
             $dadosBancarios = new Dados_bancarios();
             $lastIdBanco = $dadosBancarios->update($param["dadosBancarios"]);
-            
+        
             if($lastIdBanco){
                 $cliente->setDados_bancarios_id($lastIdBanco);
             }
@@ -259,8 +259,6 @@ class Cliente
                 $cancelamento = new Cancelamento();
                 $lastIDCancelamento = $cancelamento->create($param['cancelamento']);
                 $cliente->setCancelamento_id($lastIDCancelamento);
-                echo 'oi';
-                die;
             }
             /**
              * @details Cliente
@@ -299,7 +297,7 @@ class Cliente
             $tel = new \Data\Model\Telefone();
             $tel->where('cliente_id','=',$param['id']);
             $tel->delete();
-            
+
             if(isset($param["dependentes"])){
                 foreach ($param["dependentes"] as $index=>$value){
                     $dependente = new Dependente();
