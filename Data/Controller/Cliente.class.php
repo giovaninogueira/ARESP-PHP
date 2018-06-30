@@ -203,7 +203,7 @@ class Cliente
             ',[':cliente_id'=>$obj["id"]]
         );
         $resDep = $resulDep->fetchAll(\PDO::FETCH_ASSOC);
-        $listDependentes = $resDep->fetchAll(\PDO::FETCH_ASSOC);
+        $listDependentes = $resDep;
         $obj["dependentes"] = $listDependentes;
 
         $telefone = new \Data\Model\Telefone();
