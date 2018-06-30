@@ -200,10 +200,7 @@ class Cliente
         $telefone->viewSelect(['numero','tipo']);
         $resul = $telefone->query('select ID as id, NUMERO as numero, CLIENTE_ID as cliente_id, TIPO as tipo from telefone where cliente_id =:cliente_id',[':cliente_id'=>$obj["id"]]);
         $listTelefone = $resul->fetchAll(\PDO::FETCH_ASSOC);
-        if(count($listTelefone) == 1)
-            $obj["telefones"][] = $listTelefone;
-        else
-            $obj["telefones"] = $listTelefone;
+        $obj["telefones"] = $listTelefone;
         
         $secretaria = new \Data\Model\Secretaria();
         $secretaria->where('id','=',$obj['secretaria']);
