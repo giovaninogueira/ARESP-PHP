@@ -248,7 +248,6 @@ class Cliente
         }
     }
 
-
 	public function update($param = null)
 	{
 		try{

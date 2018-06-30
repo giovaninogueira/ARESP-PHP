@@ -28,20 +28,16 @@ class Dados_bancarios
             $dadosBancarios->setTipo($param["tipo"]);
             switch ($param["tipo"]){
                 case 'BOLETO':
-                    return false;
+                    //não faz nada
                     break;
                 case 'DEBITO':
                     $dadosBancarios->setAgencia($param["agencia"]);
-
                     if(strlen($param["agenciaDigito"]) >1 || $param["agenciaDigito"]<1)
                         new ExceptionFramework('O digito de agencia é obrigatório e aceita apenas um caracter');
-
                     if(strlen($param["contaDigito"]) >1 || $param["contaDigito"]<1)
                         new ExceptionFramework('O digito da conta é obrigatório e aceita apenas um caracter');
-
                     if(!$param["banco"])
                         new ExceptionFramework('Escolha um banco');
-
                     $dadosBancarios->setAgencia_digito($param["agenciaDigito"]);
                     $dadosBancarios->setConta($param["conta"]);
                     $dadosBancarios->setConta_digito($param["contaDigito"]);
