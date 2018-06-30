@@ -158,9 +158,12 @@ class Cliente
         $banco = new \Data\Model\Banco();
 
         if($listDadoBancarios){
-            if($listDadoBancarios['tipo'] != 'BOLETO'){
+            if($listDadoBancarios['tipo'] == 'BOLETO'){
+                $obj["dadosBancarios"]['banco'] = "";
+                $obj["dadosBancarios"]['operadora'] = "";
                 $obj["dadosBancarios"]['banco'] = new \stdClass();
                 $obj["dadosBancarios"]['operadora'] = new \stdClass();
+                $obj["dadosBancarios"]['tipo'] = $listDadoBancarios['tipo'];
             }else{
                 $banco->where('id','=',$listDadoBancarios["banco"]);
                 $listBanco = $banco->select();
