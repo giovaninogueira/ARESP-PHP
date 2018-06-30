@@ -199,7 +199,10 @@ class Model
                 foreach ($result as $index=> $res){
                     $selectAll[] = array_change_key_case($res,CASE_LOWER);
                 }
-                return $selectAll[0];
+                if(count($result)==1)
+                    return $selectAll[0];
+                else
+                    return $selectAll;
             }
             else
                 return $result;
