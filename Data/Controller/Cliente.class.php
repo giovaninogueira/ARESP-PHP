@@ -200,7 +200,7 @@ class Cliente
         $telefone->viewSelect(['numero','tipo']);
         $telefone->where('cliente_id','=',$obj["id"]);
         $listTelefone = $telefone->select();
-        if(coun($listTelefone) == 1)
+        if(count($listTelefone) == 1)
             $obj["telefones"][] = $listTelefone;
         else
             $obj["telefones"] = $listTelefone;
