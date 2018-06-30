@@ -199,7 +199,7 @@ class Cliente
                 PARENTESCO as parentesco,
                 NASCIMENTO as nascimento,
                 CLIENTE_ID as cliente_id
-            from depente where cliente_id =:cliente_id
+            from dependente where cliente_id =:cliente_id
             ',[':cliente_id'=>$obj["id"]]
         );
         $resDep = $resulDep->fetchAll(\PDO::FETCH_ASSOC);
