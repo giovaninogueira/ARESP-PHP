@@ -158,27 +158,33 @@ class Cliente
         $banco = new \Data\Model\Banco();
 
         if($listDadoBancarios){
-            $banco->where('id','=',$listDadoBancarios["banco"]);
-            $listBanco = $banco->select();
-            $listDadoBancarios["banco"] = $listBanco;
-            $operadora = new \Data\Model\Operadora();
+            if($listDadoBancarios['tipo'] == 'BOLETO'){
+                $obj["dadosBancarios"]['banco'] = new \stdClass();
+                $obj["dadosBancarios"]['operadora'] = new \stdClass();
+                $obj["dadosBancarios"]['tipo'] = 'BOLETO';
+            }else{
+                $banco->where('id','=',$listDadoBancarios["banco"]);
+                $listBanco = $banco->select();
+                $listDadoBancarios["banco"] = $listBanco;
+                $operadora = new \Data\Model\Operadora();
 
-            $operadora->where('id','=',$listDadoBancarios["operadora"]);
-            $listaAgencia = $operadora->select();
-            $listDadoBancarios["operadora"] = $listaAgencia;
-            $obj["dadosBancarios"] = $listDadoBancarios;
+                $operadora->where('id','=',$listDadoBancarios["operadora"]);
+                $listaAgencia = $operadora->select();
+                $listDadoBancarios["operadora"] = $listaAgencia;
+                $obj["dadosBancarios"] = $listDadoBancarios;
 
-            $auxGrp = $obj["dadosBancarios"]['agenciadigito'];
-            $auxGrpContaDigito = $obj["dadosBancarios"]['conta_digito'];
-            $auxGrpNumCartao = $obj["dadosBancarios"]['numero_cartao'];
-            
-            unset($obj["dadosBancarios"]['agenciadigito']);
-            unset($obj["dadosBancarios"]['conta_digito']);
-            unset($obj["dadosBancarios"]['numero_cartao']);
+                $auxGrp = $obj["dadosBancarios"]['agenciadigito'];
+                $auxGrpContaDigito = $obj["dadosBancarios"]['conta_digito'];
+                $auxGrpNumCartao = $obj["dadosBancarios"]['numero_cartao'];
+                
+                unset($obj["dadosBancarios"]['agenciadigito']);
+                unset($obj["dadosBancarios"]['conta_digito']);
+                unset($obj["dadosBancarios"]['numero_cartao']);
 
-            $obj["dadosBancarios"]['agenciaDigito'] = $auxGrp;
-            $obj["dadosBancarios"]['contaDigito'] = $auxGrpContaDigito;
-            $obj["dadosBancarios"]['numeroCartao'] = $auxGrpNumCartao;
+                $obj["dadosBancarios"]['agenciaDigito'] = $auxGrp;
+                $obj["dadosBancarios"]['contaDigito'] = $auxGrpContaDigito;
+                $obj["dadosBancarios"]['numeroCartao'] = $auxGrpNumCartao;
+            }
         }else{
             $obj["dadosBancarios"]['banco'] = new \stdClass();
             $obj["dadosBancarios"]['operadora'] = new \stdClass();            
