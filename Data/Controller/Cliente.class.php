@@ -159,8 +159,8 @@ class Cliente
 
         if($listDadoBancarios){
             if($listDadoBancarios['tipo'] == 'BOLETO'){
-                $obj["dadosBancarios"]['banco'] = "";
-                $obj["dadosBancarios"]['operadora'] = "";
+                unset($obj["dadosBancarios"]['banco']);
+                unset($obj["dadosBancarios"]['operadora']);
                 $obj["dadosBancarios"]['banco'] = new \stdClass();
                 $obj["dadosBancarios"]['operadora'] = new \stdClass();
                 $obj["dadosBancarios"]['tipo'] = $listDadoBancarios['tipo'];
