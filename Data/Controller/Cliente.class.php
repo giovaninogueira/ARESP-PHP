@@ -46,7 +46,7 @@ class Cliente
             $cliente->setMae($param["mae"]);
             $cliente->setEmail($param["email"]);
             $cliente->setEstado_civil($param["estadoCivil"]);
-            $cliente->setTipo_socio_id($param["tipo"]);
+            $cliente->setTipo_socio_id($param["tipo"]['id']);
             $cliente->setSecretaria_id($param["secretaria"]["id"]);
             $cliente->setObs($param["obs"]);
             $cliente->setEndereco_id($lastIdEnd);
@@ -66,14 +66,14 @@ class Cliente
              */
             if(isset($param["dependentes"])){
                 foreach ($param["dependentes"] as $index=>$value){
-                    $dependente = new \Data\Model\Dependente();
+                    $dependente = new Dependente();
                     $value["cliente_id"] = $lastIdCliente;
                     $dependente->create($value);
                 }
             }
             if(isset($param["telefones"])){
                 foreach ($param["telefones"] as $index=>$value){
-                    $telefone = new \Data\Model\Telefone();
+                    $telefone = new Telefone();
                     $value["cliente_id"] = $lastIdCliente;
                     $telefone->create($value);
                 }
