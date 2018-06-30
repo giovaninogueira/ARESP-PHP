@@ -192,8 +192,19 @@ class Cliente
         }
 
         $dependentes = new \Data\Model\Dependente();
-        $dependentes->where('cliente_id','=',$obj["id"]);
-        $listDependentes = $dependentes->select();
+        $resulDep = $dependentes->query('
+            select 
+                ID as id, N
+                OME as nome, 
+                RG as rg, 
+                PARENTESCO as parentesco,
+                NASCIMENTO as nascimento,
+                CLIENTE_ID as cliente_id
+            from depente where cliente_id =:cliente_id
+            ',[':cliente_id'=>$obj["id"]]
+        );
+        $resDep = $resulDep->fetchAll(\PDO::FETCH_ASSOC);
+        $listDependentes = $resDep->fetchAll(\PDO::FETCH_ASSOC);
         $obj["dependentes"] = $listDependentes;
 
         $telefone = new \Data\Model\Telefone();
