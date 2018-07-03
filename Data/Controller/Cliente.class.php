@@ -114,8 +114,10 @@ class Cliente
                 $result = $cliente->select();
                 $listCliente = $this->find($result);
             }else{
-                $cliente->where('cancelamento_id','=','null');
+                $cliente->where('CANCELAMENTO_ID','=','null');
                 $listCliente = $cliente->select();
+                var_dump($listCliente);
+                die;
                 foreach ($listCliente as $index=>$obj){
                     $listCliente[$index] = $this->find($obj);
                 }
