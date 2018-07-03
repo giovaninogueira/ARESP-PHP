@@ -192,7 +192,7 @@ class Cliente
             $obj["dadosBancarios"]['banco'] = new \stdClass();
             $obj["dadosBancarios"]['operadora'] = new \stdClass();            
         }
-        $obj["dadosBancarios"] = $obj["dadosBancarios"];
+        $obj["dadosBancarios"]['id'] = $listDadoBancarios['id'];
 
         $dependentes = new \Data\Model\Dependente();
         $resulDep = $dependentes->query('
