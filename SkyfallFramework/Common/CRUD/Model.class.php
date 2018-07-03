@@ -254,6 +254,9 @@ class Model
                 $this->sql .= " WHERE " . $atribute . " " . $operator . " '" . $value . "' " . $oprador_logic;
         }
         else
+        if(\is_null($value))
+            $this->sql .= " " . $atribute . " " . $operator . " NULL " . $oprador_logic . " ";
+        else    
             $this->sql .= " " . $atribute . " " . $operator . " '" . $value . "' " . $oprador_logic . " ";
         return $this;
     }
