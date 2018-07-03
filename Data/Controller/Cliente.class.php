@@ -110,11 +110,11 @@ class Cliente
             $listCliente = null;
 		    if($param){
                 $cliente->where('id','=',$param["id"],'and');
-                $cliente->where('cancelamento_id','IS','NULL');
+                $cliente->where('cancelamento_id','IS',null);
                 $result = $cliente->select();
                 $listCliente = $this->find($result);
             }else{
-                $cliente->where('CANCELAMENTO_ID','IS','NULL');
+                $cliente->where('CANCELAMENTO_ID','IS',null);
                 $listCliente = $cliente->select();
                 foreach ($listCliente as $index=>$obj){
                     $listCliente[$index] = $this->find($obj);

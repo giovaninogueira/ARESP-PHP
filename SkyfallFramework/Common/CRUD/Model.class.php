@@ -96,8 +96,7 @@ class Model
             $this->join = null;
             $this->showValues = null;
             #endregion
-            echo $sql;
-            die;
+
             self::$connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             self::$connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES,TRUE);
             $intruction = self::$connection->prepare($sql);
