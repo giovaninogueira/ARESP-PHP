@@ -184,6 +184,7 @@ class Cliente
                 unset($obj["dadosBancarios"]['conta_digito']);
                 unset($obj["dadosBancarios"]['numero_cartao']);
 
+                $obj["dadosBancarios"] = $obj["dadosBancarios"];
                 $obj["dadosBancarios"]['agenciaDigito'] = $auxGrp;
                 $obj["dadosBancarios"]['contaDigito'] = $auxGrpContaDigito;
                 $obj["dadosBancarios"]['numeroCartao'] = $auxGrpNumCartao;

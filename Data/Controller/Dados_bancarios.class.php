@@ -108,8 +108,6 @@ class Dados_bancarios
                     //não faz nada
                     break;
                 case 'DEBITO':
-                    echo $param["tipo"];
-                    die;
                     $dadosBancarios->setAgencia($param["agencia"]);
 
                     if(strlen($param["agenciaDigito"]) >1 || $param["agenciaDigito"]<1)
