@@ -33,11 +33,11 @@ class Dados_bancarios
                 case 'DEBITO':
                     $dadosBancarios->setAgencia($param["agencia"]);
                     if(strlen($param["agenciaDigito"]) >1 || $param["agenciaDigito"]<1)
-                        new ExceptionFramework('O digito de agencia é obrigatório e aceita apenas um caracter');
+                        new ExceptionFramework('O digito de agencia é obrigatório e aceita apenas um caracter',422);
                     if(strlen($param["contaDigito"]) >1 || $param["contaDigito"]<1)
-                        new ExceptionFramework('O digito da conta é obrigatório e aceita apenas um caracter');
+                        new ExceptionFramework('O digito da conta é obrigatório e aceita apenas um caracter',422);
                     if(!$param["banco"])
-                        new ExceptionFramework('Escolha um banco');
+                        new ExceptionFramework('Escolha um banco',422);
                     $dadosBancarios->setAgencia_digito($param["agenciaDigito"]);
                     $dadosBancarios->setConta($param["conta"]);
                     $dadosBancarios->setConta_digito($param["contaDigito"]);
@@ -47,7 +47,7 @@ class Dados_bancarios
                 case 'FATURA':
 
                     if(!$param["operadora"])
-                        new ExceptionFramework('Escolha uma operadora');
+                        new ExceptionFramework('Escolha uma operadora',422);
 
                     $dadosBancarios->setAno($param["ano"]);
                     $dadosBancarios->setMes($param["mes"]);
@@ -59,16 +59,16 @@ class Dados_bancarios
                     $dadosBancarios->setAgencia($param["agencia"]);
 
                     if(strlen($param["agenciaDigito"]) >1 || $param["agenciaDigito"]<1)
-                        new ExceptionFramework('O digito de agencia é obrigatório e aceita apenas um caracter');
+                        new ExceptionFramework('O digito de agencia é obrigatório e aceita apenas um caracter',422);
 
                     if(strlen($param["contaDigito"]) >1 || $param["contaDigito"]<1)
-                        new ExceptionFramework('O digito da conta é obrigatório e aceita apenas um caracter');
+                        new ExceptionFramework('O digito da conta é obrigatório e aceita apenas um caracter',422);
 
                     if(!$param["banco"])
-                        new ExceptionFramework('Escolha um banco');
+                        new ExceptionFramework('Escolha um banco',422);
 
                     if(!$param["operadora"])
-                        new ExceptionFramework('Escolha uma operadora');
+                        new ExceptionFramework('Escolha uma operadora',422);
 
                     $dadosBancarios->setAno($param["ano"]);
                     $dadosBancarios->setMes($param["mes"]);
@@ -79,14 +79,14 @@ class Dados_bancarios
                     $dadosBancarios->setConta_digito($param["contaDigito"]);
                     $dadosBancarios->setBanco_id($param["banco"]["id"]);
                     break;
-                default: new ExceptionFramework('Tipo não existe');
+                default: new ExceptionFramework('Tipo não existe',422);
             }
 
             $dadosBancarios->save();
             $lastIdBanco = $dadosBancarios->lastID();
             return $lastIdBanco;
         }catch (\Exception $e){
-            new ExceptionFramework($e->getMessage());
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 
@@ -111,13 +111,13 @@ class Dados_bancarios
                     $dadosBancarios->setAgencia($param["agencia"]);
 
                     if(strlen($param["agenciaDigito"]) >1 || $param["agenciaDigito"]<1)
-                        new ExceptionFramework('O digito de agencia é obrigatório e aceita apenas um caracter');
+                        new ExceptionFramework('O digito de agencia é obrigatório e aceita apenas um caracter',422);
 
                     if(strlen($param["contaDigito"]) >1 || $param["contaDigito"]<1)
-                        new ExceptionFramework('O digito da conta é obrigatório e aceita apenas um caracter');
+                        new ExceptionFramework('O digito da conta é obrigatório e aceita apenas um caracter',422);
 
                     if(!$param["banco"])
-                        new ExceptionFramework('Escolha um banco');
+                        new ExceptionFramework('Escolha um banco',422);
 
                     $dadosBancarios->setAgencia_digito($param["agenciaDigito"]);
                     $dadosBancarios->setConta($param["conta"]);
@@ -140,16 +140,16 @@ class Dados_bancarios
                     $dadosBancarios->setAgencia($param["agencia"]);
 
                     if(strlen($param["agenciaDigito"]) >1 || $param["agenciaDigito"]<1)
-                        new ExceptionFramework('O digito de agencia é obrigatório e aceita apenas um caracter');
+                        new ExceptionFramework('O digito de agencia é obrigatório e aceita apenas um caracter',422);
 
                     if(strlen($param["contaDigito"]) >1 || $param["contaDigito"]<1)
-                        new ExceptionFramework('O digito da conta é obrigatório e aceita apenas um caracter');
+                        new ExceptionFramework('O digito da conta é obrigatório e aceita apenas um caracter',422);
 
                     if(!$param["banco"])
-                        new ExceptionFramework('Escolha um banco');
+                        new ExceptionFramework('Escolha um banco',422);
 
                     if(!$param["operadora"])
-                        new ExceptionFramework('Escolha uma operadora');
+                        new ExceptionFramework('Escolha uma operadora',422);
 
                     $dadosBancarios->setAno($param["ano"]);
                     $dadosBancarios->setMes($param["mes"]);
@@ -160,14 +160,14 @@ class Dados_bancarios
                     $dadosBancarios->setConta_digito($param["contaDigito"]);
                     $dadosBancarios->setBanco_id($param["banco"]["id"]);
                     break;
-                default: new ExceptionFramework('Tipo não existe');
+                default: new ExceptionFramework('Tipo não existe',422);
             }
             $dadosBancarios->where('id','=',$param['id']);
             $dadosBancarios->update();
             $lastIdBanco = $dadosBancarios->lastID();
             return $lastIdBanco;
         }catch (\Exception $e){
-            new ExceptionFramework($e->getMessage());
+            new ExceptionFramework($e->getMessage(), $e->getCode());
         }
 	}
 	public function delete($param = null)
