@@ -128,7 +128,7 @@ class Dados_bancarios
                 case 'FATURA':
 
                     if(!$param["operadora"])
-                        new ExceptionFramework('Escolha uma operadora');
+                        new ExceptionFramework('Escolha uma operadora',422);
 
                     $dadosBancarios->setAno($param["ano"]);
                     $dadosBancarios->setMes($param["mes"]);
@@ -174,5 +174,4 @@ class Dados_bancarios
 	{
 		/*Mehtod DELETE HTTP*/
 	}
-
 }
