@@ -114,7 +114,6 @@ class Cliente
                 $result = $cliente->select();
                 $listCliente = $this->find($result);
             }else{
-                $cliente->where('id','=',$param["id"],'and');
                 $cliente->where('cancelamento_id','=','null');
                 $listCliente = $cliente->select();
                 foreach ($listCliente as $index=>$obj){
