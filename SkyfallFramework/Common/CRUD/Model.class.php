@@ -247,8 +247,12 @@ class Model
      */
     public function where($atribute, $operator, $value, $oprador_logic = null)
     {
-        if(is_null($this->sql))
-            $this->sql .= " WHERE " . $atribute . " " . $operator . " '" . $value . "' " . $oprador_logic;
+        if(is_null($this->sql)){
+            if(\is_null($value)){
+                $this->sql .= " WHERE " . $atribute . " " . $operator . " null " . $oprador_logic;    
+            }else
+                $this->sql .= " WHERE " . $atribute . " " . $operator . " '" . $value . "' " . $oprador_logic;
+        }
         else
             $this->sql .= " " . $atribute . " " . $operator . " '" . $value . "' " . $oprador_logic . " ";
         return $this;
