@@ -110,7 +110,7 @@ class Cliente
             $listCliente = null;
 		    if($param){
                 $cliente->where('id','=',$param["id"],'and');
-                $cliente->where('cancelamento_id','IS',null);
+                $cliente->where('CANCELAMENTO_ID','IS',null);
                 $result = $cliente->select();
                 $listCliente = $this->find($result);
             }else{
