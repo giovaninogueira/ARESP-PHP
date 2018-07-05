@@ -173,7 +173,7 @@ class Cliente
 
                 $operadora->where('id','=',$listDadoBancarios["operadora"]);
                 $listaAgencia = $operadora->select();
-                $listDadoBancarios["operadora"] = $listaAgencia;
+                $listDadoBancarios["operadora"] = ($listaAgencia) ? $listaAgencia: new \stdClass();
                 $obj["dadosBancarios"] = $listDadoBancarios;
 
                 $auxGrp = $obj["dadosBancarios"]['agenciadigito'];
