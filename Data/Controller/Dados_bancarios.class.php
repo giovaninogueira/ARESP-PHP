@@ -130,6 +130,11 @@ class Dados_bancarios
                     if(!$param["operadora"])
                         new ExceptionFramework('Escolha uma operadora',422);
 
+                    $dadosBancarios->setAgencia_digito('');
+                    $dadosBancarios->setConta('');
+                    $dadosBancarios->setConta_digito('');
+                    $dadosBancarios->setBanco_id('');
+
                     $dadosBancarios->setAno($param["ano"]);
                     $dadosBancarios->setMes($param["mes"]);
                     $dadosBancarios->setOperadora_id($param["operadora"]["id"]);
@@ -163,8 +168,7 @@ class Dados_bancarios
                 default: new ExceptionFramework('Tipo não existe',422);
             }
             $dadosBancarios->where('id','=',$param['id']);
-            $dadosBancarios->delete();
-            $dadosBancarios->save();
+            $dadosBancarios->update();
             $lastIdBanco = $dadosBancarios->lastID();
             return $lastIdBanco;
         }catch (\Exception $e){
