@@ -172,7 +172,7 @@ class Cliente
                 $listaAgencia = $operadora->select();
                 $listDadoBancarios["operadora"] = ($listaAgencia) ? $listaAgencia: new \stdClass();
                 $obj["dadosBancarios"] = $listDadoBancarios;
-                $listDadoBancarios["banco"] = new \stdClass();;
+                $obj["dadosBancarios"]['banco'] = new \stdClass();
             }else{
                 $banco->where('id','=',$listDadoBancarios["banco"]);
                 $listBanco = $banco->select();
