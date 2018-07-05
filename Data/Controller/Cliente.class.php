@@ -191,13 +191,14 @@ class Cliente
                 
                 $auxGrp = $obj["dadosBancarios"]['agenciadigito'];
                 $auxGrpContaDigito = $obj["dadosBancarios"]['conta_digito'];
-                echo 'oi';
-                die;
+               
                 unset($obj["dadosBancarios"]['agenciadigito']);
                 unset($obj["dadosBancarios"]['conta_digito']);
 
                 $obj["dadosBancarios"]['agenciaDigito'] = $auxGrp;
                 $obj["dadosBancarios"]['contaDigito'] = $auxGrpContaDigito;
+                echo 'oi';
+                die;
 
             }else{
                 $banco->where('id','=',$listDadoBancarios["banco"]);
