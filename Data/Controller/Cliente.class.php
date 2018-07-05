@@ -167,6 +167,7 @@ class Cliente
                 $obj["dadosBancarios"]['tipo'] = $listDadoBancarios['tipo'];
             }
             else if($listDadoBancarios['tipo'] == 'FATURA'){
+
                 $operadora = new \Data\Model\Operadora();
                 $operadora->where('id','=',$listDadoBancarios["operadora"]);
                 $listaAgencia = $operadora->select();
@@ -179,9 +180,12 @@ class Cliente
                 unset($obj["dadosBancarios"]['conta_digito']);
                 unset($obj["dadosBancarios"]['numero_cartao']);
 
+                $obj["dadosBancarios"]['agencia'] = null;
+                $obj["dadosBancarios"]['conta'] = null;
                 $obj["dadosBancarios"]['agenciaDigito'] = null;
                 $obj["dadosBancarios"]['contaDigito'] = null;
                 $obj["dadosBancarios"]['numeroCartao'] = $auxGrpNumCartao;
+                
             }
             else if($listDadoBancarios['tipo'] == 'DEBITO'){
                 
