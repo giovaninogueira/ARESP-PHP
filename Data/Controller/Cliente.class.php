@@ -184,7 +184,8 @@ class Cliente
                 $obj["dadosBancarios"]['numeroCartao'] = $auxGrpNumCartao;
             }
             else if($listDadoBancarios['tipo'] == 'DEBITO'){
-
+                echo 'oi';
+                die;
                 $banco->where('id','=',$listDadoBancarios["banco"]);
                 $listBanco = $banco->select();
                 $listDadoBancarios["banco"] = ($listBanco) ? $listBanco: new \stdClass();;
