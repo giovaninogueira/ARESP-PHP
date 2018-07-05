@@ -168,7 +168,7 @@ class Cliente
             }else{
                 $banco->where('id','=',$listDadoBancarios["banco"]);
                 $listBanco = $banco->select();
-                $listDadoBancarios["banco"] = $listBanco;
+                $listDadoBancarios["banco"] = ($listBanco) ? $listBanco: new \stdClass();;
                 $operadora = new \Data\Model\Operadora();
 
                 $operadora->where('id','=',$listDadoBancarios["operadora"]);
