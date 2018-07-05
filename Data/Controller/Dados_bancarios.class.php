@@ -163,7 +163,8 @@ class Dados_bancarios
                 default: new ExceptionFramework('Tipo não existe',422);
             }
             $dadosBancarios->where('id','=',$param['id']);
-            $dadosBancarios->update();
+            $dadosBancarios->delete();
+            $dadosBancarios->save();
             $lastIdBanco = $dadosBancarios->lastID();
             return $lastIdBanco;
         }catch (\Exception $e){
