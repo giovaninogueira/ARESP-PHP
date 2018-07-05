@@ -173,6 +173,15 @@ class Cliente
                 $listDadoBancarios["operadora"] = ($listaAgencia) ? $listaAgencia: new \stdClass();
                 $obj["dadosBancarios"] = $listDadoBancarios;
                 $obj["dadosBancarios"]['banco'] = new \stdClass();
+
+                unset($obj["dadosBancarios"]['agenciadigito']);
+                unset($obj["dadosBancarios"]['conta_digito']);
+                unset($obj["dadosBancarios"]['numero_cartao']);
+
+                $obj["dadosBancarios"]['agenciaDigito'] = null;
+                $obj["dadosBancarios"]['contaDigito'] = null;
+                $obj["dadosBancarios"]['numeroCartao'] = null;
+
             }else{
                 $banco->where('id','=',$listDadoBancarios["banco"]);
                 $listBanco = $banco->select();
