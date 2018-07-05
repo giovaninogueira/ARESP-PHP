@@ -188,11 +188,11 @@ class Cliente
                 $banco->where('id','=',$listDadoBancarios["banco"]);
                 $listBanco = $banco->select();
                 $listDadoBancarios["banco"] = ($listBanco) ? $listBanco: new \stdClass();;
-                echo 'oi';
-                die;
+                
                 $auxGrp = $obj["dadosBancarios"]['agenciadigito'];
                 $auxGrpContaDigito = $obj["dadosBancarios"]['conta_digito'];
-                
+                echo 'oi';
+                die;
                 unset($obj["dadosBancarios"]['agenciadigito']);
                 unset($obj["dadosBancarios"]['conta_digito']);
 
