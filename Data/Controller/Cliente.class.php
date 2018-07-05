@@ -182,6 +182,21 @@ class Cliente
                 $obj["dadosBancarios"]['agenciaDigito'] = null;
                 $obj["dadosBancarios"]['contaDigito'] = null;
                 $obj["dadosBancarios"]['numeroCartao'] = $auxGrpNumCartao;
+            }
+            else if($listDadoBancarios['tipo'] == 'DEBITO'){
+
+                $banco->where('id','=',$listDadoBancarios["banco"]);
+                $listBanco = $banco->select();
+                $listDadoBancarios["banco"] = ($listBanco) ? $listBanco: new \stdClass();;
+
+                $auxGrp = $obj["dadosBancarios"]['agenciadigito'];
+                $auxGrpContaDigito = $obj["dadosBancarios"]['conta_digito'];
+                
+                unset($obj["dadosBancarios"]['agenciadigito']);
+                unset($obj["dadosBancarios"]['conta_digito']);
+
+                $obj["dadosBancarios"]['agenciaDigito'] = $auxGrp;
+                $obj["dadosBancarios"]['contaDigito'] = $auxGrpContaDigito;
 
             }else{
                 $banco->where('id','=',$listDadoBancarios["banco"]);
