@@ -196,10 +196,10 @@ class Cliente
                
                 unset($obj["dadosBancarios"]['agenciadigito']);
                 unset($obj["dadosBancarios"]['conta_digito']);
-                unset($obj["dadosBancarios"]['numero_cartao']);
-                unset($obj["dadosBancarios"]['mes']);
-                unset($obj["dadosBancarios"]['ano']);
+                unset($obj["dadosBancarios"]['numero_cartao']);              
 
+                $obj["dadosBancarios"]['mes'] = null;
+                $obj["dadosBancarios"]['ano'] = null;
                 $obj["dadosBancarios"]['agenciaDigito'] = $auxGrp;
                 $obj["dadosBancarios"]['contaDigito'] = $auxGrpContaDigito;
                 $obj["dadosBancarios"]['numeroCartao'] = null;
