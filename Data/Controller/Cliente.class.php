@@ -188,6 +188,7 @@ class Cliente
                 $banco->where('id','=',$listDadoBancarios["banco"]);
                 $listBanco = $banco->select();
                 $listDadoBancarios["banco"] = ($listBanco) ? $listBanco: new \stdClass();;
+                $obj["dadosBancarios"] = $listDadoBancarios;
                 
                 $auxGrp = $obj["dadosBancarios"]['agenciadigito'];
                 $auxGrpContaDigito = $obj["dadosBancarios"]['conta_digito'];
@@ -197,9 +198,7 @@ class Cliente
 
                 $obj["dadosBancarios"]['agenciaDigito'] = $auxGrp;
                 $obj["dadosBancarios"]['contaDigito'] = $auxGrpContaDigito;
-                echo 'oi';
-                die;
-
+                
             }else{
                 $banco->where('id','=',$listDadoBancarios["banco"]);
                 $listBanco = $banco->select();
