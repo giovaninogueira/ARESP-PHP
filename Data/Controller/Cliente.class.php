@@ -167,6 +167,8 @@ class Cliente
                 $obj["dadosBancarios"]['tipo'] = $listDadoBancarios['tipo'];
             }
             else if($listDadoBancarios['tipo'] == 'FATURA'){
+                var_dump($listDadoBancarios);
+                die;
                 $operadora->where('id','=',$listDadoBancarios["operadora"]);
                 $listaAgencia = $operadora->select();
                 $listDadoBancarios["operadora"] = ($listaAgencia) ? $listaAgencia: new \stdClass();
