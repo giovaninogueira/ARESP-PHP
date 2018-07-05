@@ -130,11 +130,6 @@ class Dados_bancarios
                     if(!$param["operadora"])
                         new ExceptionFramework('Escolha uma operadora',422);
 
-                    $dadosBancarios->setAgencia_digito('');
-                    $dadosBancarios->setConta('');
-                    $dadosBancarios->setConta_digito('');
-                    $dadosBancarios->setBanco_id('');
-
                     $dadosBancarios->setAno($param["ano"]);
                     $dadosBancarios->setMes($param["mes"]);
                     $dadosBancarios->setOperadora_id($param["operadora"]["id"]);
